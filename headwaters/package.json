@@ -1,43 +1,45 @@
 {
-  "name": "headwaters",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node server/index.js",
-    "dev": "nodemon server/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.5",
-    "ejs": "^3.0.1",
-    "eslint": "^5.15.3",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4",
-    "express-ejs-layouts": "^2.5.0",
-    "express-session": "^1.17.0",
-    "nodemon": "^2.0.2",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
-  },
-  "dependencies": {
-    "axios": "^0.18.0",
-    "body-parser": "^1.19.0",
-    "express": "^4.16.4",
-    "grep": "^0.1.0",
-    "mysql": "^2.13.0",
-    "passport-local": "^1.0.0",
-    "promise": "^8.0.3",
-    "promises": "^0.2.5",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.5",
-    "react-dom": "^16.8.5"
-  }
+	"name": "headwaters",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "node server/index.js",
+		"dev": "nodemon server/index.js",
+		"web": "webpack-dev-server --config ./webpack.config.js --mode development",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@babel/core": "^7.4.0",
+		"@babel/preset-env": "^7.4.2",
+		"@babel/preset-react": "^7.0.0",
+		"babel-loader": "^8.0.5",
+		"ejs": "^3.0.1",
+		"eslint": "^5.15.3",
+		"eslint-config-airbnb": "^17.1.0",
+		"eslint-plugin-import": "^2.16.0",
+		"eslint-plugin-jsx-a11y": "^6.2.1",
+		"eslint-plugin-react": "^7.12.4",
+		"express-ejs-layouts": "^2.5.0",
+		"express-session": "^1.17.0",
+		"nodemon": "^2.0.2",
+		"webpack": "^4.29.6",
+		"webpack-cli": "^3.3.0"
+	},
+	"dependencies": {
+		"axios": "^0.18.0",
+		"body-parser": "^1.19.0",
+		"express": "^4.16.4",
+		"grep": "^0.1.0",
+		"mysql": "^2.13.0",
+		"passport-local": "^1.0.0",
+		"promise": "^8.0.3",
+		"promises": "^0.2.5",
+		"prop-types": "^15.7.2",
+		"react": "^16.8.5",
+		"react-dom": "^16.8.5",
+		"webpack-dev-server": "^3.10.1"
+	}
 }
