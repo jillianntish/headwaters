@@ -33,6 +33,7 @@
     "express": "^4.16.4",
     "grep": "^0.1.0",
     "mysql": "^2.13.0",
+    "passport-local": "^1.0.0",
     "promise": "^8.0.3",
     "promises": "^0.2.5",
     "prop-types": "^15.7.2",
