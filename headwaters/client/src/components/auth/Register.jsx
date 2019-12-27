@@ -1,55 +1,87 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-class Register extends Component {
-  constructor(props) {
-    super(props);
+const Register = () => {
+  const [user, setUser] = useState({
+    firstName: '',
+    lastName: '',
+    username: '',
+    email: '',
+    password: '',
+    password2: '',
+  });
 
-    this.state = {
-      firstName: '',
-      lastName: '',
-      username: '',
-      email: '',
-      password: '',
-      password2: '',
-    };
-  }
+  const { firstName, lastName, email, username, password, password2 } = user;
 
-  render() {
-    return (
-      <div className="form-container">
-        <h1>
-          Account <span className="text-primary">Register</span>
-        </h1>
-        <form>
-          <div>
-            <label htmlFor="firstName">First Name</label>
-            <input type="firstName" name="firstName" />
-          </div>
-          <div>
-            <label htmlFor="lastName">Last Name</label>
-            <input type="lastName" name="lastName" />
-          </div>
-          <div>
-            <label htmlFor="username">Username</label>
-            <input type="username" name="username" />
-          </div>
-          <div>
-            <label htmlFor="email">Email</label>
-            <input type="email" name="email" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password2">Confirm Password</label>
-            <input type="password2" name="password2" />
-          </div>
-          <input type="submit" value="Register" />
-        </form>
-      </div>
-    );
-  }
-}
+  const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
+
+  const onSubmit = e => {
+    e.preventDefault();
+    console.log('Register submit');
+  };
+
+  return (
+    <div className="form-container">
+      <h1>
+        Account <span className="text-primary">Register</span>
+      </h1>
+      <form onSubmit={onSubmit}>
+        <div className="form-group">
+          <label htmlFor="firstName">First Name</label>
+          <input
+            type="firstName"
+            name="firstName"
+            value={firstName}
+            onChange={onChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="lastName">Last Name</label>
+          <input
+            type="lastName"
+            name="lastName"
+            value={lastName}
+            onChange={onChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="username">Username</label>
+          <input
+            type="username"
+            name="username"
+            value={username}
+            onChange={onChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input type="email" name="email" value={email} onChange={onChange} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={onChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password2">Confirm Password</label>
+          <input
+            type="password2"
+            name="password2"
+            value={password2}
+            onChange={onChange}
+          />
+        </div>
+        <input
+          type="submit"
+          value="Register"
+          className="btn btn-primary btn-block"
+        />
+      </form>
+    </div>
+  );
+};
 
 export default Register;
