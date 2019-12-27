@@ -1,6 +1,7 @@
 import React from 'react';
 import Login from './auth/Login.jsx';
 import Register from './auth/Register.jsx';
+import Calendar from './Calendar.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -46,6 +47,7 @@ class App extends React.Component {
         <div className="main">
           {view === 'login' ? <Login /> : <Register />}
         </div>
+        <Calendar />
       </div>
     );
   }
