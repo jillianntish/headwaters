@@ -1,5 +1,7 @@
 import React from 'react';
 import Calendar from './Calendar.jsx';
+import Login from './auth/Login.jsx';
+import Register from './auth/Register.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,7 +12,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <Calendar />
+      <div>
+        <Calendar />
+        <Login />
+        <Register />
+      </div>
     );
   }
 }
