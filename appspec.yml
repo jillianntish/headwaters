@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 
 files:
-  - source: client/dist/index.html
+  - source: client/wq;dist/index.html
     destination: /var/www/html
 
 permissions:
