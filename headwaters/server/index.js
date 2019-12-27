@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const { db, DB_NAME } = require('./db/connection');
 
 
 const app = express();
@@ -14,4 +15,5 @@ app.use(express.static(CLIENT_PATH));
 
 app.listen(PORT, () => {
   console.log(`Listening on :${PORT} 🛸`);
+  console.log(`Connected to DB ${DB_NAME} 🐙`);
 });
