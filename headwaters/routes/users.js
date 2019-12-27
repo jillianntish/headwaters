@@ -14,8 +14,8 @@ router.post(
       .not()
       .isEmpty(),
     check('email', 'Email is required').isEmail(),
-    check('password', 'Password must be at least 6 characters').isLength({
-      min: 6,
+    check('password', 'Password must be at least 8 characters').isLength({
+      min: 8,
     }),
   ],
   (req, res) => {
@@ -23,7 +23,14 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    res.send('passed');
+
+    const { name, email, password } = req.body;
+
+    // try {
+    // let user = await ????
+    // } catch (err) {
+
+    // }
   },
 );
 
