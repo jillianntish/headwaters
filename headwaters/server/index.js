@@ -4,6 +4,14 @@ const path = require('path');
 
 const app = express();
 
+// Init Middleware
+app.use(express.json({ extended: false }));
+
+app.get('/', (req, res) => res.json({ msg: 'Auth Checkpoint' }));
+
+app.use('/api/users', require('../routes/users'));
+app.use('/api/auth', require('../routes/auth'));
+
 const PORT = process.env.PORT || 8080;
 const CLIENT_PATH = path.join(__dirname, '../client/dist/');
 
