@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: autumn dupin
+  - __Scrum Master__: joy palumbo
+  - __Development Lead / Authentication Lord__: marc west
 
 ## Table of Contents
 

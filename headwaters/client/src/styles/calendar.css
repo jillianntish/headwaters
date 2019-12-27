@@ -1,0 +1,17 @@
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+
+.cal-font {
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.calendar-top {
+  margin: 0 0 5em;
+}
+
+
+.calendar {
+  margin: 0 auto;
+  max-width: 800px;
+}
