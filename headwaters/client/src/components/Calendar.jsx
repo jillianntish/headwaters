@@ -11,14 +11,21 @@ class Calendar extends React.Component {
     super(props);
     this.state = {
       events: [
-        { title: "coffee", start: "2019-12-28T14:30:00" },
-        { title: "camping", start: "2019-12-29", end: "2020-01-01" },
-        { title: "birthday", date: "2020-01-02" },
-        { title: "sleepover", date: "2020-01-02" },
-        { title: "therapy", date: "2020-01-01T15:00:00", color: 'red'}
-        
+        { title: 'coffee', start: '2019-12-28T14:30:00' },
+        { title: 'camping', start: '2019-12-29', end: '2020-01-01' },
+        { title: 'birthday', date: '2020-01-02' },
+        { title: 'sleepover', date: '2020-01-02' },
+        { title: 'therapy', date: '2020-01-01T15:00:00', color: 'red' },
       ],
     };
+  }
+
+  handleDateClick() {
+    console.log('click');
+  }
+
+  handleEventClick() {
+    console.log('eve');
   }
 
   render() {
@@ -26,17 +33,20 @@ class Calendar extends React.Component {
       <div className="cal-font">
         <div className="calendar-top" />
         <div className="calendar">
-        <FullCalendar
-          defaultView="dayGridMonth"
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          header={{
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth, timeGridWeek, timeGridDay, listWeek',
-          }}
-          events={this.state.events}
-        />
-      </div>
+          <FullCalendar
+            defaultView="dayGridMonth"
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            editable
+            header={{
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth, timeGridWeek, timeGridDay, listWeek',
+            }}
+            events={this.state.events}
+            dateClick={this.handleDateClick}
+            eventClick={this.handleEventClick}
+          />
+        </div>
       </div>
     );
   }
