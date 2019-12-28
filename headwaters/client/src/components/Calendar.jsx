@@ -11,8 +11,12 @@ class Calendar extends React.Component {
     super(props);
     this.state = {
       events: [
-        { title: 'birthday', start: '2019-12-28T14:30:00' },
-        { title: 'surfing', start: '2019-12-29', end: '2020-01-01' },
+        { title: "coffee", start: "2019-12-28T14:30:00" },
+        { title: "camping", start: "2019-12-29", end: "2020-01-01" },
+        { title: "birthday", date: "2020-01-02" },
+        { title: "sleepover", date: "2020-01-02" },
+        { title: "therapy", date: "2020-01-01T15:00:00", color: 'red'}
+        
       ],
     };
   }
@@ -20,8 +24,8 @@ class Calendar extends React.Component {
   render() {
     return (
       <div className="cal-font">
-      <div className="calendar-top" />
-      <div className="calendar">
+        <div className="calendar-top" />
+        <div className="calendar">
         <FullCalendar
           defaultView="dayGridMonth"
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -33,7 +37,7 @@ class Calendar extends React.Component {
           events={this.state.events}
         />
       </div>
-    </div>
+      </div>
     );
   }
 }
