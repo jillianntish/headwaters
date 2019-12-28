@@ -5,6 +5,14 @@ import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 
 import '../styles/calendar.css';
+import '../styles/vex.css';
+import '../styles/vex-theme.css';
+
+import vex from 'vex-js';
+
+vex.registerPlugin(require('vex-dialog'));
+
+vex.defaultOptions.className = 'vex-theme-os';
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -18,10 +26,36 @@ class Calendar extends React.Component {
         { title: 'therapy', date: '2020-01-01T15:00:00', color: 'red' },
       ],
     };
+    this.handleDateClick = this.handleDateClick.bind(this);
+    this.handleAddEvent = this.handleAddEvent.bind(this);
   }
 
-  handleDateClick() {
-    console.log('click');
+  handleDateClick(arg) {
+    const { handleAddEvent } = this;
+    vex.dialog.confirm({
+      message: 'Are you absolutely sure you want to destroy the alien planet?',
+      callback(value) {
+        if (value) {
+          handleAddEvent(arg);
+        } else {
+          console.log('Chicken');
+        }
+      },
+    });
+  }
+
+  handleAddEvent(arg) {
+    this.setState({
+      // add new event data
+      events: this.state.events.concat({
+        // creates a new array
+        title: 'New Event',
+        start: arg.date,
+        allDay: arg.allDay,
+      }),
+    }, () => {
+      console.log('Successfully destroyed the planet', arg.date);
+    });
   }
 
   handleEventClick() {
