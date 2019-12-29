@@ -1,4 +1,5 @@
 const express = require('express');
+const db = require('../server/db/connection');
 
 const router = express.Router();
 
@@ -10,7 +11,13 @@ const { check, validationResult } = require('express-validator');
 router.post(
   '/',
   [
-    check('name', 'Name is required')
+    check('firstName', 'First name is required')
+      .not()
+      .isEmpty(),
+    check('lastName', 'Last name is required')
+      .not()
+      .isEmpty(),
+    check('username', 'Username is required')
       .not()
       .isEmpty(),
     check('email', 'Email is required').isEmail(),
