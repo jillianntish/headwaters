@@ -9,12 +9,12 @@ USE waters;
 
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  username JSON NOT NULL,
-  firstname JSON NOT NULL,
-  lastname JSON NOT NULL, 
+  username VARCHAR(255) NOT NULL,
+  firstname VARCHAR(255) NULL,
+  lastname VARCHAR(255) NOT NULL, 
   -- hashed
-  password JSON NOT NULL,
-  email JSON NOT NULL
+  password VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE journals (
