@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 
 const Register = () => {
@@ -10,13 +12,15 @@ const Register = () => {
     password2: '',
   });
 
-  const { firstName, lastName, email, username, password, password2 } = user;
+  const {
+    firstName, lastName, email, username, password, password2,
+  } = user;
 
   const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log('Register submit');
+    console.log(firstName, lastName, email, username, password);
   };
 
   return (
