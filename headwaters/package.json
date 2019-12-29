@@ -57,6 +57,7 @@
 		"react-dom": "^16.8.5",
 		"sequelize": "^5.21.3",
 		"style-loader": "^1.1.2",
+		"util.promisify": "^1.0.0",
 		"vex-dialog": "^1.1.0",
 		"webpack-dev-server": "^3.10.1"
 	}
