@@ -3,7 +3,7 @@
 * mysql -u root < schema.sql
 */
 
-DROP DATABASE waters;
+DROP DATABASE IF EXISTS waters;
 CREATE DATABASE waters;
 USE waters;
 
