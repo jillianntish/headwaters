@@ -1,8 +1,11 @@
 const express = require('express');
+const { check, validationResult } = require('express-validator');
+const {
+  checkUsername, checkEmail, newUser, findUser,
+} = require('../server/db/connection');
 
 const router = express.Router();
 
-const { check, validationResult } = require('express-validator');
 
 // @Route --> POST api/users
 // @Desc --> Register a user
@@ -10,7 +13,13 @@ const { check, validationResult } = require('express-validator');
 router.post(
   '/',
   [
-    check('name', 'Name is required')
+    check('firtName', 'First name is required')
+      .not()
+      .isEmpty(),
+    check('lastName', 'Last name is required')
+      .not()
+      .isEmpty(),
+    check('username', 'Username is required')
       .not()
       .isEmpty(),
     check('email', 'Email is required').isEmail(),
