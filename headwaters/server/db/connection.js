@@ -107,3 +107,6 @@ const findUser = username => {
 
 module.exports.connection = connection;
 module.exports.DB_NAME = DB_NAME;
+module.exports = {
+  checkUsername, checkEmail, newUser, findUser,
+};
