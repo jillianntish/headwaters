@@ -15,7 +15,7 @@ class Journal extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
-  //testing
+
 
   handleChange(event) {
     // event.preventDefault();
