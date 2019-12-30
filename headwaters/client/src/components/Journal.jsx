@@ -4,75 +4,129 @@ class Journal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      journal: "",
-      feeling: "",
-
+      journal: "Today's journal entry...",
+      feelings: '',
+      sleep: 0,
+      water: 0,
+      exercise: 0,
+      food: 'What did you eat?',
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    // this.onSubmit = this.onSubmit.bind(this);
   }
 
-  const onChange = e => e.target.value
-});
 
-const onSubmit = e => {
-  e.preventDefault();
-  console.log('journal submit');
-};
+  handleChange(event) {
+    // event.preventDefault();
+    const value = event.target.value;
+    this.setState({
 
-render() {
-  return (
-    <div>
-      <div className="form-container">
-        <h1>
-          Journal <span className="text-primary"></span>
-        </h1>
-        <form>
-          <div>
-            <textarea rows="10" cols="50">
-              Today's journal entry...
-            </textarea>
-          </div>
-          <div>
-            <label htmlFor="feelings">How are you feeling today?</label>
-            <select>
-              <option value="happiness">happiness</option>
-              <option value="anger">anger</option>
-              <option value="sadness">sadness</option>
-              <option value="love">love</option>
-              <option value="fear">fear</option>
-              <option value="depression">depression</option>
-              <option value="disgust">disgust</option>
-              <option value="surprise">surprise</option>
-              <option value="neutral">neutral</option>
-              <option value="anxiety">anxiety</option>
-              <option value="contempt">contempt</option>
-              <option value="pride">pride</option>
-              <option value="shame">shame</option>
-              <option value="envy">envy</option>
-            </select>
+      [event.target.name]: value,
+    });
+
+
+    // this.setState({
+    //   water: event.target.value,
+    // sleep: event.target.value,
+    // });
+    console.log("we're setting state", this.state.journal);
+  }
+
+  // const onSubmit = e => {
+  //   e.preventDefault();
+  //   console.log('Register submit');
+  // };
+
+  handleClick(e) {
+    e.preventDefault();
+    // const { water } = this.state;
+    console.log("we're clicking", this.state.feelings);
+  }
+
+  //   const onChange = e => e.target.value
+  // });
+
+  // const onSubmit = e => {
+  //   e.preventDefault();
+  //   console.log('journal submit');
+  // };
+
+  render() {
+    const { water, sleep, exercise, food, feelings, journal } = this.state;
+    return (
+      <div>
+        <div className="form-container">
+          <h1>
+            Journal <span className="text-primary"></span>
+          </h1>
+          <form onSubmit={this.handleClick}>
             <div>
-              <label htmlFor="water">How much water did you drink today?</label>
-              <input type="water" name="water" />
+              <textarea name="journal" value={journal}
+                onChange={this.handleChange}
+                rows="10" cols="50">
+
+              </textarea>
             </div>
             <div>
-              <label htmlFor="sleep">How much sleep did you get?</label>
-              <input type="sleep" name="sleep" />
+              <label htmlFor="feelings">How are you feeling today?</label>
+              <select name="feelings" onChange={this.handleChange}>
+                <option value="happiness">happiness</option>
+                <option value="anger">anger</option>
+                <option value="sadness">sadness</option>
+                <option value="love">love</option>
+                <option value="fear">fear</option>
+                <option value="depression">depression</option>
+                <option value="disgust">disgust</option>
+                <option value="surprise">surprise</option>
+                <option value="neutral">neutral</option>
+                <option value="anxiety">anxiety</option>
+                <option value="contempt">contempt</option>
+                <option value="pride">pride</option>
+                <option value="shame">shame</option>
+                <option value="envy">envy</option>
+              </select>
+              <div>
+                <label htmlFor="water">How much water did you drink today?</label>
+                <input
+                  type="text"
+                  name="water"
+                  value={water}
+                  onChange={this.handleChange}
+                />
+                {/* <input type="water" value={water} onChange={this.handleChange} /> */}
+              </div>
+              <div>
+                <label htmlFor="sleep">How much sleep did you get?</label>
+                <input
+                  type="sleep"
+                  name="sleep"
+                  value={sleep}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="exercise">How much exercise did you get?</label>
+                <input
+                  type="exercise"
+                  name="exercise"
+                  value={exercise}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div>
+                <textarea name="food" value={food}
+                  onChange={this.handleChange}
+                  rows="3" cols="50">
+                </textarea>
+              </div>
             </div>
-            <div>
-              <label htmlFor="exercise">How much exercise did you get?</label>
-              <input type="exercise" name="exercise" />
-            </div>
-            <div>
-              <textarea rows="3" cols="50">
-                What did you eat?
-            </textarea>
-            </div>
-          </div>
-          <input type="submit" value="submit" />
-        </form>
+            <input type="submit" value="submit" />
+          </form>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 }
 
 
