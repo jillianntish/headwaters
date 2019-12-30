@@ -3,10 +3,12 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import NewEvent from './NewEvent.jsx';
+import EventOptions from './EventOptions.jsx';
 
-import '../styles/calendar.css';
-import '../styles/vex.css';
-import '../styles/vex-theme.css';
+import '../../styles/calendar.css';
+import '../../styles/vex.css';
+import '../../styles/vex-theme.css';
 
 import vex from 'vex-js';
 
@@ -25,10 +27,14 @@ class Calendar extends React.Component {
         { title: 'sleepover', date: '2020-01-02' },
         { title: 'therapy', date: '2020-01-01T15:00:00', color: 'red' },
       ],
+      showNewEvent: false,
+      showEventOptions: false,
     };
     this.handleDateClick = this.handleDateClick.bind(this);
     this.handleAddEvent = this.handleAddEvent.bind(this);
+    this.handleEventClick = this.handleEventClick.bind(this);
   }
+
 
   handleDateClick(arg) {
     const { handleAddEvent } = this;
@@ -62,10 +68,13 @@ class Calendar extends React.Component {
   handleEventClick(arg) {
     // show event
     // option to edit event
+    this.setState({
+      showEventOptions: true,
+    });
   }
 
   render() {
-    const { events } = this.state;
+    const { events, showNewEvent, showEventOptions } = this.state;
     return (
       <div className="cal-font">
         <div className="calendar-top" />
@@ -84,6 +93,8 @@ class Calendar extends React.Component {
             eventClick={this.handleEventClick}
           />
         </div>
+        {showNewEvent ? <NewEvent /> : <div />}
+        {showNewEvent ? <EventOptions /> : <div />}
       </div>
     );
   }
