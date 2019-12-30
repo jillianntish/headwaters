@@ -45,9 +45,10 @@ class Calendar extends React.Component {
   }
 
   handleAddEvent(arg) {
+    const { events } = this.state;
     this.setState({
       // add new event data
-      events: this.state.events.concat({
+      events: events.concat({
         // creates a new array
         title: 'New Event',
         start: arg.date,
@@ -58,11 +59,13 @@ class Calendar extends React.Component {
     });
   }
 
-  handleEventClick() {
-    console.log('eve');
+  handleEventClick(arg) {
+    // show event
+    // option to edit event
   }
 
   render() {
+    const { events } = this.state;
     return (
       <div className="cal-font">
         <div className="calendar-top" />
@@ -76,7 +79,7 @@ class Calendar extends React.Component {
               center: 'title',
               right: 'dayGridMonth, timeGridWeek, timeGridDay, listWeek',
             }}
-            events={this.state.events}
+            events={events}
             dateClick={this.handleDateClick}
             eventClick={this.handleEventClick}
           />
