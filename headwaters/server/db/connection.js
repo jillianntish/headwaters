@@ -18,7 +18,6 @@ const connection = mysql.createConnection({
 // user helpers
 
 const query = promisify(connection.query).bind(connection);
-console.log(query);
 
 // const login = (email, password, callback) => {
 //   connection.query(query, [email], (err, results) => {
@@ -93,24 +92,20 @@ const checkEmail = email => {
 const newUser = (username, password, email) => {
   // creates user with given input
   // protect against injection attacks
-  const userValues = [
-    `${username}`,
-    `${password}`,
-    `${email}`,
-  ];
+  const userValues = [`${username}`, `${password}`, `${email}`];
   const newUserSQL =
     'insert into users(username, password, email) values(?, ?, ?)';
   return query(newUserSQL, userValues);
 };
 
 // usage example
-// newUser('jeanluc', 'jean-luc', 'picard', 'may51789', 'captain@enterprise.space')
-// .then(queryOK => {
-//   console.log(queryOK)
-// })
-// .catch(err => {
-//   console.error(err);
-// });
+// newUser('jeanluc', may51789', 'captain@enterprise.space')
+//   .then(queryOK => {
+//     console.log(queryOK);
+//   })
+//   .catch(err => {
+//     console.error(err);
+//   });
 
 const findUser = username => {
   // select user from database who matches user

@@ -10,18 +10,7 @@ import NavBar from './NavBar.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   view: 'login',
-    // };
-
-    // this.changeView = this.changeView.bind(this);
   }
-
-  // changeView(option) {
-  //   this.setState({
-  //     view: option,
-  //   });
-  // }
 
   render() {
     // const { view } = this.state;
