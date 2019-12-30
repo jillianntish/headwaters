@@ -16,6 +16,16 @@ class Pillbox extends React.Component {
     this.selectFileHandler = this.selectFileHandler.bind(this)
   }
 
+  // componentDidMount() {
+  // axios.get('/pillbox')
+  //   .then(response){
+  //   console.log(response);
+  // }
+  // .catch ((error) => {
+  //   console.log(error);
+  // });
+  // }
+
 
   handleChange(event) {
     // event.preventDefault();
@@ -28,10 +38,10 @@ class Pillbox extends React.Component {
   }
 
   selectFileHandler(e) {
-    console.log(e.target.file[0]);
-    // this.setState({
-    //   pic: e.target.file[0],
-    // });
+    console.log(e.target.files[0]);
+    this.setState({
+      pic: e.target.files[0],
+    });
   }
 
   // uploadFileHandler() {
@@ -64,6 +74,19 @@ class Pillbox extends React.Component {
     const { med, dosage, times, notes, pic } = this.state
     return (
       <div>
+        <div>
+
+          <p>
+            Medication: {med}
+            <br />
+            Dosage: {dosage}
+            <br />
+            Times: {times}
+            <br />
+            Notes: {notes}
+            <br />
+            Picture: </p>
+        </div>
         <div className="form-container">
           <h1>
             Pillbox <span className="text-primary"></span>
