@@ -6,6 +6,7 @@ import history from '../utils/history';
 import Calendar from './Calendar.jsx';
 import Journal from './Journal.jsx';
 import NavBar from './NavBar.jsx';
+import Pillbox from './Pillbox.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -60,6 +61,7 @@ class App extends React.Component {
             <Route path="/" exact />
             <Route path="/calendar" component={Calendar} />{' '}
             <Route path="/journal" component={Journal} />{' '}
+            <Route path="/pillbox" component={Pillbox} />{' '}
           </Switch>
         </Router>
       </div>
