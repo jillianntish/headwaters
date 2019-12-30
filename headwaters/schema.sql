@@ -10,8 +10,6 @@ USE waters;
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(255) NOT NULL,
-  firstname VARCHAR(255) NULL,
-  lastname VARCHAR(255) NOT NULL, 
   -- hashed
   password VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL

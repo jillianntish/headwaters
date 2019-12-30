@@ -1,4 +1,6 @@
+/* eslint-disable no-shadow */
 const mysql = require('mysql');
+// const bcrypt = require('bcrypt');
 const { promisify } = require('util');
 
 const DB_HOST = process.env.DB_HOST || 'localhost';
@@ -17,6 +19,26 @@ const connection = mysql.createConnection({
 
 const query = promisify(connection.query).bind(connection);
 console.log(query);
+
+// const login = (email, password, callback) => {
+//   connection.query(query, [email], (err, results) => {
+//     if (err) return callback(err);
+//     if (results.length === 0)
+//       return callback(new WrongUsernameOrPasswordError(email));
+//     const user = results[0];
+
+//     bcrypt.compare(password, user.password, (err, isValid) => {
+//       if (err || !isValid)
+//         return callback(err || new WrongUsernameOrPasswordError(email));
+
+//       callback(null, {
+//         user_id: user.id.toString(),
+//         username: user.username,
+//         email: user.email,
+//       });
+//     });
+//   });
+// };
 
 const checkUsername = username => {
   // checks if a given username is found in db
@@ -43,7 +65,7 @@ const checkUsername = username => {
 //     console.error(err);
 // });
 
-const checkEmail = (email) => {
+const checkEmail = email => {
   // checks if a given email is found in db
   // returns a boolean
   const emailSQL = 'select * from users where email = ?';
@@ -68,17 +90,16 @@ const checkEmail = (email) => {
 //     console.error(err);
 // });
 
-const newUser = (username, firstname, lastname, password, email) => {
+const newUser = (username, password, email) => {
   // creates user with given input
   // protect against injection attacks
   const userValues = [
     `${username}`,
-    `${firstname}`,
-    `${lastname}`,
     `${password}`,
     `${email}`,
   ];
-  const newUserSQL = 'insert into users(username, firstname, lastname, password, email) values(?, ?, ?, ?, ?)';
+  const newUserSQL =
+    'insert into users(username, password, email) values(?, ?, ?)';
   return query(newUserSQL, userValues);
 };
 
@@ -108,5 +129,8 @@ const findUser = username => {
 module.exports.connection = connection;
 module.exports.DB_NAME = DB_NAME;
 module.exports = {
-  checkUsername, checkEmail, newUser, findUser,
+  checkUsername,
+  checkEmail,
+  newUser,
+  findUser,
 };
