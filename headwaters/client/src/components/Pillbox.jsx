@@ -38,11 +38,17 @@ class Pillbox extends React.Component {
   }
 
   selectFileHandler(e) {
-    console.log(e.target.files[0]);
+    let files = e.target.files;
+    // let reader = new FileReader();
+    // reader.readAsDataURL(files[0]);
+    // reader.onload = (e) => {
+
     this.setState({
-      pic: e.target.files[0],
+      pic: URL.createObjectURL(e.target.files[0]),
     });
+    console.log(e.target.files[0]);
   }
+  // }
 
   // uploadFileHandler() {
 
@@ -85,7 +91,8 @@ class Pillbox extends React.Component {
             <br />
             Notes: {notes}
             <br />
-            Picture: </p>
+          </p>
+          <img src={pic}></img>
         </div>
         <div className="form-container">
           <h1>
@@ -127,7 +134,7 @@ class Pillbox extends React.Component {
               rows="3" cols="50">
             </textarea>
           </div>
-          <input type="file" onChange={this.selectFileHandler}></input>
+          <input type="file" name="pic" onChange={this.selectFileHandler}></input>
           <input type="submit" value="submit" />
         </form>
       </div>
