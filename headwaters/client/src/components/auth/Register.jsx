@@ -10,7 +10,9 @@ const Register = () => {
     password2: '',
   });
 
-  const { firstName, lastName, email, username, password, password2 } = user;
+  const {
+    firstName, lastName, email, username, password, password2,
+  } = user;
 
   const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
 
