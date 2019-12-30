@@ -58,6 +58,7 @@
 		"react": "^16.8.5",
 		"react-dom": "^16.8.5",
 		"react-router-dom": "^5.1.2",
+		"regenerator-runtime": "^0.13.3",
 		"sequelize": "^5.21.3",
 		"style-loader": "^1.1.2",
 		"util.promisify": "^1.0.0",
