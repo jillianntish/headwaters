@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { db, DB_NAME } = require('./db/connection');
+const { DB_NAME } = require('./db/connection');
 
 const app = express();
 // Init Middleware
