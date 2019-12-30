@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Journal extends React.Component {
   constructor(props) {
@@ -13,7 +14,6 @@ class Journal extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    // this.onSubmit = this.onSubmit.bind(this);
   }
 
 
@@ -24,12 +24,6 @@ class Journal extends React.Component {
 
       [event.target.name]: value,
     });
-
-
-    // this.setState({
-    //   water: event.target.value,
-    // sleep: event.target.value,
-    // });
     console.log("we're setting state", this.state.journal);
   }
 
@@ -39,18 +33,26 @@ class Journal extends React.Component {
   // };
 
   handleClick(e) {
+    const { water, sleep, exercise, food, feelings, journal } = this.state;
     e.preventDefault();
     // const { water } = this.state;
     console.log("we're clicking", this.state.feelings);
+    axios.post('/journal', {
+      water: water,
+      sleep: sleep,
+      exercise: exercise,
+      food: food,
+      feelings: feelings,
+      journal: journal
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
-  //   const onChange = e => e.target.value
-  // });
-
-  // const onSubmit = e => {
-  //   e.preventDefault();
-  //   console.log('journal submit');
-  // };
 
   render() {
     const { water, sleep, exercise, food, feelings, journal } = this.state;
@@ -124,7 +126,7 @@ class Journal extends React.Component {
             <input type="submit" value="submit" />
           </form>
         </div>
-      </div>
+      </div >
     );
   }
 }
