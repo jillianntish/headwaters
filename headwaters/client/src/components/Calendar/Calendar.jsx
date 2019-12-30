@@ -67,9 +67,10 @@ class Calendar extends React.Component {
 
   handleEventClick(arg) {
     // show event
+    const { showEventOptions } = this.state;
     // option to edit event
     this.setState({
-      showEventOptions: true,
+      showEventOptions: !showEventOptions,
     });
   }
 
@@ -82,19 +83,19 @@ class Calendar extends React.Component {
           <FullCalendar
             defaultView="dayGridMonth"
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            editable
             header={{
               left: 'prev,next today',
               center: 'title',
               right: 'dayGridMonth, timeGridWeek, timeGridDay, listWeek',
             }}
+            selectable
             events={events}
             dateClick={this.handleDateClick}
             eventClick={this.handleEventClick}
           />
         </div>
         {showNewEvent ? <NewEvent /> : <div />}
-        {showNewEvent ? <EventOptions /> : <div />}
+        {showEventOptions ? <EventOptions /> : <div />}
       </div>
     );
   }
