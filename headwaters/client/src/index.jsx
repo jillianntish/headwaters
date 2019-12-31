@@ -1,13 +1,3 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-
-// import App from './components/App.jsx';
-
-// ReactDOM.render(<App />, document.getElementById('app'));
-
-
-// src/index.js
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App.jsx';
@@ -15,6 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import { Auth0Provider } from './react-auth0-spa.jsx';
 import config from './auth_config.json';
 import history from './utils/history';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // A function that routes the user to the right place
 // after login

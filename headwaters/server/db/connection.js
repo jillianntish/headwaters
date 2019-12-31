@@ -1,4 +1,6 @@
+/* eslint-disable no-shadow */
 const mysql = require('mysql');
+// const bcrypt = require('bcrypt');
 const { promisify } = require('util');
 
 const DB_HOST = process.env.DB_HOST || 'localhost';
@@ -16,7 +18,26 @@ const connection = mysql.createConnection({
 // user helpers
 
 const query = promisify(connection.query).bind(connection);
-console.log(query);
+
+// const login = (email, password, callback) => {
+//   connection.query(query, [email], (err, results) => {
+//     if (err) return callback(err);
+//     if (results.length === 0)
+//       return callback(new WrongUsernameOrPasswordError(email));
+//     const user = results[0];
+
+//     bcrypt.compare(password, user.password, (err, isValid) => {
+//       if (err || !isValid)
+//         return callback(err || new WrongUsernameOrPasswordError(email));
+
+//       callback(null, {
+//         user_id: user.id.toString(),
+//         username: user.username,
+//         email: user.email,
+//       });
+//     });
+//   });
+// };
 
 const checkUsername = username => {
   // checks if a given username is found in db
@@ -43,7 +64,7 @@ const checkUsername = username => {
 //     console.error(err);
 // });
 
-const checkEmail = (email) => {
+const checkEmail = email => {
   // checks if a given email is found in db
   // returns a boolean
   const emailSQL = 'select * from users where email = ?';
@@ -68,28 +89,22 @@ const checkEmail = (email) => {
 //     console.error(err);
 // });
 
-const newUser = (username, firstname, lastname, password, email) => {
+const newUser = (username, email) => {
   // creates user with given input
   // protect against injection attacks
-  const userValues = [
-    `${username}`,
-    `${firstname}`,
-    `${lastname}`,
-    `${password}`,
-    `${email}`,
-  ];
-  const newUserSQL = 'insert into users(username, firstname, lastname, password, email) values(?, ?, ?, ?, ?)';
+  const userValues = [`${username}`, `${email}`];
+  const newUserSQL = 'insert into users(username, email) values(?, ?)';
   return query(newUserSQL, userValues);
 };
 
 // usage example
-// newUser('jeanluc', 'jean-luc', 'picard', 'may51789', 'captain@enterprise.space')
-// .then(queryOK => {
-//   console.log(queryOK)
-// })
-// .catch(err => {
-//   console.error(err);
-// });
+// newUser('jeanluc', 'captain@enterprise.space')
+//   .then(queryOK => {
+//     console.log(queryOK);
+//   })
+//   .catch(err => {
+//     console.error(err);
+//   });
 
 const findUser = username => {
   // select user from database who matches user
@@ -105,8 +120,18 @@ const findUser = username => {
 //   console.error(err);
 // });
 
-module.exports.connection = connection;
-module.exports.DB_NAME = DB_NAME;
+const findUserByEmail = email => {
+  // select user from database who matches user
+  const findByEmail = 'select * from users where email = ?';
+  return query(findByEmail, [`${email}`]);
+};
+
 module.exports = {
-  checkUsername, checkEmail, newUser, findUser,
+  connection,
+  DB_NAME,
+  checkUsername,
+  checkEmail,
+  newUser,
+  findUser,
+  findUserByEmail,
 };
