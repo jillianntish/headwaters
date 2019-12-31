@@ -120,6 +120,12 @@ const findUser = username => {
 //   console.error(err);
 // });
 
+const findUserByEmail = email => {
+  // select user from database who matches user
+  const findByEmail = 'select * from users where email = ?';
+  return query(findByEmail, [`${email}`]);
+};
+
 module.exports = {
   connection,
   DB_NAME,
@@ -127,4 +133,5 @@ module.exports = {
   checkEmail,
   newUser,
   findUser,
+  findUserByEmail,
 };
