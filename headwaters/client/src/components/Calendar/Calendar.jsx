@@ -22,7 +22,7 @@ class Calendar extends React.Component {
     this.state = {
       events: [
         {
-          title: 'coffee', start: '2019-12-28T14:30:00', end: '2020-01-01T15:00:00', practictioner: 'doctor', color: 'yellow', location: 'office12',
+          title: 'coffee', start: '2019-12-28T14:30:00', end: '2020-01-01T15:00:00', extendedProps: { practictioner: 'doctor', color: 'yellow', location: 'office12'},
         },
         { title: 'camping', start: '2019-12-29T00:00:00', end: '2020-01-01T01:30:00' },
         { title: 'birthday', start: '2020-01-02T00:00:00', end: '2020-01-03T00:00:00' },
@@ -80,8 +80,8 @@ class Calendar extends React.Component {
         title: info.event.title,
         start: info.event.start.toString(),
         end: info.event.end.toString(),
-        practicioner: info.event.practicioner,
-        location: info.event.location,
+        practictioner: info.event.extendedProps.practictioner,
+        location: info.event.extendedProps.location,
       }],
       showEventOptions: !showEventOptions,
     }, () => {
