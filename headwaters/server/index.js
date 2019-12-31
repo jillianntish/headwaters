@@ -2,11 +2,14 @@ const express = require('express');
 const path = require('path');
 const { DB_NAME } = require('./db/connection');
 const { checkEmail, newUser, findUserByEmail } = require('./db/connection');
+const calendarRouter = require('../routes/calendar');
 
 const app = express();
 
 // Init Middleware
 app.use(express.json({ extended: false }));
+
+app.use('/calendar', calendarRouter);
 
 app.get('/api/auth', async(req, res) => {
   const payload = req.query;
