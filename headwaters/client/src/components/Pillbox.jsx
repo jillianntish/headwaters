@@ -115,52 +115,57 @@ class Pillbox extends React.Component {
             Pillbox <span className="text-primary" />
           </h1>
         </div>
-        <form onSubmit={this.handleClick}>
-          <FormGroup>
-            <Label for="med">Medication</Label>
-            <Input
-              type="text"
-              name="med"
-              id="med"
-              placeholder="medication"
-              value={med}
-              onChange={this.handleChange}
-            />
-          </FormGroup>
+        <div className="new-event-form">
+          <form onSubmit={this.handleClick}>
+            <FormGroup>
+              <Label for="med">Medication</Label>
+              <Input
+                type="text"
+                name="med"
+                id="med"
+                placeholder="medication"
+                value={med}
+                onChange={this.handleChange}
+              />
+            </FormGroup>
 
-          <FormGroup>
-            <Label for="dosage">Dosage</Label>
-            <Input
-              type="text"
-              name="dosage"
-              id="dosage"
-              placeholder="dosage"
-              value={dosage}
-              onChange={this.handleChange}
-            />
-          </FormGroup>
-          <br />
-          <FormGroup>
-            <Label for="time">Time</Label>
-            <Input
-              type="time"
-              name="time"
-              id="time"
-              dateFormat="HH:mm"
-              placeholder="time placeholder"
-              value={time}
-              onChange={this.handleChange}
-            />
-            <Button color="primary" size="sm" onClick={this.addTime}>Add Time</Button>{' '}
-          </FormGroup>
-          <FormGroup>
-            <Label for="notes">Notes</Label>
-            <Input type="textarea" name="notes" id="notes" />
-          </FormGroup>
-          <input type="file" name="pic" onChange={this.selectFileHandler} />
-          <Button color="primary" size="sm">Submit</Button>{' '}
+            <FormGroup>
+              <Label for="dosage">Dosage</Label>
+              <Input
+                type="text"
+                name="dosage"
+                id="dosage"
+                placeholder="dosage"
+                value={dosage}
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <br />
+            <FormGroup>
+              <Label for="time">Time</Label>
+              <Input
+                type="time"
+                name="time"
+                id="time"
+                dateFormat="HH:mm"
+                placeholder="time placeholder"
+                value={time}
+                onChange={this.handleChange}
+              />
+              <br />
+              <Button color="primary" size="sm" onClick={this.addTime}>Add Time</Button>{' '}
+            </FormGroup>
+            <FormGroup>
+              <Label for="notes">Notes</Label>
+              <Input type="textarea" name="notes" id="notes" />
+            </FormGroup>
+            <input type="file" name="pic" onChange={this.selectFileHandler} />
+            <br />
+            <br />
+            <Button color="primary" size="sm">Submit</Button>{' '}
 
-        </form>
+          </form>
+        </div>
       </div>
     );
   }
