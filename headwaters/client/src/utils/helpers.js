@@ -15,9 +15,9 @@ export const createUser = async({ nickname, email }) => {
 //   await axios.post(endpoint, { json event info });
 // };
 
-// export const getUserEvents = async({}) => {
-//   await axios.get(endpoint);
-// };
+export const getUserEvents = async userId => {
+  await axios.get(`/calendar/${userId}/events`).then(res => res.data);
+};
 
 // export const editUserEvent = async({}) => {
 //  await.axios.patch(endpoint, {})
