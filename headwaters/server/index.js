@@ -8,9 +8,6 @@ const app = express();
 // Init Middleware
 app.use(express.json({ extended: false }));
 
-app.use('/api/users', require('../routes/users'));
-// app.use('/api/auth', require('../routes/auth'));
-
 app.get('/api/auth', async(req, res) => {
   const payload = req.query;
   const validEmail = await checkEmail(payload.email);

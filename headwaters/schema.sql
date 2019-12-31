@@ -90,7 +90,7 @@ CREATE TABLE events (
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   text JSON NOT NULL,
-  date DATETIME NOT NULL,
+  date_time DATETIME NOT NULL,
   practicioner VARCHAR(255),
   -- physical address
   location JSON
