@@ -5,6 +5,8 @@ import {
 } from 'reactstrap';
 import moment from 'moment';
 
+import '../styles/event-form.css';
+
 class Pillbox extends React.Component {
   constructor(props) {
     super(props);
@@ -119,47 +121,43 @@ class Pillbox extends React.Component {
         </div>
         <form onSubmit={this.handleClick}>
 
-          <div>
-            <label htmlFor="med">Medication</label>
-            <input
+          <FormGroup>
+            <Label for="med">Medication</Label>
+            <Input
               type="text"
               name="med"
+              id="med"
+              placeholder="medication"
               value={med}
               onChange={this.handleChange}
             />
-          </div>
-          <div>
-            <label htmlFor="dosage">dosage</label>
-            <input
+          </FormGroup>
+
+          <FormGroup>
+            <Label for="dosage">Dosage</Label>
+            <Input
               type="text"
               name="dosage"
+              id="dosage"
+              placeholder="dosage"
               value={dosage}
               onChange={this.handleChange}
             />
-          </div>
-          <h3>Time</h3>
-          <div>
-            {}
-          </div>
+          </FormGroup>
           <br />
-          {/* <div>
-            <label htmlFor="times">times</label>
-            <input
-              type="text"
-              name="times"
-              value={times}
-              onChange={this.handleChange}
+          <FormGroup>
+            <Label for="exampleTime">Time</Label>
+            <Input
+              type="time"
+              name="time"
+              id="time"
+              placeholder="time placeholder"
             />
-          </div> */}
-          <div>
-            <textarea
-              name="notes"
-              value={notes}
-              onChange={this.handleChange}
-              rows="3"
-              cols="50"
-            />
-          </div>
+          </FormGroup>
+          <FormGroup>
+            <Label for="notes">Notes</Label>
+            <Input type="textarea" name="notes" id="notes" />
+          </FormGroup>
           <input type="file" name="pic" onChange={this.selectFileHandler} />
           <input type="submit" value="submit" />
         </form>
