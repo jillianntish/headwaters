@@ -1,9 +1,9 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 
 const Register = () => {
   const [user, setUser] = useState({
-    firstName: '',
-    lastName: '',
     username: '',
     email: '',
     password: '',
@@ -11,14 +11,14 @@ const Register = () => {
   });
 
   const {
-    firstName, lastName, email, username, password, password2,
+    email, username, password, password2,
   } = user;
 
   const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log('Register submit');
+    console.log(email, username, password);
   };
 
   return (
@@ -28,24 +28,6 @@ const Register = () => {
       </h1>
       <form onSubmit={onSubmit}>
         <div className="form-group">
-          <label htmlFor="firstName">First Name</label>
-          <input
-            type="firstName"
-            name="firstName"
-            value={firstName}
-            onChange={onChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="lastName">Last Name</label>
-          <input
-            type="lastName"
-            name="lastName"
-            value={lastName}
-            onChange={onChange}
-          />
-        </div>
-        <div>
           <label htmlFor="username">Username</label>
           <input
             type="username"

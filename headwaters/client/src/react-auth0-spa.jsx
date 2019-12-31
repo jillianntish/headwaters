@@ -1,7 +1,7 @@
-/* eslint-disable no-shadow */
 import React, { useState, useEffect, useContext } from 'react';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import 'regenerator-runtime';
+import { validateEmail, createUser } from './utils/helpers';
 
 const DEFAULT_REDIRECT_CALLBACK = () => window.history.replaceState(
   {}, document.title, window.location.pathname,
@@ -30,13 +30,18 @@ export const Auth0Provider = ({
         onRedirectCallback(appState);
       }
 
-      const isAuthenticated = await auth0FromHook.isAuthenticated();
+      const _isAuthenticated = await auth0FromHook.isAuthenticated();
 
-      setIsAuthenticated(isAuthenticated);
-
-      if (isAuthenticated) {
-        const user = await auth0FromHook.getUser();
-        setUser(user);
+      setIsAuthenticated(_isAuthenticated);
+      if (_isAuthenticated) {
+        const _user = await auth0FromHook.getUser();
+        const { nickname, email } = _user;
+        let foundUser = await validateEmail(email);
+        if (!foundUser) {
+          foundUser = await createUser({ nickname, email });
+        }
+        _user.id = foundUser.id;
+        setUser(_user);
       }
 
       setLoading(false);
@@ -54,18 +59,19 @@ export const Auth0Provider = ({
     } finally {
       setPopupOpen(false);
     }
-    const user = await auth0Client.getUser();
-    setUser(user);
+    const _user = await auth0Client.getUser();
+    setUser(_user);
     setIsAuthenticated(true);
   };
 
   const handleRedirectCallback = async() => {
     setLoading(true);
     await auth0Client.handleRedirectCallback();
-    const user = await auth0Client.getUser();
+    const _user = await auth0Client.getUser();
     setLoading(false);
     setIsAuthenticated(true);
-    setUser(user);
+    console.log(_user);
+    setUser(_user);
   };
   return (
     <Auth0Context.Provider

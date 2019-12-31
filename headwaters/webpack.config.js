@@ -10,6 +10,12 @@ module.exports = {
     filename: 'bundle.js',
     path: DIST_DIR,
   },
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty',
+  },
   module: {
     rules: [
       {
