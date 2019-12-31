@@ -9,16 +9,18 @@ import '../../styles/event-form.css';
 class NewEvent extends React.Component {
   constructor(props) {
     super(props);
-    const { date } = props.date[0];
+    console.log(props);
+    const { date } = props;
+    console.log('curious:', date);
     this.state = {
       date,
     };
   }
 
   render() {
-    const { date } = this.state;
-    const dateFormat = moment(date).format('MM/DD/YY');
-    console.log(dateFormat);
+    let { date } = this.state;
+    date = date.toString().slice(0, 15);
+    const dateFormat = moment(date, 'ddd MMM DD YYYY').format('MM/DD/YY');
 
     return (
       <div className="new-event-form">
