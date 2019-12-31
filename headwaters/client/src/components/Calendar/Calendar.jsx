@@ -21,32 +21,39 @@ class Calendar extends React.Component {
     super(props);
     this.state = {
       events: [
-        { title: 'coffee', start: '2019-12-28T14:30:00' },
-        { title: 'camping', start: '2019-12-29', end: '2020-01-01' },
-        { title: 'birthday', date: '2020-01-02' },
-        { title: 'sleepover', date: '2020-01-02' },
-        { title: 'therapy', date: '2020-01-01T15:00:00', color: 'red' },
+        { title: 'coffee', start: '2019-12-28T14:30:00', end: '2020-01-01T15:00:00', practictioner: 'doctor', color: 'yellow', location: 'office12' },
+        { title: 'camping', start: '2019-12-29T00:00:00', end: '2020-01-01T01:30:00' },
+        { title: 'birthday', start: '2020-01-02T00:00:00', end: '2020-01-03T00:00:00' },
+        { title: 'sleepover', start: '2020-01-02T01:00:00', end: '2020-01-03T02:00:00' },
+        { title: 'therapy', start: '2020-01-01T15:00:00', end: '2020-01-01T15:30:00', color: 'red' },
       ],
+      event: [],
+      date: [],
       showNewEvent: false,
       showEventOptions: false,
     };
     this.handleDateClick = this.handleDateClick.bind(this);
     this.handleAddEvent = this.handleAddEvent.bind(this);
-    this.handleEventClick = this.handleEventClick.bind(this);
+    this.eventClick = this.eventClick.bind(this);
   }
 
 
   handleDateClick(arg) {
-    const { handleAddEvent } = this;
-    vex.dialog.confirm({
-      message: 'Are you absolutely sure you want to destroy the alien planet?',
-      callback(value) {
-        if (value) {
-          handleAddEvent(arg);
-        } else {
-          console.log('Chicken');
-        }
-      },
+    // const { handleAddEvent } = this;
+    // vex.dialog.confirm({
+    //   message: 'Are you absolutely sure you want to destroy the alien planet?',
+    //   callback(value) {
+    //     if (value) {
+    //       handleAddEvent(arg);
+    //     } else {
+    //       console.log('Chicken');
+    //     }
+    //   },
+    // });
+    console.log(arg.date);
+    this.setState({
+      date: [arg.date],
+      showNewEvent: !this.showNewEvent,
     });
   }
 
@@ -65,17 +72,24 @@ class Calendar extends React.Component {
     });
   }
 
-  handleEventClick(arg) {
+  eventClick(info) {
     // show event
     const { showEventOptions } = this.state;
     // option to edit event
     this.setState({
+      event: [{
+        title: info.event.title,
+        start: info.event.start.toString(),
+        end: info.event.end.toString(),
+        practicioner: info.event.practicioner,
+        location: info.event.location,
+      }], 
       showEventOptions: !showEventOptions,
     });
   }
 
   render() {
-    const { events, showNewEvent, showEventOptions } = this.state;
+    const { events, event, date, showNewEvent, showEventOptions } = this.state;
     return (
       <div className="cal-font">
         <div className="calendar-top" />
@@ -91,11 +105,11 @@ class Calendar extends React.Component {
             selectable
             events={events}
             dateClick={this.handleDateClick}
-            eventClick={this.handleEventClick}
+            eventClick={this.eventClick}
           />
         </div>
-        {showNewEvent ? <NewEvent /> : <div />}
-        {showEventOptions ? <EventOptions /> : <div />}
+        {showNewEvent ? <NewEvent date={date} /> : <div />}
+        {showEventOptions ? <EventOptions event={event} /> : <div />}
       </div>
     );
   }
