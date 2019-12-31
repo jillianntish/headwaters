@@ -6,6 +6,7 @@ import {
 import moment from 'moment';
 
 import '../styles/event-form.css';
+import '../styles/pillbox.css'
 
 class Pillbox extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Pillbox extends React.Component {
       dosage: '',
       time: '',
       times: [],
-      notes: 'Notes',
+      notes: '',
       pic: null,
     };
 
@@ -37,12 +38,12 @@ class Pillbox extends React.Component {
   // }
 
   addTime() {
+    //may need to change times to a string and concat string
     let { times, time } = this.state;
     console.log("getting time", times);
     times = times.push(time);
-    // this.setState({
-    //   time: event.target.value,
-    // })
+    // time = times.concat(time);
+
   }
 
   handleChange(event) {
@@ -94,21 +95,35 @@ class Pillbox extends React.Component {
     const {
       med, dosage, times, time, notes, pic,
     } = this.state;
+    //  times.forEach(time => {
+    //     const timeLoop = time;
+    //   })
+
     return (
+
       <div>
         <div>
 
-          <p>
+
+          <p id="rcorners1">
             Medication: {med}
             <br />
             Dosage: {dosage}
             <br />
             Times: {times}
+            {/* This needs to be fixed */}
+            {times.map((time) => {
+              return (
+                <h6 id="time"> {time} </h6>
+              );
+            })}
             <br />
             Notes: {notes}
             <br />
+            Pic:
+            <br />
+            <img src={pic} height="95" width="95" />
           </p>
-          <img src={pic} height="100" width="100" />
         </div>
         <div className="form-container">
           <h1>
@@ -157,7 +172,8 @@ class Pillbox extends React.Component {
             </FormGroup>
             <FormGroup>
               <Label for="notes">Notes</Label>
-              <Input type="textarea" name="notes" id="notes" />
+              <Input type="textarea" name="notes" id="notes"
+                onChange={this.handleChange} />
             </FormGroup>
             <input type="file" name="pic" onChange={this.selectFileHandler} />
             <br />
