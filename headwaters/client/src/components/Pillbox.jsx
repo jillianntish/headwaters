@@ -147,7 +147,7 @@ class Pillbox extends React.Component {
                 type="time"
                 name="time"
                 id="time"
-                dateFormat="HH:mm"
+                dateformat="HH:mm"
                 placeholder="time placeholder"
                 value={time}
                 onChange={this.handleChange}
