@@ -3,10 +3,10 @@ import axios from 'axios';
 import {
   Button, Form, FormGroup, Label, Input,
 } from 'reactstrap';
-import moment from 'moment';
 
 import '../styles/event-form.css';
-import '../styles/pillbox.css'
+import '../styles/pillbox.css';
+import sample from './exampleData';
 
 class Pillbox extends React.Component {
   constructor(props) {
@@ -18,6 +18,7 @@ class Pillbox extends React.Component {
       times: [],
       notes: '',
       pic: null,
+      // fullMedsList: {}
     };
 
 
@@ -27,23 +28,24 @@ class Pillbox extends React.Component {
     this.addTime = this.addTime.bind(this);
   }
 
-  // componentDidMount() {
-  // axios.get('/pillbox')
-  //   .then(response){
-  //   console.log(response);
-  // }
-  // .catch ((error) => {
-  //   console.log(error);
-  // });
-  // }
+
+  componentDidMount() {
+
+    // axios.get('/api/pillbox/:userId')
+    //   .then(response){
+    //   console.log(response);
+    // }
+    // .catch((error) => {
+    //     console.log(error);
+    //   };
+  }
 
   addTime() {
-    //may need to change times to a string and concat string
+    // may need to change times to a string and concat string
     let { times, time } = this.state;
-    console.log("getting time", times);
+    console.log('getting time', times);
     times = times.push(time);
     // time = times.concat(time);
-
   }
 
   handleChange(event) {
@@ -75,7 +77,7 @@ class Pillbox extends React.Component {
     e.preventDefault();
     // const { water } = this.state;
     console.log("we're clicking", this.state.pic);
-    axios.post('/pillbox', {
+    axios.post('/api/pillbox/:userId', {
       med,
       dosage,
       times,
@@ -95,16 +97,27 @@ class Pillbox extends React.Component {
     const {
       med, dosage, times, time, notes, pic,
     } = this.state;
-    //  times.forEach(time => {
-    //     const timeLoop = time;
-    //   })
 
     return (
-
       <div>
+        {/* {sample.map((med) => {
+          return (
+            <div>
+              <p id="rcorners1">
+                Medication: {med.medication}
+                <br />
+                Dosage: {med.dosage}
+                <br />
+                Times: {med.times}
+                <br />
+                Notes: {med.notes}
+                <br />
+              </p>
+            </div>
+          );
+        })} */}
+
         <div>
-
-
           <p id="rcorners1">
             Medication: {med}
             <br />
@@ -172,8 +185,12 @@ class Pillbox extends React.Component {
             </FormGroup>
             <FormGroup>
               <Label for="notes">Notes</Label>
-              <Input type="textarea" name="notes" id="notes"
-                onChange={this.handleChange} />
+              <Input
+                type="textarea"
+                name="notes"
+                id="notes"
+                onChange={this.handleChange}
+              />
             </FormGroup>
             <input type="file" name="pic" onChange={this.selectFileHandler} />
             <br />
