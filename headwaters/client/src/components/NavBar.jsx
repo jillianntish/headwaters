@@ -32,7 +32,8 @@ const NavBar = () => {
         <span>
           <Link to="/">Home</Link>&nbsp;
           <Link to="/calendar">Calendar</Link>&nbsp;
-          <Link to="/journal">Journal</Link>
+          <Link to="/journal">Journal</Link>&nbsp;
+          <Link to="/pillbox">Pillbox</Link>&nbsp;
         </span>
       )}
     </div>
