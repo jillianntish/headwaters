@@ -89,17 +89,16 @@ const checkEmail = email => {
 //     console.error(err);
 // });
 
-const newUser = (username, password, email) => {
+const newUser = (username, email) => {
   // creates user with given input
   // protect against injection attacks
-  const userValues = [`${username}`, `${password}`, `${email}`];
-  const newUserSQL =
-    'insert into users(username, password, email) values(?, ?, ?)';
+  const userValues = [`${username}`, `${email}`];
+  const newUserSQL = 'insert into users(username, email) values(?, ?)';
   return query(newUserSQL, userValues);
 };
 
 // usage example
-// newUser('jeanluc', may51789', 'captain@enterprise.space')
+// newUser('jeanluc', 'captain@enterprise.space')
 //   .then(queryOK => {
 //     console.log(queryOK);
 //   })
