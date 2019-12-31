@@ -6,9 +6,10 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import NewEvent from './NewEvent.jsx';
 import EventOptions from './EventOptions.jsx';
 import { useAuth0 } from '../../react-auth0-spa.jsx';
-// import { helpers } from '../../utils/helpers';
+import { getUserEvents } from '../../utils/helpers';
 
 import '../../styles/calendar.css';
+
 
 const Calendar = () => {
   const { user } = useAuth0();
@@ -26,14 +27,24 @@ const Calendar = () => {
 
   useEffect(() => {
     // axios helper
-    setEvents([{
-      title: 'Immunization for Away Team',
-      start: '2019-12-31T15:00:00',
-      extendedProps: {
-        practicioner: 'Dr. Crusher',
-        location: 'Starship Enterprise',
-      },
-    }]);
+    getUserEvents(user.id)
+      .then(eventsResponse => {
+        if (eventsResponse) {
+          setEvents(eventsResponse);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+
+    // setEvents([{
+    //   title: 'Immunization for Away Team',
+    //   start: '2019-12-31T15:00:00',
+    //   extendedProps: {
+    //     practicioner: 'Dr. Crusher',
+    //     location: 'Starship Enterprise',
+    //   },
+    // }]);
   }, []);
 
 
@@ -60,7 +71,6 @@ const Calendar = () => {
   };
 
   const eventClick = (info) => {
-    
     setClickedEvent([{
       title: info.event.title,
       start: info.event.start.toString(),
