@@ -1,3 +1,9 @@
-.option-buttons {
+.event-options {
+  margin: 0 auto;
+  margin-top: 3em;
+  max-width: 800px;
+}
+
+.option-buttons-container {
   margin-top: 2.5em,
 }
