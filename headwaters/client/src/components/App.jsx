@@ -15,14 +15,6 @@ const App = props => {
     <div className="App">
       <Router history={history}>
         <header>
-          <span className="logo">
-            {' '}
-            <h1>Headwaters</h1>
-            <h1>
-              {user && user.nickname}
-              {user && user.id}
-            </h1>
-          </span>
           <NavBar />
         </header>
         <Switch>
