@@ -19,16 +19,18 @@ vex.defaultOptions.className = 'vex-theme-os';
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
+
+    const {
+      // eslint-disable-next-line no-unused-vars
+      isAuthenticated, loginWithRedirect, logout, user,
+    } = useAuth0();
+
+
     this.state = {
+      user,
       events: [
         {
           title: 'coffee', start: '2019-12-28T14:30:00', end: '2020-01-01T15:00:00', extendedProps: { practictioner: 'doctor', color: 'yellow', location: 'office12'},
-        },
-        { title: 'camping', start: '2019-12-29T00:00:00', end: '2020-01-01T01:30:00' },
-        { title: 'birthday', start: '2020-01-02T00:00:00', end: '2020-01-03T00:00:00' },
-        { title: 'sleepover', start: '2020-01-02T01:00:00', end: '2020-01-03T02:00:00' },
-        {
-          title: 'therapy', start: '2020-01-01T15:00:00', end: '2020-01-01T15:30:00', color: 'red',
         },
       ],
       event: [],
