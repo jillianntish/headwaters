@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import TimeInput from 'material-ui-time-picker';
 
 class Pillbox extends React.Component {
   constructor(props) {
@@ -32,7 +31,7 @@ class Pillbox extends React.Component {
   // }
 
   handleTime(event) {
-    console.log("getting time", event);
+    console.log('getting time', event);
     // this.setState({
     //   time: event.target.value,
     // })
@@ -40,7 +39,7 @@ class Pillbox extends React.Component {
 
   handleChange(event) {
     // event.preventDefault();
-    const value = event.target.value;
+    const { value } = event.target;
     this.setState({
 
       [event.target.name]: value,
@@ -67,16 +66,18 @@ class Pillbox extends React.Component {
 
 
   handleClick(e) {
-    const { med, dosage, times, notes, pic } = this.state;
+    const {
+      med, dosage, times, notes, pic,
+    } = this.state;
     e.preventDefault();
     // const { water } = this.state;
     console.log("we're clicking", this.state.times);
     axios.post('/journal', {
-      med: med,
-      dosage: dosage,
-      times: times,
-      notes: notes,
-      pic: pic,
+      med,
+      dosage,
+      times,
+      notes,
+      pic,
     })
       .then((response) => {
         console.log(response);
@@ -88,7 +89,9 @@ class Pillbox extends React.Component {
 
 
   render() {
-    const { med, dosage, times, notes, pic } = this.state;
+    const {
+      med, dosage, times, notes, pic,
+    } = this.state;
     return (
       <div>
         <div>
@@ -103,11 +106,11 @@ class Pillbox extends React.Component {
             Notes: {notes}
             <br />
           </p>
-          <img src={pic} height="100" width="100"></img>
+          <img src={pic} height="100" width="100" />
         </div>
         <div className="form-container">
           <h1>
-            Pillbox <span className="text-primary"></span>
+            Pillbox <span className="text-primary" />
           </h1>
         </div>
         <form onSubmit={this.handleClick}>
@@ -132,11 +135,7 @@ class Pillbox extends React.Component {
           </div>
           <h3>Time</h3>
           <div>
-            <TimeInput
-              mode='12h'
-              value={this.state.time}
-              onChange={(time) => this.handleTime(time)}
-            />
+            {}
           </div>
           <br />
           {/* <div>
@@ -149,12 +148,15 @@ class Pillbox extends React.Component {
             />
           </div> */}
           <div>
-            <textarea name="notes" value={notes}
+            <textarea
+              name="notes"
+              value={notes}
               onChange={this.handleChange}
-              rows="3" cols="50">
-            </textarea>
+              rows="3"
+              cols="50"
+            />
           </div>
-          <input type="file" name="pic" onChange={this.selectFileHandler}></input>
+          <input type="file" name="pic" onChange={this.selectFileHandler} />
           <input type="submit" value="submit" />
         </form>
       </div>
