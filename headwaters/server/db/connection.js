@@ -121,10 +121,9 @@ const findUser = username => {
 //   console.error(err);
 // });
 
-module.exports.connection = connection;
-module.exports.DB_NAME = DB_NAME;
 module.exports = {
-  ...module.exports,
+  connection,
+  DB_NAME,
   checkUsername,
   checkEmail,
   newUser,
