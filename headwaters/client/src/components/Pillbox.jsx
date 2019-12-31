@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import TimeInput from 'material-ui-time-picker';
 
 class Pillbox extends React.Component {
   constructor(props) {
@@ -7,13 +8,17 @@ class Pillbox extends React.Component {
     this.state = {
       med: '',
       dosage: '',
+      time: null,
       times: '',
       notes: 'Notes',
-      pic: '',
+      pic: null,
     };
+
+
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.selectFileHandler = this.selectFileHandler.bind(this)
+    this.selectFileHandler = this.selectFileHandler.bind(this);
+    this.handleTime = this.handleTime.bind(this);
   }
 
   // componentDidMount() {
@@ -26,6 +31,12 @@ class Pillbox extends React.Component {
   // });
   // }
 
+  handleTime(event) {
+    console.log("getting time", event);
+    // this.setState({
+    //   time: event.target.value,
+    // })
+  }
 
   handleChange(event) {
     // event.preventDefault();
@@ -38,7 +49,7 @@ class Pillbox extends React.Component {
   }
 
   selectFileHandler(e) {
-    let files = e.target.files;
+    // let files = e.target.files;
     // let reader = new FileReader();
     // reader.readAsDataURL(files[0]);
     // reader.onload = (e) => {
@@ -77,7 +88,7 @@ class Pillbox extends React.Component {
 
 
   render() {
-    const { med, dosage, times, notes, pic } = this.state
+    const { med, dosage, times, notes, pic } = this.state;
     return (
       <div>
         <div>
@@ -92,7 +103,7 @@ class Pillbox extends React.Component {
             Notes: {notes}
             <br />
           </p>
-          <img src={pic}></img>
+          <img src={pic} height="100" width="100"></img>
         </div>
         <div className="form-container">
           <h1>
@@ -119,7 +130,16 @@ class Pillbox extends React.Component {
               onChange={this.handleChange}
             />
           </div>
+          <h3>Time</h3>
           <div>
+            <TimeInput
+              mode='12h'
+              value={this.state.time}
+              onChange={(time) => this.handleTime(time)}
+            />
+          </div>
+          <br />
+          {/* <div>
             <label htmlFor="times">times</label>
             <input
               type="text"
@@ -127,7 +147,7 @@ class Pillbox extends React.Component {
               value={times}
               onChange={this.handleChange}
             />
-          </div>
+          </div> */}
           <div>
             <textarea name="notes" value={notes}
               onChange={this.handleChange}
