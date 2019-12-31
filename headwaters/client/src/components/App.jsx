@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from '../utils/history';
-import Calendar from './Calendar.jsx';
+import Calendar from './Calendar/Calendar.jsx';
 import Journal from './Journal.jsx';
 import NavBar from './NavBar.jsx';
 import { useAuth0 } from '../react-auth0-spa.jsx';
