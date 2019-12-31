@@ -4,32 +4,38 @@ import history from '../utils/history';
 import Calendar from './Calendar.jsx';
 import Journal from './Journal.jsx';
 import NavBar from './NavBar.jsx';
+import { useAuth0 } from '../react-auth0-spa.jsx';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
-  render() {
-    return (
-      <div className="App">
-        <Router history={history}>
-          <header>
-            <span className="logo">
-              {' '}
-              <h1>Headwaters</h1>
-            </span>
-            <NavBar />
-          </header>
-          <Switch>
-            <Route path="/" exact />
-            <Route path="/calendar" component={Calendar} />{' '}
-            <Route path="/journal" component={Journal} />{' '}
-          </Switch>
-        </Router>
-      </div>
-    );
-  }
-}
+// eslint-disable-next-line no-unused-vars
+const App = props => {
+  const {
+    // eslint-disable-next-line no-unused-vars
+    isAuthenticated, loginWithRedirect, logout, user,
+  } = useAuth0();
+
+  return (
+    <div className="App">
+      <Router history={history}>
+        <header>
+          <span className="logo">
+            {' '}
+            <h1>Headwaters</h1>
+            <h1>
+              {user && user.nickname}
+              {user && user.id}
+            </h1>
+          </span>
+          <NavBar />
+        </header>
+        <Switch>
+          <Route path="/" exact />
+          <Route path="/calendar" component={Calendar} />{' '}
+          <Route path="/journal" component={Journal} />{' '}
+        </Switch>
+      </Router>
+    </div>
+  );
+};
 
 export default App;
