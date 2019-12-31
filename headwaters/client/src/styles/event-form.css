@@ -1,0 +1,10 @@
+
+.new-event-form {
+  margin: 0 auto;
+  margin-top: 5em;
+  max-width: 800px;
+}
+
+#new-event {
+  font-weight: bolder,
+}
