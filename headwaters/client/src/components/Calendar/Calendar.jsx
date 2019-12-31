@@ -3,6 +3,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import vex from 'vex-js';
 import NewEvent from './NewEvent.jsx';
 import EventOptions from './EventOptions.jsx';
 
@@ -10,7 +11,6 @@ import '../../styles/calendar.css';
 import '../../styles/vex.css';
 import '../../styles/vex-theme.css';
 
-import vex from 'vex-js';
 
 vex.registerPlugin(require('vex-dialog'));
 
@@ -21,11 +21,15 @@ class Calendar extends React.Component {
     super(props);
     this.state = {
       events: [
-        { title: 'coffee', start: '2019-12-28T14:30:00', end: '2020-01-01T15:00:00', practictioner: 'doctor', color: 'yellow', location: 'office12' },
+        {
+          title: 'coffee', start: '2019-12-28T14:30:00', end: '2020-01-01T15:00:00', practictioner: 'doctor', color: 'yellow', location: 'office12',
+        },
         { title: 'camping', start: '2019-12-29T00:00:00', end: '2020-01-01T01:30:00' },
         { title: 'birthday', start: '2020-01-02T00:00:00', end: '2020-01-03T00:00:00' },
         { title: 'sleepover', start: '2020-01-02T01:00:00', end: '2020-01-03T02:00:00' },
-        { title: 'therapy', start: '2020-01-01T15:00:00', end: '2020-01-01T15:30:00', color: 'red' },
+        {
+          title: 'therapy', start: '2020-01-01T15:00:00', end: '2020-01-01T15:30:00', color: 'red',
+        },
       ],
       event: [],
       date: [],
@@ -39,21 +43,16 @@ class Calendar extends React.Component {
 
 
   handleDateClick(arg) {
-    // const { handleAddEvent } = this;
-    // vex.dialog.confirm({
-    //   message: 'Are you absolutely sure you want to destroy the alien planet?',
-    //   callback(value) {
-    //     if (value) {
-    //       handleAddEvent(arg);
-    //     } else {
-    //       console.log('Chicken');
-    //     }
-    //   },
-    // });
-    console.log(arg.date);
+    const { showNewEvent, showEventOptions } = this.state;
     this.setState({
       date: [arg.date],
-      showNewEvent: !this.showNewEvent,
+      showNewEvent: !showNewEvent,
+    }, () => {
+      if (showEventOptions) {
+        this.setState({
+          showEventOptions: false,
+        });
+      }
     });
   }
 
@@ -74,7 +73,7 @@ class Calendar extends React.Component {
 
   eventClick(info) {
     // show event
-    const { showEventOptions } = this.state;
+    const { showEventOptions, showNewEvent } = this.state;
     // option to edit event
     this.setState({
       event: [{
@@ -83,13 +82,21 @@ class Calendar extends React.Component {
         end: info.event.end.toString(),
         practicioner: info.event.practicioner,
         location: info.event.location,
-      }], 
+      }],
       showEventOptions: !showEventOptions,
+    }, () => {
+      if (showNewEvent) {
+        this.setState({
+          showNewEvent: false,
+        });
+      }
     });
   }
 
   render() {
-    const { events, event, date, showNewEvent, showEventOptions } = this.state;
+    const {
+      events, event, date, showNewEvent, showEventOptions,
+    } = this.state;
     return (
       <div className="cal-font">
         <div className="calendar-top" />
