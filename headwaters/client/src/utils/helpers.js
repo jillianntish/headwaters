@@ -8,3 +8,21 @@ export const validateEmail = async email => {
 export const createUser = async({ nickname, email }) => {
   return await axios.post('/api/auth', { nickname, email });
 };
+
+// axios calendar helpers
+
+// export const createUserEvent = async({}) => {
+//   await axios.post(endpoint, { json event info });
+// };
+
+// export const getUserEvents = async({}) => {
+//   await axios.get(endpoint);
+// };
+
+// export const editUserEvent = async({}) => {
+//  await.axios.patch(endpoint, {})
+// };
+
+// axios journal helpers
+
+// axios pillbox helpers
