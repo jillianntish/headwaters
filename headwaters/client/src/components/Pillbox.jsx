@@ -13,8 +13,8 @@ class Pillbox extends React.Component {
     this.state = {
       med: '',
       dosage: '',
-      time: null,
-      times: '',
+      time: '',
+      times: [],
       notes: 'Notes',
       pic: null,
     };
@@ -23,7 +23,7 @@ class Pillbox extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.selectFileHandler = this.selectFileHandler.bind(this);
-    this.handleTime = this.handleTime.bind(this);
+    this.addTime = this.addTime.bind(this);
   }
 
   // componentDidMount() {
@@ -36,8 +36,10 @@ class Pillbox extends React.Component {
   // });
   // }
 
-  handleTime(event) {
-    console.log('getting time', event);
+  addTime() {
+    let { times, time } = this.state;
+    console.log("getting time", times);
+    times = times.push(time);
     // this.setState({
     //   time: event.target.value,
     // })
@@ -50,7 +52,7 @@ class Pillbox extends React.Component {
 
       [event.target.name]: value,
     });
-    console.log("we're setting state", this.state.med);
+    console.log("we're setting state", this.state.time);
   }
 
   selectFileHandler(e) {
@@ -64,12 +66,6 @@ class Pillbox extends React.Component {
     });
     console.log(e.target.files[0]);
   }
-  // }
-
-  // uploadFileHandler() {
-
-  // }
-
 
   handleClick(e) {
     const {
@@ -77,7 +73,7 @@ class Pillbox extends React.Component {
     } = this.state;
     e.preventDefault();
     // const { water } = this.state;
-    console.log("we're clicking", this.state.times);
+    console.log("we're clicking", this.state.pic);
     axios.post('/journal', {
       med,
       dosage,
@@ -96,7 +92,7 @@ class Pillbox extends React.Component {
 
   render() {
     const {
-      med, dosage, times, notes, pic,
+      med, dosage, times, time, notes, pic,
     } = this.state;
     return (
       <div>
@@ -120,7 +116,6 @@ class Pillbox extends React.Component {
           </h1>
         </div>
         <form onSubmit={this.handleClick}>
-
           <FormGroup>
             <Label for="med">Medication</Label>
             <Input
@@ -146,20 +141,25 @@ class Pillbox extends React.Component {
           </FormGroup>
           <br />
           <FormGroup>
-            <Label for="exampleTime">Time</Label>
+            <Label for="time">Time</Label>
             <Input
               type="time"
               name="time"
               id="time"
+              dateFormat="HH:mm"
               placeholder="time placeholder"
+              value={time}
+              onChange={this.handleChange}
             />
+            <Button color="primary" size="sm" onClick={this.addTime}>Add Time</Button>{' '}
           </FormGroup>
           <FormGroup>
             <Label for="notes">Notes</Label>
             <Input type="textarea" name="notes" id="notes" />
           </FormGroup>
           <input type="file" name="pic" onChange={this.selectFileHandler} />
-          <input type="submit" value="submit" />
+          <Button color="primary" size="sm">Submit</Button>{' '}
+
         </form>
       </div>
     );
