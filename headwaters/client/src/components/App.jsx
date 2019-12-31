@@ -6,13 +6,9 @@ import Journal from './Journal.jsx';
 import NavBar from './NavBar.jsx';
 import { useAuth0 } from '../react-auth0-spa.jsx';
 
-
 // eslint-disable-next-line no-unused-vars
 const App = props => {
-  const {
-    // eslint-disable-next-line no-unused-vars
-    isAuthenticated, loginWithRedirect, logout, user,
-  } = useAuth0();
+  const { user } = useAuth0();
 
   return (
     <div className="App">
