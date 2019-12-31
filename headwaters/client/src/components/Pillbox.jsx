@@ -114,7 +114,7 @@ class Pillbox extends React.Component {
             {/* This needs to be fixed */}
             {times.map((time) => {
               return (
-                <h6 id="time"> {time} </h6>
+                <row> {time} </row>
               );
             })}
             <br />
