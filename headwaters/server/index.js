@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const { DB_NAME } = require('./db/connection');
+const { checkEmail, newUser } = require('./db/connection');
 
 const app = express();
 
@@ -8,7 +9,19 @@ const app = express();
 app.use(express.json({ extended: false }));
 
 app.use('/api/users', require('../routes/users'));
-app.use('/api/auth', require('../routes/auth'));
+// app.use('/api/auth', require('../routes/auth'));
+
+app.get('/api/auth', async(req, res) => {
+  const payload = req.query;
+  const validEmail = await checkEmail(payload.email);
+  res.json(validEmail);
+});
+
+app.post('/api/auth', async(req, res) => {
+  const payload = req.body;
+  const createdUser = await newUser(payload.nickname, payload.email);
+  res.json(createdUser);
+});
 
 const PORT = process.env.PORT || 8080;
 const CLIENT_PATH = path.join(__dirname, '../client/dist/');
