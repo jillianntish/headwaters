@@ -11,9 +11,15 @@ export const createUser = async({ nickname, email }) => {
 
 // axios calendar helpers
 
-// export const createUserEvent = async({}) => {
-//   await axios.post(endpoint, { json event info });
-// };
+export const createUserEvent = async(eventObj) => {
+  await axios.post(`/calendar/${eventObj.userId}/events`, eventObj)
+    .then(res => {
+      debugger;
+    })
+    .catch(err => {
+      console.error(err);
+    });
+};
 
 export const getUserEvents = async userId => {
   await axios.get(`/calendar/${userId}/events`).then(res => res.data);
