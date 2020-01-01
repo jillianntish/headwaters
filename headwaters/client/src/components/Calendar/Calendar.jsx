@@ -26,7 +26,6 @@ const Calendar = () => {
   }]);
 
   useEffect(() => {
-    // axios helper
     getUserEvents(user.id)
       .then(eventsResponse => {
         if (eventsResponse) {
@@ -36,15 +35,6 @@ const Calendar = () => {
       .catch(err => {
         console.error(err);
       });
-
-    // setEvents([{
-    //   title: 'Immunization for Away Team',
-    //   start: '2019-12-31T15:00:00',
-    //   extendedProps: {
-    //     practicioner: 'Dr. Crusher',
-    //     location: 'Starship Enterprise',
-    //   },
-    // }]);
   }, []);
 
 
@@ -59,8 +49,6 @@ const Calendar = () => {
 
   const [showEventForm, setShowEventForm] = useState(false);
   const [showEventOptions, setShowEventOptions] = useState(false);
-
-  // const handleTimeConversion = () => {}
 
   const handleDateClick = (arg) => {
     setClickedDate([arg.date]);
