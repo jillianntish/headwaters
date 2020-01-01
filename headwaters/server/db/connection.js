@@ -137,6 +137,24 @@ const getUserEvents = (userId) => {
   return query(selectEventsByUserId, [`${userId}`]);
 };
 
+const insertUserEvent = (newEventObj) => {
+  const {
+    userId, name, dateTime, notes, prac, type, locale,
+  } = newEventObj;
+  const eventFieldValues = [
+    `${userId}`,
+    `${name}`,
+    `${dateTime}`,
+    `${notes}`,
+    `${prac}`,
+    `${type}`,
+    `${locale}`,
+  ];
+  const newEventSQL = 'insert into events(event_id_user, name, date_time, notes, practicioner, type, location) values(?, ?, ?, ?, ?, ?, ?)';
+  return query(newEventSQL, eventFieldValues);
+};
+
+
 module.exports = {
   connection,
   DB_NAME,
@@ -146,4 +164,5 @@ module.exports = {
   findUser,
   findUserByEmail,
   getUserEvents,
+  insertUserEvent,
 };
