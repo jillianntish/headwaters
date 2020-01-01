@@ -89,12 +89,13 @@ CREATE TABLE events (
     REFERENCES users(id)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  text JSON NOT NULL,
-  date_time DATETIME NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  date_time VARCHAR(255) NOT NULL,
+  notes MEDIUMTEXT NOT NULL,
   practicioner VARCHAR(255),
+  type ENUM('mental well-being', 'physical well-being', 'personal', 'other'),
   -- physical address
-  location JSON
-  -- other: status, type?
+  location VARCHAR(255)
 );
 
 CREATE TABLE events_meds (
