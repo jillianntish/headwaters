@@ -6,7 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import NewEvent from './NewEvent.jsx';
 import EventOptions from './EventOptions.jsx';
 import { useAuth0 } from '../../react-auth0-spa.jsx';
-import { getUserEvents } from '../../utils/helpers';
+import { getUserEvents, createUserEvent } from '../../utils/helpers';
 
 import '../../styles/calendar.css';
 
@@ -84,6 +84,17 @@ const Calendar = () => {
     }
   };
 
+  const handleEventPost = (newEvent) => {
+    createUserEvent(newEvent)
+      .then(response => {
+        // let user know
+      })
+      .catch(err => {
+        console.error(err);
+        // let user know
+      });
+  };
+
   return (
     <div className="cal-font">
       <div className="calendar-top" />
@@ -102,7 +113,7 @@ const Calendar = () => {
           eventClick={eventClick}
         />
       </div>
-      {showEventForm ? <NewEvent date={clickedDate} /> : <div />}
+      {showEventForm ? <NewEvent date={clickedDate} handleEventPost={handleEventPost} /> : <div />}
       {showEventOptions ? <EventOptions event={clickedEvent} /> : <div />}
     </div>
   );
