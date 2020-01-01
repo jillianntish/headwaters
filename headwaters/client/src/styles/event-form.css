@@ -1,10 +1,11 @@
-
 .new-event-form {
-  margin: 0 auto;
+  margin: auto;
   margin-top: 3em;
-  max-width: 800px;
+  max-width: 600px;
+  padding: 20px;
+  /* display: inline-block; */
 }
 
 #new-event {
-  font-weight: bolder,
+  font-weight: bolder;
 }
