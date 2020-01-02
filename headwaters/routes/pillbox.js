@@ -2,12 +2,12 @@ const express = require('express');
 
 const pillboxRouter = express.Router();
 
-// @Route --> GET api/pillbox
-// @Desc --> Get pillbox from database
-pillboxRouter.get('/pillbox/:userId', (req, res) => res.send('get pillbox from db'));
+// @Route --> GET '/:userId'
+// @Desc --> Get a user's pillbox from database
+pillboxRouter.get('/:userId', (req, res) => res.send('get pillbox from db'));
 
-// @Route --> POST api/pillbpx
-// @Desc --> post pillbox input data to sever/db
-pillboxRouter.post('/pillbox/:userId', (req, res) => res.send('send pillbox input to server'));
+// @Route --> POST '/:userId'
+// @Desc --> post user's pillbox input data to database
+pillboxRouter.post('/:userId', (req, res) => res.send('send pillbox input to server'));
 
 module.exports = pillboxRouter;
