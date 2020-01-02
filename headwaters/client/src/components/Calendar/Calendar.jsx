@@ -4,6 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import axios from 'axios';
+import { Col, Row } from 'reactstrap';
 import NewEvent from './NewEvent.jsx';
 import EventOptions from './EventOptions.jsx';
 import { useAuth0 } from '../../react-auth0-spa.jsx';
@@ -91,30 +92,33 @@ const Calendar = () => {
   return (
     <div className="cal-font">
       <div className="calendar-top" />
-      <div className="calendar">
-        <FullCalendar
-          defaultView="dayGridMonth"
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          header={{
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth, timeGridWeek, timeGridDay, listWeek',
-          }}
-          selectable
-          events={events}
-          dateClick={handleDateClick}
-          eventClick={eventClick}
-        />
-      </div>
-      {showEventForm ? (
-        <NewEvent date={clickedDate} handleEventPost={handleEventPost} />
-      ) : (
-        <div />
-      )}
-      {showEventOptions ? <EventOptions event={clickedEvent} /> : <div />}
-    </div>
+      <Row>
+        <Col xs="6">
+          <div className="calendar">
+            <FullCalendar
+              defaultView="dayGridMonth"
+              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              header={{
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth, timeGridWeek, timeGridDay, listWeek',
+              }}
+              selectable
+              events={events}
+              dateClick={handleDateClick}
+              eventClick={eventClick}
+            />
+          </div>
+        </Col>
+        <Col xs="6">
+          {showEventForm && (
+            <NewEvent className="calendar" date={clickedDate} />
+          )}
+          {showEventOptions && <EventOptions event={clickedEvent} />}
+        </Col>
+      </Row>
+    </div >
   );
 };
-
 
 export default Calendar;
