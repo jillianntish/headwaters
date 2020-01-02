@@ -4,24 +4,24 @@ import axios from 'axios';
 export const validateEmail = async email => {
   return await axios.get('/api/auth', {
     params: {
-      email
-    }
+      email,
+    },
   }).then(res => res.data);
 };
 
-export const createUser = async ({
+export const createUser = async({
   nickname,
-  email
+  email,
 }) => {
   return await axios.post('/api/auth', {
     nickname,
-    email
+    email,
   });
 };
 
 // axios calendar helpers
 
-export const createUserEvent = async (eventObj) => {
+export const createUserEvent = async(eventObj) => {
   return await axios.post(`/calendar/${eventObj.userId}/events`, eventObj)
     .then(res => {
       console.log(res.status);
@@ -34,7 +34,7 @@ export const createUserEvent = async (eventObj) => {
 export const handleIncomingData = incomingEvents => {
   return incomingEvents.reduce((newEventObj, incomingEvent) => {
     const start = incomingEvent.date_time;
-    start.replace(" ", "T");
+    start.replace(' ', 'T');
 
     newEventObj.push({
       user: incomingEvent.event_id_user,
@@ -45,7 +45,7 @@ export const handleIncomingData = incomingEvents => {
         practictioner: incomingEvent.practicioner,
         location: incomingEvent.location,
         notes: incomingEvent.notes,
-        type: incomingEvent.type
+        type: incomingEvent.type,
       },
     });
 
@@ -58,7 +58,7 @@ export const handleIncomingData = incomingEvents => {
 // };
 
 // axios journal helpers
-export const getPrevJournal = async ({
+export const getPrevJournal = async({
   date,
   text,
   status,
@@ -76,13 +76,14 @@ export const getPrevJournal = async ({
       nutrition,
       sleep,
       exercise,
-    }
+    },
   })
     .then(res => res.data)
-    .catch(err => console.log("error getting data from db for pillbox", err);
+    .catch(err => console.log('error getting data from db for pillbox', err));
 };
 
-export const addJournal = async ({
+
+export const addJournal = async({
   date,
   text,
   status,
@@ -90,7 +91,7 @@ export const addJournal = async ({
   nutrition,
   sleep,
   exercise,
-  journal_id_user
+  journal_id_user,
 }) => {
   return await axios.post('/journal/:userId/entries', {
     date,
@@ -100,46 +101,46 @@ export const addJournal = async ({
     nutrition,
     sleep,
     exercise,
-    journal_id_user
+    journal_id_user,
   })
     .then((response) => {
-      console.log("posting journal to server", response);
+      console.log('posting journal to server', response);
     })
     .catch((error) => {
-      console.log("error posting journal info", error);
+      console.log('error posting journal info', error);
     });
 };
 
 
 // axios pillbox helpers
-export const addMed = async ({
+export const addMed = async({
   name,
   url,
   dosage,
   times,
-  notes
+  notes,
 }) => {
   return await axios.post('/pillbox/:userId', {
     name,
     url,
     dosage,
     times,
-    notes
+    notes,
   })
     .then((response) => {
-      console.log("posting pillbox to server", response);
+      console.log('posting pillbox to server', response);
     })
     .catch((error) => {
-      console.log("error posting pillbox info", error);
+      console.log('error posting pillbox info', error);
     });
 };
 
-export const getListofMeds = async ({
+export const getListofMeds = async({
   name,
   dosage,
   times,
   notes,
-  url
+  url,
 }) => {
   return await axios.get('/pillbox/:userId', {
     params: {
@@ -147,10 +148,9 @@ export const getListofMeds = async ({
       dosage,
       times,
       notes,
-      url
-    }
+      url,
+    },
   })
     .then(res => res.data)
-    .catch(err =>
-      console.log("error getting data from db for pillbox", err));
+    .catch(err => console.log('error getting data from db for pillbox', err));
 };
