@@ -2,11 +2,21 @@
 import axios from 'axios';
 
 export const validateEmail = async email => {
-  return await axios.get('/api/auth', { params: { email } }).then(res => res.data);
+  return await axios.get('/api/auth', {
+    params: {
+      email
+    }
+  }).then(res => res.data);
 };
 
-export const createUser = async ({ nickname, email }) => {
-  return await axios.post('/api/auth', { nickname, email });
+export const createUser = async ({
+  nickname,
+  email
+}) => {
+  return await axios.post('/api/auth', {
+    nickname,
+    email
+  });
 };
 
 // axios calendar helpers
@@ -48,15 +58,7 @@ export const handleIncomingData = incomingEvents => {
 // };
 
 // axios journal helpers
-export const getPrevJournal = async ({ date,
-  text,
-  status,
-  h2oz,
-  nutrition,
-  sleep,
-  exercise, }) => {
-  return await axios.get('/:userId', {
-    params: {
+export const getPrevJournal = async ({
       date,
       text,
       status,
@@ -64,54 +66,91 @@ export const getPrevJournal = async ({ date,
       nutrition,
       sleep,
       exercise,
-    }
-  })
-    .then(res => res.data)
-    .catch(err => console.log("error getting data from db for pillbox", err);
-};
+    }) => {
+      return await axios.get('/:userId', {
+          params: {
+            date,
+            text,
+            status,
+            h2oz,
+            nutrition,
+            sleep,
+            exercise,
+          }
+        })
+        .then(res => res.data)
+        .catch(err => console.log("error getting data from db for pillbox", err);
+        };
 
-export const addJournal = async ({
-  date,
-  text,
-  status,
-  h2oz,
-  nutrition,
-  sleep,
-  exercise,
-  journal_id_user
-}) => {
-  return await axios.post('/:userId/entries', {
-    date,
-    text,
-    status,
-    h2oz,
-    nutrition,
-    sleep,
-    exercise,
-    journal_id_user
-  })
-    .then((response) => {
-      console.log("posting journal to server", response);
-    })
-    .catch((error) => {
-      console.log("error posting journal info", error);
-    });
-};
+      export const addJournal = async ({
+        date,
+        text,
+        status,
+        h2oz,
+        nutrition,
+        sleep,
+        exercise,
+        journal_id_user
+      }) => {
+        return await axios.post('/:userId/entries', {
+            date,
+            text,
+            status,
+            h2oz,
+            nutrition,
+            sleep,
+            exercise,
+            journal_id_user
+          })
+          .then((response) => {
+            console.log("posting journal to server", response);
+          })
+          .catch((error) => {
+            console.log("error posting journal info", error);
+          });
+      };
 
 
-// axios pillbox helpers
-export const addMed = async ({ users_meds_med, id_img, dosage, times, notes }) => {
-  return await axios.post('/:userId', { users_meds_med, id_img, dosage, times, notes })
-    .then((response) => {
-      console.log("posting pillbox to server", response);
-    })
-    .catch((error) => {
-      console.log("error posting pillbox info", error);
-    });
-};
+      // axios pillbox helpers
+      export const addMed = async ({
+        name,
+        url,
+        dosage,
+        times,
+        notes
+      }) => {
+        return await axios.post('/:userId', {
+            name,
+            url,
+            dosage,
+            times,
+            notes
+          })
+          .then((response) => {
+            console.log("posting pillbox to server", response);
+          })
+          .catch((error) => {
+            console.log("error posting pillbox info", error);
+          });
+      };
 
-export const getListofMeds = async ({ med, dosage, times, notes, pic }) => {
-  return await axios.get('/:userId', { params: { med, dosage, times, notes, pic } })
-    .then(res => res.data)
-    .catch(err => console.log("error getting data from db for pillbox", err);
-};
+      export const getListofMeds = async ({
+        name,
+        dosage,
+        times,
+        notes,
+        url
+      }) => {
+        return await axios.get('/:userId', {
+            params: {
+              name,
+              dosage,
+              times,
+              notes,
+              url
+            }
+          })
+          .then(res => res.data)
+          .catch(err =>
+            console.log("error getting data from db for pillbox", err));
+      };
