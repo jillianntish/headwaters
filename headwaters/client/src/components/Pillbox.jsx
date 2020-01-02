@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Button, FormGroup, Label, Input } from 'reactstrap';
+import {
+  Button, FormGroup, Label, Input,
+} from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa.jsx';
 
 import '../styles/event-form.css';
