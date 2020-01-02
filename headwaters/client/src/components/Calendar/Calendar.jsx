@@ -8,7 +8,7 @@ import { Col, Row } from 'reactstrap';
 import NewEvent from './NewEvent.jsx';
 import EventOptions from './EventOptions.jsx';
 import { useAuth0 } from '../../react-auth0-spa.jsx';
-import { getUserEvents, handleIncomingData, createUserEvent } from '../../utils/helpers';
+import { handleIncomingData, createUserEvent } from '../../utils/helpers';
 
 import '../../styles/calendar.css';
 
@@ -76,7 +76,7 @@ const Calendar = () => {
 
   const handleEventPost = newEvent => {
     createUserEvent(newEvent)
-      .then(response => {
+      .then(() => {
         // let user know
       })
       .catch(err => {

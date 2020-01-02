@@ -18,12 +18,12 @@ CREATE TABLE journals (
   id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   -- ('2020-01-01 10:10:10')
   date DATETIME NOT NULL,
-  text JSON, 
+  text LONGTEXT, 
   -- drop down
   status ENUM('anger', 'fear', 'disgust', 'happiness', 'sadness', 'surprise', 'neutral', 'anxiety', 'love', 'depression', 'contempt', 'pride', 'shame', 'envy') NOT NULL,
   -- ounces
   h2oz TINYINT, 
-  nutrition JSON,
+  nutrition MEDIUMTEXT,
   -- hours
   sleep TINYINT,
   -- minutes
@@ -51,7 +51,7 @@ CREATE TABLE meds (
 
 CREATE TABLE images (
   id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  url JSON
+  url VARCHAR(255)
 );
 
 CREATE TABLE users_meds (
@@ -78,7 +78,9 @@ CREATE TABLE users_meds (
   dosage INT, 
   -- times per day
   frequency INT,
-  notes JSON
+  scheduled_times MEDIUMTEXT,
+  practicioner VARCHAR(255) NOT NULL,
+  notes MEDIUMTEXT
 );
 
 CREATE TABLE events (
@@ -93,7 +95,7 @@ CREATE TABLE events (
   date_time VARCHAR(255) NOT NULL,
   notes MEDIUMTEXT NOT NULL,
   practicioner VARCHAR(255),
-  type ENUM('mental well-being', 'physical well-being', 'personal', 'other'),
+  type ENUM('mental well-being', 'physical well-being', 'personal', 'medication', 'other'),
   -- physical address
   location VARCHAR(255)
 );
