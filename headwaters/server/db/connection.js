@@ -13,6 +13,7 @@ const connection = mysql.createConnection({
   user: DB_USER,
   password: DB_PASS,
   database: DB_NAME,
+  multipleStatements: true,
 });
 
 // user helpers
@@ -197,10 +198,16 @@ const getUserMedications = (userId) => {
 const insertIntoMeds = (userId, name) => {
   // takes in a userId and a medication name
   // adds both to meds table
-  // query returns row with med id 
-  const medicationFields = [`${userId}, ${name}`];
-  const medicationSQL =    'insert into meds(med_id_user, name) values(?, ?); SELECT LAST_INSERT_ID();';
-  return query(medicationSQL, `${medicationFields}`);
+  // query returns row with med id
+  const medicationFields = [`${userId}`, `${name}`];
+  const medicationSQL = 'insert into meds(med_id_user, name) values(?, ?)';
+  const getMedId = 'SELECT LAST_INSERT_ID()';
+
+  return query(medicationSQL, medicationFields)
+    .then(response => {
+      return query(getMedId);
+    })
+    .catch(err => console.error(err));
 };
 
 const insertIntoImages = (url) => {
@@ -209,8 +216,13 @@ const insertIntoImages = (url) => {
   // query returns row with image id
 
   const imageFields = [`${url}`];
-  const imageSQL =    'insert into images(url) values(?); SELECT LAST_INSERT_ID();';
-  return query(imageSQL, `${imageFields}`);
+  const imageSQL = 'insert into images(url) values(?)';
+  const getImgId = 'SELECT LAST_INSERT_ID()';
+  return query(imageSQL, imageFields)
+    .then(response => {
+      return query(getImgId);
+    })
+    .catch(err => console.error(err));
 };
 
 const insertIntoUsersMeds = (userId, medId, imgId, newMedicationObj) => {
@@ -235,7 +247,7 @@ const insertIntoUsersMeds = (userId, medId, imgId, newMedicationObj) => {
   ];
 
   const userMedicationsSQL = 'insert into users_meds(users_meds_user, users_meds_med, id_img, dosage, frequency, scheduled_times, practicioner, notes) values(?, ?, ?, ?, ?, ?, ?, ?)';
-  return query(userMedicationsSQL, `${medicationFields}`);
+  return query(userMedicationsSQL, medicationFields);
 };
 
 const addUserMedicationMaster = (newMedicationObj, userId) => {
@@ -250,20 +262,18 @@ const addUserMedicationMaster = (newMedicationObj, userId) => {
   } = newMedicationObj;
 
   const asyncInsertion = async() => {
-    let medIdResponse = await insertIntoMeds(userId, name);
-    medIdResponse;
-    debugger;
-    let imgIdResponse = await insertIntoImages(url);
-    imgIdResponse;
-    debugger;
+    const medIdResponse = await insertIntoMeds(userId, name);
+    const imgIdResponse = await insertIntoImages(url);
     return [medIdResponse, imgIdResponse];
   };
 
-  asyncInsertion()
+  return asyncInsertion()
     .then(idArray => {
-      const medId = idArray[0];
-      const imgId = idArray[1];
-      insertIntoUsersMeds(userId, medId, imgId, newMedicationObj);
+      let medId = Object.values(idArray[0])[0];
+      medId = medId['LAST_INSERT_ID()'];
+      let imgId = Object.values(idArray[1])[0];
+      imgId = imgId['LAST_INSERT_ID()'];
+      return insertIntoUsersMeds(userId, medId, imgId, newMedicationObj);
     });
 };
 
@@ -292,4 +302,11 @@ module.exports = {
   findUserByEmail,
   getUserEvents,
   insertUserEvent,
+  getUserMedications,
+  insertIntoUsersMeds,
+  addUserMedicationMaster,
+  insertIntoMeds,
+  insertIntoImages,
+  getUserJournalEntries,
+  addJournalEntry,
 };
