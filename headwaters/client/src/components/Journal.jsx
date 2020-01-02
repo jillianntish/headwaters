@@ -10,12 +10,12 @@ class Journal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      journal: "Today's journal entry...",
+      journal: ' ',
       feelings: '',
       sleep: 0,
       water: 0,
       exercise: 0,
-      food: 'What did you eat?',
+      nutrition: ' ',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -24,7 +24,7 @@ class Journal extends React.Component {
 
   handleChange(event) {
     // event.preventDefault();
-    const value = event.target.value;
+    const { value } = event.target;
     this.setState({
 
       [event.target.name]: value,
@@ -37,16 +37,18 @@ class Journal extends React.Component {
   // };
 
   handleClick(e) {
-    const { water, sleep, exercise, food, feelings, journal } = this.state;
+    const {
+      water, sleep, exercise, nutrition, feelings, journal,
+    } = this.state;
     e.preventDefault();
     // const { water } = this.state;
     axios.post('/journal', {
-      water: water,
-      sleep: sleep,
-      exercise: exercise,
-      food: food,
-      feelings: feelings,
-      journal: journal
+      water,
+      sleep,
+      exercise,
+      nutrition,
+      feelings,
+      journal,
     })
       .then((response) => {
         console.log(response);
@@ -58,21 +60,24 @@ class Journal extends React.Component {
 
 
   render() {
-    const { water, sleep, exercise, food, feelings, journal } = this.state;
+    const {
+      water, sleep, exercise,
+    } = this.state;
     return (
       <div>
         <div className="new-event-form">
-          <h1>
-            Journal <span className="text-primary"></span>
-          </h1>
-          <form onSubmit={this.handleClick}>
+          <h3>
+            Journal <span className="text-primary" />
+          </h3>
+          <Form onSubmit={this.handleClick}>
             <FormGroup>
-              <Label for="journal">Today's Journal Entry:</Label>
+              <Label for="journal">today&apos;s journal entry:</Label>
               <Input type="textarea" name="journal" id="journal" onChange={this.handleChange} rows="10" cols="50" />
             </FormGroup>
-            <div>
-              <label htmlFor="feelings">How are you feeling today?</label>
-              <select name="feelings" onChange={this.handleChange}>
+
+            <FormGroup>
+              <Label htmlFor="feelings">what are you feeling?</Label>
+              <Input name="feelings" type="select" bsSize="sm" onChange={this.handleChange}>
                 <option value="happiness">happiness</option>
                 <option value="anger">anger</option>
                 <option value="sadness">sadness</option>
@@ -87,48 +92,45 @@ class Journal extends React.Component {
                 <option value="pride">pride</option>
                 <option value="shame">shame</option>
                 <option value="envy">envy</option>
-              </select>
+              </Input>
+            </FormGroup>
 
-              <FormGroup>
-                <Label for="water">How much water did you drink today?</Label>
-                <Input
-                  type="text"
-                  name="water"
-                  id="water"
-                  placeholder="Water in ounces"
-                  value={water}
-                  onChange={this.handleChange}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for="sleep">How much sleep did you get?</Label>
-                <Input
-                  type="text"
-                  name="sleep"
-                  id="sleep"
-                  placeholder="0"
-                  value={sleep}
-                  onChange={this.handleChange}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for="exercise">How much exercise did you get?</Label>
-                <Input
-                  type="text"
-                  name="exercise"
-                  id="exercise"
-                  placeholder="0"
-                  value={exercise}
-                  onChange={this.handleChange}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for="food">How much did you eat?</Label>
-                <Input type="textarea" name="food" id="food" onChange={this.handleChange} />
-              </FormGroup>
-            </div>
-            <Button color="primary" size="sm">Submit</Button>{' '}
-          </form>
+            <FormGroup>
+              <Label for="water">water intake in ounces:</Label>
+              <Input
+                type="text"
+                name="water"
+                id="water"
+                placeholder={water}
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="sleep">prevous night&apos;s sleep in hours:</Label>
+              <Input
+                type="text"
+                name="sleep"
+                id="sleep"
+                placeholder={sleep}
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="exercise">exercise in minutes:</Label>
+              <Input
+                type="text"
+                name="exercise"
+                id="exercise"
+                placeholder={exercise}
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="nutrition">nutrition notes:</Label>
+              <Input type="textarea" name="nutrition" id="nutrition" onChange={this.handleChange} />
+            </FormGroup>
+          </Form>
+          <Button color="primary" size="sm">Submit</Button>{' '}
         </div>
       </div>
     );
