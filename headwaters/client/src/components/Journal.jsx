@@ -4,13 +4,13 @@ import {
   Button, Form, FormGroup, Label, Input,
 } from 'reactstrap';
 
-import { useAuth0 } from '../../react-auth0-spa.jsx';
+// import { useAuth0 } from '../../react-auth0-spa.jsx';
 import '../styles/event-form.css';
 
 
 const Journal = () => {
-  const { user } = useAuth0();
-  const [handleChangeInfo] = useState([
+  // const { user } = useAuth0();
+  const [JournalState] = useState([
 
     {
       journal: '',
@@ -114,7 +114,7 @@ const Journal = () => {
               type="text"
               name="water"
               id="water"
-              placeholder={water}
+              placeholder="ounces"
               onChange={handleChange}
             />
           </FormGroup>
@@ -124,7 +124,7 @@ const Journal = () => {
               type="text"
               name="sleep"
               id="sleep"
-              placeholder={sleep}
+              placeholder="hours"
               onChange={handleChange}
             />
           </FormGroup>
@@ -134,7 +134,7 @@ const Journal = () => {
               type="text"
               name="exercise"
               id="exercise"
-              placeholder={exercise}
+              placeholder="exercise"
               onChange={handleChange}
             />
           </FormGroup>
