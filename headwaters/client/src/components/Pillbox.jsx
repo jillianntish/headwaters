@@ -77,12 +77,12 @@ class Pillbox extends React.Component {
     e.preventDefault();
     // const { water } = this.state;
     console.log("we're clicking", this.state.pic);
-    axios.post('/api/pillbox/:userId', {
-      med,
-      dosage,
-      times,
-      notes,
-      pic,
+    axios.post(`/api/pillbox/${1}`, {
+      med: med,
+      dosage: dosage,
+      times: times,
+      notes: notes,
+      pic: pic,
     })
       .then((response) => {
         console.log(response);
