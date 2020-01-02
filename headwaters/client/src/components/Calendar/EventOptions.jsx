@@ -5,7 +5,6 @@ import {
 import moment from 'moment';
 
 import '../../styles/event-options.css';
-import { isPropsEqual } from '@fullcalendar/core';
 
 const EventOptions = (props) => {
   const {
