@@ -5,19 +5,18 @@ import {
 import moment from 'moment';
 
 import '../../styles/event-options.css';
-import { renderDateCell } from '@fullcalendar/core';
 
 class EventOptions extends React.Component {
   constructor(props) {
     super(props);
     console.log(props);
     const {
-      title, start, practictioner, location,
+      title, start, practicioner, location,
     } = props.event[0];
     this.state = {
       title,
       start,
-      practictioner,
+      practicioner,
       location,
       show: true,
     };
@@ -34,7 +33,7 @@ class EventOptions extends React.Component {
 
   render() {
     const {
-      title, start, practictioner, location, show,
+      title, start, practicioner, location, show,
     } = this.state;
     // date conversion
     const dateFormat = moment(start, 'ddd MMM DD YYYY HH:mm:ss').format('ddd MMM Do, YYYY');
@@ -51,7 +50,7 @@ class EventOptions extends React.Component {
             <div>{title}</div>
             <div>{dateFormat}</div>
             <div>{timeFormat}</div>
-            <div>{practictioner}</div>
+            <div>{practicioner}</div>
             <div>{location}</div>
             <div className="option-buttons-container">
               <Button color="dark" size="sm">edit info</Button>{' '}

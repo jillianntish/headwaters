@@ -106,6 +106,35 @@ const findUserByEmail = email => {
   return query(findByEmail, [`${email}`]);
 };
 
+/*
+* Calendar Helpers
+* listed below
+*/
+
+const getUserEvents = (userId) => {
+  // retrieves all rows from events table that match userId
+  const selectEventsByUserId = 'select * from events where event_id_user = ?';
+  return query(selectEventsByUserId, [`${userId}`]);
+};
+
+const insertUserEvent = (newEventObj) => {
+  const {
+    userId, name, dateTime, notes, prac, type, locale,
+  } = newEventObj;
+  const eventFieldValues = [
+    `${userId}`,
+    `${name}`,
+    `${dateTime}`,
+    `${notes}`,
+    `${prac}`,
+    `${type}`,
+    `${locale}`,
+  ];
+  const newEventSQL = 'insert into events(event_id_user, name, date_time, notes, practicioner, type, location) values(?, ?, ?, ?, ?, ?, ?)';
+  return query(newEventSQL, eventFieldValues);
+};
+
+
 module.exports = {
   connection,
   DB_NAME,
@@ -114,4 +143,6 @@ module.exports = {
   newUser,
   findUser,
   findUserByEmail,
+  getUserEvents,
+  insertUserEvent,
 };

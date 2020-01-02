@@ -11,13 +11,37 @@ export const createUser = async({ nickname, email }) => {
 
 // axios calendar helpers
 
-// export const createUserEvent = async({}) => {
-//   await axios.post(endpoint, { json event info });
-// };
+export const createUserEvent = async(eventObj) => {
+  return await axios.post(`/calendar/${eventObj.userId}/events`, eventObj)
+    .then(res => {
+      console.log(res.status);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+};
 
-// export const getUserEvents = async({}) => {
-//   await axios.get(endpoint);
-// };
+export const handleIncomingData = incomingEvents => {
+  return incomingEvents.reduce((newEventObj, incomingEvent) => {
+    const start = incomingEvent.date_time;
+    start.replace(" ", "T");
+
+    newEventObj.push({
+      user: incomingEvent.event_id_user,
+      id: incomingEvent.id,
+      title: incomingEvent.name,
+      start,
+      extendedProps: {
+        practictioner: incomingEvent.practicioner,
+        location: incomingEvent.location,
+        notes: incomingEvent.notes,
+        type: incomingEvent.type
+      },
+    });
+
+    return newEventObj;
+  }, []);
+};
 
 // export const editUserEvent = async({}) => {
 //  await.axios.patch(endpoint, {})

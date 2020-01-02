@@ -3,42 +3,38 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import axios from 'axios';
 import { Col, Row } from 'reactstrap';
 import NewEvent from './NewEvent.jsx';
 import EventOptions from './EventOptions.jsx';
 import { useAuth0 } from '../../react-auth0-spa.jsx';
-// import { helpers } from '../../utils/helpers';
+import { getUserEvents, handleIncomingData, createUserEvent } from '../../utils/helpers';
 
 import '../../styles/calendar.css';
 
+
 const Calendar = () => {
   const { user } = useAuth0();
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [events, setEvents] = useState([
-    {
-      user,
-      id: '',
-      title: '',
-      start: '',
-      extendedProps: {
-        practictioner: '',
-        location: '',
-      },
-    },
-  ]);
 
   useEffect(() => {
-    // axios helper
-    setEvents([
-      {
-        title: 'Immunization for Away Team',
-        start: '2019-12-31T15:00:00',
-        extendedProps: {
-          practicioner: 'Dr. Crusher',
-          location: 'Starship Enterprise',
-        },
-      },
-    ]);
+    async function fetchUserEvents() {
+      await axios.get(`/calendar/${user.id}/events`).then(res => {
+        async function formatEvents() {
+          const response = await handleIncomingData(res.data);
+          return response;
+        }
+        formatEvents()
+          .then(formattedResponse => {
+            setEvents(formattedResponse);
+            setLoading(false);
+          });
+      });
+    }
+
+    fetchUserEvents();
   }, []);
 
   const [clickedDate, setClickedDate] = useState([]);
@@ -53,8 +49,6 @@ const Calendar = () => {
 
   const [showEventForm, setShowEventForm] = useState(false);
   const [showEventOptions, setShowEventOptions] = useState(false);
-
-  // const handleTimeConversion = () => {}
 
   const handleDateClick = arg => {
     setClickedDate([arg.date]);
@@ -79,6 +73,21 @@ const Calendar = () => {
       setShowEventForm(false);
     }
   };
+
+  const handleEventPost = newEvent => {
+    createUserEvent(newEvent)
+      .then(response => {
+        // let user know
+      })
+      .catch(err => {
+        console.error(err);
+        // let user know
+      });
+  };
+
+  if (loading) {
+    return 'Loading...';
+  }
 
   return (
     <div className="cal-font">

@@ -1,9 +1,33 @@
 const express = require('express');
+const { getUserEvents, insertUserEvent } = require('../server/db/connection');
 
-const router = express.Router();
+const calendarRouter = express.Router();
 
-router.get('/', (req, res) => res.send());
+calendarRouter.get('/:userId/events', (req, res) => {
+  const { userId } = req.params;
 
-router.post('/', (req, res) => res.send());
+  getUserEvents(userId)
+    .then(userRows => {
+      const userEvents = Array.from(userRows);
+      res.send(userEvents);
+    })
+    .catch(err => {
+      res.sendStatus(404);
+    });
+});
 
-module.exports = router;
+calendarRouter.post('/:userId/events', (req, res) => {
+  const newEventObj = req.body[0];
+
+  insertUserEvent(newEventObj)
+    .then(okResponse => {
+      res.sendStatus(201);
+    })
+    .catch(err => {
+      console.log(err)
+      debugger;
+      res.sendStatus(501);
+    });
+});
+
+module.exports = calendarRouter;
