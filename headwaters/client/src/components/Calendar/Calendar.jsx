@@ -84,9 +84,7 @@ const Calendar = () => {
 
   const handleEventDeletion = (id, userId) => {
     deleteUserEvent(id, userId)
-      .then(response => {
-        response;
-        debugger;
+      .then(() => {
         setShowEventOptions(false);
       })
       .catch(err => console.error(err));
