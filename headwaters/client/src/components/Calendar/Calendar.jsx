@@ -51,6 +51,14 @@ const Calendar = () => {
     }
   };
 
+  const handleOpenFormAtEvent = (date) => {
+    setClickedDate(date);
+    setShowEventForm(true);
+    if (showEventOptions) {
+      setShowEventOptions(false);
+    }
+  };
+
   const eventClick = info => {
     setClickedEvent([
       {
@@ -120,7 +128,7 @@ const Calendar = () => {
             <NewEvent className="calendar" date={clickedDate} handleEventPost={handleEventPost} />
           )}
           {showEventOptions && (
-          <EventOptions event={clickedEvent} handleEventDeletion={handleEventDeletion} />
+          <EventOptions event={clickedEvent} handleEventDeletion={handleEventDeletion} handleOpenFormAtEvent={handleOpenFormAtEvent} />
           )}
         </Col>
       </Row>
