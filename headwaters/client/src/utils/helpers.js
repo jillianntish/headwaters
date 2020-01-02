@@ -22,12 +22,11 @@ export const createUserEvent = async(eventObj) => {
 };
 
 export const handleIncomingData = incomingEvents => {
-  let formattedEvents = [];
-  const eventData = incomingEvents.map(incomingEvent => {
+  return incomingEvents.reduce((newEventObj, incomingEvent) => {
     const start = incomingEvent.date_time;
     start.replace(" ", "T");
 
-    formattedEvents = formattedEvents.concat({
+    newEventObj.push({
       user: incomingEvent.event_id_user,
       id: incomingEvent.id,
       title: incomingEvent.name,
@@ -37,19 +36,11 @@ export const handleIncomingData = incomingEvents => {
         location: incomingEvent.location,
         notes: incomingEvent.notes,
         type: incomingEvent.type
-      }
+      },
     });
 
-    return formattedEvents;
-  });
-
-  return eventData;
-};
-
-export const getUserEvents = async userId => {
-  await axios.get(`/calendar/${userId}/events`).then(res => {
-    return handleIncomingData(res.data);
-  });
+    return newEventObj;
+  }, []);
 };
 
 // export const editUserEvent = async({}) => {
