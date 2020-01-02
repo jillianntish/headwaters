@@ -32,7 +32,6 @@ const NewEvent = (props) => {
       'YYYY-MM-DD',
     );
     const dateTime = `${dateConvert} ${time}`;
-    console.log(dateTime);
 
     const newEvent = [
       {
@@ -46,7 +45,6 @@ const NewEvent = (props) => {
       },
     ];
 
-    console.log(newEvent);
     handleEventPost(newEvent);
   };
 
