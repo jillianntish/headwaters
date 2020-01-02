@@ -2,8 +2,8 @@ const express = require('express');
 const path = require('path');
 const { DB_NAME } = require('./db/connection');
 const { checkEmail, newUser, findUserByEmail } = require('./db/connection');
-const { journalRouter } = require('../routes/journal');
-const { pillboxRouter } = require('../routes/pillbox');
+const journalRouter = require('../routes/journal');
+const pillboxRouter = require('../routes/pillbox');
 
 const app = express();
 
