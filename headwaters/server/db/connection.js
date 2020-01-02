@@ -19,26 +19,6 @@ const connection = mysql.createConnection({
 
 const query = promisify(connection.query).bind(connection);
 
-// const login = (email, password, callback) => {
-//   connection.query(query, [email], (err, results) => {
-//     if (err) return callback(err);
-//     if (results.length === 0)
-//       return callback(new WrongUsernameOrPasswordError(email));
-//     const user = results[0];
-
-//     bcrypt.compare(password, user.password, (err, isValid) => {
-//       if (err || !isValid)
-//         return callback(err || new WrongUsernameOrPasswordError(email));
-
-//       callback(null, {
-//         user_id: user.id.toString(),
-//         username: user.username,
-//         email: user.email,
-//       });
-//     });
-//   });
-// };
-
 const checkUsername = username => {
   // checks if a given username is found in db
   // returns a boolean

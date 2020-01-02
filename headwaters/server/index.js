@@ -2,11 +2,16 @@ const express = require('express');
 const path = require('path');
 const { DB_NAME } = require('./db/connection');
 const { checkEmail, newUser, findUserByEmail } = require('./db/connection');
+const journalRouter = require('../routes/journal');
+const pillboxRouter = require('../routes/pillbox');
 
 const app = express();
 
 // Init Middleware
 app.use(express.json({ extended: false }));
+
+app.use('/journal', journalRouter);
+app.use('/pillbox', pillboxRouter);
 
 app.get('/api/auth', async(req, res) => {
   const payload = req.query;
