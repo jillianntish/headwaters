@@ -7,24 +7,16 @@ import '../styles/event-form.css';
 
 const Journal = () => {
   // const { user } = useAuth0();
-  const [JournalState] = useState([
-    {
-      journal: '',
-      feelings: '',
-      sleep: 0,
-      water: 0,
-      exercise: 0,
-      nutrition: '',
-    },
-  ]);
-
-  const handleChange = event => {
-    // event.preventDefault();
-    const { value } = event.target;
-    this.setState({
-      [event.target.name]: value,
-    });
-  };
+  // const [JournalState] = useState([
+  //   {
+  //     journal: '',
+  //     feelings: '',
+  //     sleep: 0,
+  //     water: 0,
+  //     exercise: 0,
+  //     nutrition: '',
+  //   },
+  // ]);
 
   // const onSubmit = e => {
   //   e.preventDefault();
@@ -32,26 +24,27 @@ const Journal = () => {
   // };
 
   const handleClick = e => {
-    const { water, sleep, exercise, nutrition, feelings, journal } = this.state;
-    e.preventDefault();
-    // const { water } = this.state;
-    axios
-      .post('/journal', {
-        water,
-        sleep,
-        exercise,
-        nutrition,
-        feelings,
-        journal,
-      })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    // const { water, sleep, exercise, nutrition, feelings, journal } = this.state;
+    // e.preventDefault();
+    // // const { water } = this.state;
+    // axios
+    //   .post('/journal', {
+    //     water,
+    //     sleep,
+    //     exercise,
+    //     nutrition,
+    //     feelings,
+    //     journal,
+    //   })
+    //   .then(response => {
+    //     console.log(response);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   };
 
+  const [feeling, setFeeling] = useState([]);
   return (
     <div>
       <div className="new-event-form">
@@ -65,7 +58,7 @@ const Journal = () => {
               type="textarea"
               name="journal"
               id="journal"
-              onChange={handleChange}
+              // onChange={handleChange}
               rows="10"
               cols="50"
             />
@@ -77,7 +70,10 @@ const Journal = () => {
               name="feelings"
               type="select"
               bsSize="sm"
-              onChange={handleChange}
+              onChange={e => {
+                setFeeling(e.target.value);
+                console.log(e.target.value);
+              }}
             >
               <option value="happiness">happiness</option>
               <option value="anger">anger</option>
@@ -103,17 +99,17 @@ const Journal = () => {
               name="water"
               id="water"
               placeholder="ounces"
-              onChange={handleChange}
+              // onChange={handleChange}
             />
           </FormGroup>
           <FormGroup>
-            <Label for="sleep">prevous night&apos;s sleep in hours:</Label>
+            <Label for="sleep">previous night&apos;s sleep in hours:</Label>
             <Input
               type="text"
               name="sleep"
               id="sleep"
               placeholder="hours"
-              onChange={handleChange}
+              // onChange={handleChange}
             />
           </FormGroup>
           <FormGroup>
@@ -123,7 +119,7 @@ const Journal = () => {
               name="exercise"
               id="exercise"
               placeholder="exercise"
-              onChange={handleChange}
+              // onChange={handleChange}
             />
           </FormGroup>
           <FormGroup>
@@ -132,7 +128,7 @@ const Journal = () => {
               type="textarea"
               name="nutrition"
               id="nutrition"
-              onChange={handleChange}
+              // onChange={handleChange}
             />
           </FormGroup>
         </Form>
