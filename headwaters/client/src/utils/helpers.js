@@ -48,6 +48,34 @@ export const handleIncomingData = incomingEvents => {
 // };
 
 // axios journal helpers
+export const addJournal = async ({
+  date,
+  text,
+  status,
+  h2oz,
+  nutrition,
+  sleep,
+  exercise,
+  journal_id_user
+}) => {
+  return await axios.post('/:userId/entries', {
+    date,
+    text,
+    status,
+    h2oz,
+    nutrition,
+    sleep,
+    exercise,
+    journal_id_user
+  })
+    .then((response) => {
+      console.log("posting journal to server", response);
+    })
+    .catch((error) => {
+      console.log("error posting journal info", error);
+    });
+};
+
 
 // axios pillbox helpers
 export const addMed = async ({ med, dosage, times, notes, pic }) => {
