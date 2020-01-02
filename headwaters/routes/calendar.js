@@ -8,10 +8,9 @@ calendarRouter.get('/:userId/events', (req, res) => {
 
   getUserEvents(userId)
     .then(userRows => {
-      const userEvents = Array.from(userRows);
-      res.send(userEvents);
+      res.send(userRows);
     })
-    .catch(err => {
+    .catch(() => {
       res.sendStatus(404);
     });
 });
@@ -20,7 +19,7 @@ calendarRouter.post('/:userId/events', (req, res) => {
   const newEventObj = req.body[0];
 
   insertUserEvent(newEventObj)
-    .then(okResponse => {
+    .then(() => {
       res.sendStatus(201);
     })
     .catch(err => {
