@@ -112,7 +112,7 @@ const Calendar = () => {
         </Col>
         <Col xs="6">
           {showEventForm && (
-            <NewEvent className="calendar" date={clickedDate} />
+            <NewEvent className="calendar" date={clickedDate} handleEventPost={handleEventPost} />
           )}
           {showEventOptions && <EventOptions event={clickedEvent} />}
         </Col>

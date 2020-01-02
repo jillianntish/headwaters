@@ -45,7 +45,6 @@ class Pillbox extends React.Component {
     let { times, time } = this.state;
     console.log('getting time', times);
     times = times.push(time);
-    // time = times.concat(time);
   }
 
   handleChange(event) {
@@ -56,7 +55,6 @@ class Pillbox extends React.Component {
 
       [event.target.name]: value,
     });
-    console.log("we're setting state", time);
   }
 
   selectFileHandler(e) {
@@ -76,8 +74,6 @@ class Pillbox extends React.Component {
       med, dosage, times, notes, pic,
     } = this.state;
     e.preventDefault();
-    // const { water } = this.state;
-    console.log("we're clicking", pic);
     axios.post('/pillbox', {
       med,
       dosage,

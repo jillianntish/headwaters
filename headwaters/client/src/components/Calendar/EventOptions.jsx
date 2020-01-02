@@ -9,7 +9,6 @@ import '../../styles/event-options.css';
 class EventOptions extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     const {
       title, start, practicioner, location,
     } = props.event[0];
@@ -37,10 +36,8 @@ class EventOptions extends React.Component {
     } = this.state;
     // date conversion
     const dateFormat = moment(start, 'ddd MMM DD YYYY HH:mm:ss').format('ddd MMM Do, YYYY');
-    console.log(dateFormat);
     // time conversion
     const timeFormat = moment(start, 'ddd MMM DD YYYY HH:mm:ss').format('hh:mm A');
-    console.log(timeFormat);
 
     return (
       <div className="event-options">
