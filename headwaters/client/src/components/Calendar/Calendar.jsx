@@ -8,8 +8,7 @@ import { Col, Row } from 'reactstrap';
 import NewEvent from './NewEvent.jsx';
 import EventOptions from './EventOptions.jsx';
 import { useAuth0 } from '../../react-auth0-spa.jsx';
-import { createUserEvent, deleteUserEvent } from '../../utils/helpers';
-import { handleIncomingData } from '../../utils/component-helpers';
+import { createUserEvent, deleteUserEvent, handleIncomingData } from '../../utils/helpers';
 
 import '../../styles/calendar.css';
 
