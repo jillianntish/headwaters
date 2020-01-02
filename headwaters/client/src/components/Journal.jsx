@@ -29,7 +29,6 @@ class Journal extends React.Component {
 
       [event.target.name]: value,
     });
-    console.log("we're setting state", this.state.journal);
   }
 
   // const onSubmit = e => {
@@ -41,7 +40,6 @@ class Journal extends React.Component {
     const { water, sleep, exercise, food, feelings, journal } = this.state;
     e.preventDefault();
     // const { water } = this.state;
-    console.log("we're clicking", this.state.feelings);
     axios.post('/journal', {
       water: water,
       sleep: sleep,
@@ -72,13 +70,6 @@ class Journal extends React.Component {
               <Label for="journal">Today's Journal Entry:</Label>
               <Input type="textarea" name="journal" id="journal" onChange={this.handleChange} rows="10" cols="50" />
             </FormGroup>
-            {/* <div>
-              <textarea name="journal" value={journal}
-                onChange={this.handleChange}
-                rows="10" cols="50">
-
-              </textarea>
-            </div> */}
             <div>
               <label htmlFor="feelings">How are you feeling today?</label>
               <select name="feelings" onChange={this.handleChange}>
@@ -109,15 +100,6 @@ class Journal extends React.Component {
                   onChange={this.handleChange}
                 />
               </FormGroup>
-              {/* <div>
-                <label htmlFor="water">How much water did you drink today?</label>
-                <input
-                  type="text"
-                  name="water"
-                  value={water}
-                  onChange={this.handleChange}
-                />
-              </div> */}
               <FormGroup>
                 <Label for="sleep">How much sleep did you get?</Label>
                 <Input
@@ -129,16 +111,6 @@ class Journal extends React.Component {
                   onChange={this.handleChange}
                 />
               </FormGroup>
-
-              {/* <div>
-                <label htmlFor="sleep">How much sleep did you get?</label>
-                <input
-                  type="sleep"
-                  name="sleep"
-                  value={sleep}
-                  onChange={this.handleChange}
-                />
-              </div> */}
               <FormGroup>
                 <Label for="exercise">How much exercise did you get?</Label>
                 <Input
@@ -150,28 +122,10 @@ class Journal extends React.Component {
                   onChange={this.handleChange}
                 />
               </FormGroup>
-
-              {/* <div>
-                <label htmlFor="exercise">How much exercise did you get?</label>
-                <input
-                  type="exercise"
-                  name="exercise"
-                  value={exercise}
-                  onChange={this.handleChange}
-                />
-              </div> */}
-
               <FormGroup>
                 <Label for="food">How much did you eat?</Label>
                 <Input type="textarea" name="food" id="food" onChange={this.handleChange} />
               </FormGroup>
-
-              {/* <div>
-                <textarea name="food" value={food}
-                  onChange={this.handleChange}
-                  rows="3" cols="50">
-                </textarea>
-              </div> */}
             </div>
             <Button color="primary" size="sm">Submit</Button>{' '}
           </form>
