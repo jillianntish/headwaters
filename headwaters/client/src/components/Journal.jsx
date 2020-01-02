@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
@@ -7,24 +8,12 @@ import '../styles/event-form.css';
 
 const Journal = () => {
   // const { user } = useAuth0();
-  const [JournalState] = useState([
-    {
-      journal: '',
-      feelings: '',
-      sleep: 0,
-      water: 0,
-      exercise: 0,
-      nutrition: '',
-    },
-  ]);
-
-  const handleChange = event => {
-    // event.preventDefault();
-    const { value } = event.target;
-    this.setState({
-      [event.target.name]: value,
-    });
-  };
+  const [journal, setJournal] = useState([]);
+  const [feeling, setFeeling] = useState([]);
+  const [water, setWater] = useState([]);
+  const [sleep, setSleep] = useState([]);
+  const [exercise, setExercise] = useState([]);
+  const [nutrition, setNutrition] = useState([]);
 
   // const onSubmit = e => {
   //   e.preventDefault();
@@ -32,24 +21,15 @@ const Journal = () => {
   // };
 
   const handleClick = e => {
-    const { water, sleep, exercise, nutrition, feelings, journal } = this.state;
-    e.preventDefault();
-    // const { water } = this.state;
-    axios
-      .post('/journal', {
-        water,
-        sleep,
-        exercise,
-        nutrition,
-        feelings,
-        journal,
-      })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    // const { water, sleep, exercise, nutrition, feelings, journal } = this.state;
+    // e.preventDefault();
+    // // const { water } = this.state;
+    //   .then(response => {
+    //     console.log(response);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   };
 
   return (
@@ -65,7 +45,9 @@ const Journal = () => {
               type="textarea"
               name="journal"
               id="journal"
-              onChange={handleChange}
+              onChange={e => {
+                setJournal(e.target.value);
+              }}
               rows="10"
               cols="50"
             />
@@ -77,7 +59,9 @@ const Journal = () => {
               name="feelings"
               type="select"
               bsSize="sm"
-              onChange={handleChange}
+              onChange={e => {
+                setFeeling(e.target.value);
+              }}
             >
               <option value="happiness">happiness</option>
               <option value="anger">anger</option>
@@ -103,17 +87,21 @@ const Journal = () => {
               name="water"
               id="water"
               placeholder="ounces"
-              onChange={handleChange}
+              onChange={e => {
+                setWater(e.target.value);
+              }}
             />
           </FormGroup>
           <FormGroup>
-            <Label for="sleep">prevous night&apos;s sleep in hours:</Label>
+            <Label for="sleep">previous night&apos;s sleep in hours:</Label>
             <Input
               type="text"
               name="sleep"
               id="sleep"
               placeholder="hours"
-              onChange={handleChange}
+              onChange={e => {
+                setSleep(e.target.value);
+              }}
             />
           </FormGroup>
           <FormGroup>
@@ -123,7 +111,10 @@ const Journal = () => {
               name="exercise"
               id="exercise"
               placeholder="exercise"
-              onChange={handleChange}
+              onChange={e => {
+                setExercise(e.target.value);
+                console.log(e.target.value);
+              }}
             />
           </FormGroup>
           <FormGroup>
@@ -132,7 +123,9 @@ const Journal = () => {
               type="textarea"
               name="nutrition"
               id="nutrition"
-              onChange={handleChange}
+              onChange={e => {
+                setNutrition(e.target.value);
+              }}
             />
           </FormGroup>
         </Form>
