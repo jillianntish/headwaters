@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
@@ -7,16 +8,11 @@ import '../styles/event-form.css';
 
 const Journal = () => {
   // const { user } = useAuth0();
-  // const [JournalState] = useState([
-  //   {
-  //     journal: '',
-  //     feelings: '',
-  //     sleep: 0,
-  //     water: 0,
-  //     exercise: 0,
-  //     nutrition: '',
-  //   },
-  // ]);
+  const [feeling, setFeeling] = useState([]);
+  const [water, setWater] = useState([]);
+  const [sleep, setSleep] = useState([]);
+  const [exercise, setExercise] = useState([]);
+  const [nutrition, setNutrition] = useState([]);
 
   // const onSubmit = e => {
   //   e.preventDefault();
@@ -44,7 +40,6 @@ const Journal = () => {
     //   });
   };
 
-  const [feeling, setFeeling] = useState([]);
   return (
     <div>
       <div className="new-event-form">
@@ -72,7 +67,6 @@ const Journal = () => {
               bsSize="sm"
               onChange={e => {
                 setFeeling(e.target.value);
-                console.log(e.target.value);
               }}
             >
               <option value="happiness">happiness</option>
@@ -99,7 +93,9 @@ const Journal = () => {
               name="water"
               id="water"
               placeholder="ounces"
-              // onChange={handleChange}
+              onChange={e => {
+                setWater(e.target.value);
+              }}
             />
           </FormGroup>
           <FormGroup>
@@ -109,7 +105,9 @@ const Journal = () => {
               name="sleep"
               id="sleep"
               placeholder="hours"
-              // onChange={handleChange}
+              onChange={e => {
+                setSleep(e.target.value);
+              }}
             />
           </FormGroup>
           <FormGroup>
@@ -119,7 +117,10 @@ const Journal = () => {
               name="exercise"
               id="exercise"
               placeholder="exercise"
-              // onChange={handleChange}
+              onChange={e => {
+                setExercise(e.target.value);
+                console.log(e.target.value);
+              }}
             />
           </FormGroup>
           <FormGroup>
@@ -128,7 +129,9 @@ const Journal = () => {
               type="textarea"
               name="nutrition"
               id="nutrition"
-              // onChange={handleChange}
+              onChange={e => {
+                setNutrition(e.target.value);
+              }}
             />
           </FormGroup>
         </Form>
