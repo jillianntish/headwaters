@@ -146,7 +146,7 @@ const getUserJournalEntries = userId => {
 };
 
 
-const addJournalEntry = (journalEntryObj) => {
+const addJournalEntry = (journalEntryObj, userId) => {
   const {
     date,
     text,
@@ -155,21 +155,21 @@ const addJournalEntry = (journalEntryObj) => {
     nutrition,
     sleep,
     exercise,
-    userId,
   } = journalEntryObj;
 
   const entryFieldValues = [
-    date,
-    status,
-    h2oz,
-    nutrition,
-    sleep,
-    exercise,
-    userId,
+    `${date}`,
+    `${text}`,
+    `${status}`,
+    `${h2oz}`,
+    `${nutrition}`,
+    `${sleep}`,
+    `${exercise}`,
+    `${userId}`,
   ];
 
-  const newEntrySQL = 'insert into journals(date, text, status, h2oz, nutrition, sleep, exercise, journal_id_user) where values(?, ?, ?, ?, ?, ?, ?, ?)';
-  return query(newEntrySQL, [`${entryFieldValues}`]);
+  const newEntrySQL = 'insert into journals(date, text, status, h2oz, nutrition, sleep, exercise, journal_id_user) values(?, ?, ?, ?, ?, ?, ?, ?)';
+  return query(newEntrySQL, entryFieldValues);
 };
 
 /*
@@ -204,7 +204,7 @@ const insertIntoMeds = (userId, name) => {
   const getMedId = 'SELECT LAST_INSERT_ID()';
 
   return query(medicationSQL, medicationFields)
-    .then(response => {
+    .then(() => {
       return query(getMedId);
     })
     .catch(err => console.error(err));
@@ -219,7 +219,7 @@ const insertIntoImages = (url) => {
   const imageSQL = 'insert into images(url) values(?)';
   const getImgId = 'SELECT LAST_INSERT_ID()';
   return query(imageSQL, imageFields)
-    .then(response => {
+    .then(() => {
       return query(getImgId);
     })
     .catch(err => console.error(err));
@@ -309,4 +309,5 @@ module.exports = {
   insertIntoImages,
   getUserJournalEntries,
   addJournalEntry,
+  createUserMedEvents,
 };
