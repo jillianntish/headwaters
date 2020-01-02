@@ -9,12 +9,11 @@
 
 .calendar-top {
   padding-top: 20px;
-  /* margin: 0 0 5em; */
 }
 
 .calendar {
   margin: auto;
   max-width: 800px;
+  min-width: 400px;
   padding: 20px;
-  /* display: inline-block; */
 }

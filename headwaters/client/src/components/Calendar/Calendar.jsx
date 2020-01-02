@@ -3,7 +3,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { Col, Container, Row } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 import NewEvent from './NewEvent.jsx';
 import EventOptions from './EventOptions.jsx';
 import { useAuth0 } from '../../react-auth0-spa.jsx';
@@ -81,38 +81,34 @@ const Calendar = () => {
   };
 
   return (
-    <Container>
-      <div className="cal-font">
-        <div className="calendar-top" />
-        <Row>
-          <Col xs="6">
-            <div className="calendar">
-              <FullCalendar
-                defaultView="dayGridMonth"
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                header={{
-                  left: 'prev,next today',
-                  center: 'title',
-                  right: 'dayGridMonth, timeGridWeek, timeGridDay, listWeek',
-                }}
-                selectable
-                events={events}
-                dateClick={handleDateClick}
-                eventClick={eventClick}
-              />
-            </div>
-          </Col>
-          <Col xs="6">
-            {showEventForm && (
-              <NewEvent className="calendar" date={clickedDate} />
-            )}
-          </Col>
-          <Col xs="6">
-            {showEventOptions && <EventOptions event={clickedEvent} />}
-          </Col>
-        </Row>
-      </div>
-    </Container>
+    <div className="cal-font">
+      <div className="calendar-top" />
+      <Row>
+        <Col xs="6">
+          <div className="calendar">
+            <FullCalendar
+              defaultView="dayGridMonth"
+              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              header={{
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth, timeGridWeek, timeGridDay, listWeek',
+              }}
+              selectable
+              events={events}
+              dateClick={handleDateClick}
+              eventClick={eventClick}
+            />
+          </div>
+        </Col>
+        <Col xs="6">
+          {showEventForm && (
+            <NewEvent className="calendar" date={clickedDate} />
+          )}
+          {showEventOptions && <EventOptions event={clickedEvent} />}
+        </Col>
+      </Row>
+    </div>
   );
 };
 
