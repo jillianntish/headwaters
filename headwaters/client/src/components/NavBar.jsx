@@ -10,12 +10,9 @@ import {
   NavLink,
 } from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa.jsx';
-import '../styles/navbar.css';
 
 const NavBar = () => {
-  const {
-    isAuthenticated, loginWithRedirect, logout, user,
-  } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const [collapsed, setCollapsed] = useState(true);
   const toggleNavbar = () => setCollapsed(!collapsed);
 
@@ -26,7 +23,7 @@ const NavBar = () => {
           headwaters
         </NavbarBrand>
         {isAuthenticated && (
-        <NavbarToggler onClick={toggleNavbar} className="mr-2" />
+          <NavbarToggler onClick={toggleNavbar} className="mr-2" />
         )}
         <Collapse isOpen={!collapsed} navbar>
           <Nav className="ml-auto" navbar>
