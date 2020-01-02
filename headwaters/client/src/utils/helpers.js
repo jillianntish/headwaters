@@ -1,6 +1,7 @@
 /* eslint-disable no-return-await */
 import axios from 'axios';
 
+
 export const validateEmail = async(email) => {
   return await axios.get('/api/auth', {
     params: {
@@ -37,11 +38,11 @@ export const handleIncomingData = incomingEvents => {
     start.replace(' ', 'T');
 
     newEventObj.push({
-      user: incomingEvent.event_id_user,
-      id: incomingEvent.id,
       title: incomingEvent.name,
       start,
       extendedProps: {
+        user: incomingEvent.event_id_user,
+        id: incomingEvent.id,
         practictioner: incomingEvent.practicioner,
         location: incomingEvent.location,
         notes: incomingEvent.notes,
@@ -56,6 +57,17 @@ export const handleIncomingData = incomingEvents => {
 // export const editUserEvent = async({}) => {
 //  await.axios.patch(endpoint, {})
 // };
+
+export const deleteUserEvent = async(eventId, userId) => {
+  return await axios.delete(`/calendar/${userId}/events/${eventId}`)
+    .then(response => {
+      response;
+      debugger;
+    })
+    .catch(err => {
+      console.error(err);
+    });
+};
 
 // axios journal helpers
 export const getUserEntries = async(userId) => {

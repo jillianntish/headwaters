@@ -8,7 +8,7 @@ import { Col, Row } from 'reactstrap';
 import NewEvent from './NewEvent.jsx';
 import EventOptions from './EventOptions.jsx';
 import { useAuth0 } from '../../react-auth0-spa.jsx';
-import { handleIncomingData, createUserEvent } from '../../utils/helpers';
+import { createUserEvent, deleteUserEvent, handleIncomingData } from '../../utils/helpers';
 
 import '../../styles/calendar.css';
 
@@ -38,14 +38,7 @@ const Calendar = () => {
   }, []);
 
   const [clickedDate, setClickedDate] = useState([]);
-  const [clickedEvent, setClickedEvent] = useState([
-    {
-      title: '',
-      state: '',
-      practicioner: '',
-      location: '',
-    },
-  ]);
+  const [clickedEvent, setClickedEvent] = useState([]);
 
   const [showEventForm, setShowEventForm] = useState(false);
   const [showEventOptions, setShowEventOptions] = useState(false);
@@ -58,13 +51,25 @@ const Calendar = () => {
     }
   };
 
+  const handleOpenFormAtEvent = (date) => {
+    setClickedDate(date);
+    setShowEventForm(true);
+    if (showEventOptions) {
+      setShowEventOptions(false);
+    }
+  };
+
   const eventClick = info => {
     setClickedEvent([
       {
         title: info.event.title,
         start: info.event.start.toString(),
+        user: info.event.extendedProps.user,
+        id: info.event.extendedProps.id,
         practicioner: info.event.extendedProps.practicioner,
         location: info.event.extendedProps.location,
+        notes: info.event.extendedProps.notes,
+        type: info.event.extendedProps.type,
       },
     ]);
 
@@ -83,6 +88,14 @@ const Calendar = () => {
         console.error(err);
         // let user know
       });
+  };
+
+  const handleEventDeletion = (id, userId) => {
+    deleteUserEvent(id, userId)
+      .then(() => {
+        setShowEventOptions(false);
+      })
+      .catch(err => console.error(err));
   };
 
   if (loading) {
@@ -114,7 +127,9 @@ const Calendar = () => {
           {showEventForm && (
             <NewEvent className="calendar" date={clickedDate} handleEventPost={handleEventPost} />
           )}
-          {showEventOptions && <EventOptions event={clickedEvent} />}
+          {showEventOptions && (
+          <EventOptions event={clickedEvent} handleEventDeletion={handleEventDeletion} handleOpenFormAtEvent={handleOpenFormAtEvent} />
+          )}
         </Col>
       </Row>
     </div>
