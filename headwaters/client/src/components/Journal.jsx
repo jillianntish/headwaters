@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {
-  Button, Form, FormGroup, Label, Input,
-} from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 // import { useAuth0 } from '../../react-auth0-spa.jsx';
 import '../styles/event-form.css';
 
-
 const Journal = () => {
   // const { user } = useAuth0();
   const [JournalState] = useState([
-
     {
       journal: '',
       feelings: '',
@@ -22,30 +18,13 @@ const Journal = () => {
     },
   ]);
 
-  // class Journal extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     journal: ' ',
-  //     feelings: '',
-  //     sleep: 0,
-  //     water: 0,
-  //     exercise: 0,
-  //     nutrition: ' ',
-  //   };
-  //   this.handleChange = this.handleChange.bind(this);
-  //   this.handleClick = this.handleClick.bind(this);
-  // }
-
-
   const handleChange = event => {
     // event.preventDefault();
     const { value } = event.target;
     this.setState({
-
       [event.target.name]: value,
     });
-  }
+  };
 
   // const onSubmit = e => {
   //   e.preventDefault();
@@ -53,28 +32,25 @@ const Journal = () => {
   // };
 
   const handleClick = e => {
-    const {
-      water, sleep, exercise, nutrition, feelings, journal,
-    } = this.state;
+    const { water, sleep, exercise, nutrition, feelings, journal } = this.state;
     e.preventDefault();
     // const { water } = this.state;
-    axios.post('/journal', {
-      water,
-      sleep,
-      exercise,
-      nutrition,
-      feelings,
-      journal,
-    })
-      .then((response) => {
+    axios
+      .post('/journal', {
+        water,
+        sleep,
+        exercise,
+        nutrition,
+        feelings,
+        journal,
+      })
+      .then(response => {
         console.log(response);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
-  }
-
-
+  };
 
   return (
     <div>
@@ -85,12 +61,24 @@ const Journal = () => {
         <Form onSubmit={handleClick}>
           <FormGroup>
             <Label for="journal">today&apos;s journal entry:</Label>
-            <Input type="textarea" name="journal" id="journal" onChange={handleChange} rows="10" cols="50" />
+            <Input
+              type="textarea"
+              name="journal"
+              id="journal"
+              onChange={handleChange}
+              rows="10"
+              cols="50"
+            />
           </FormGroup>
 
           <FormGroup>
             <Label htmlFor="feelings">what are you feeling?</Label>
-            <Input name="feelings" type="select" bsSize="sm" onChange={handleChange}>
+            <Input
+              name="feelings"
+              type="select"
+              bsSize="sm"
+              onChange={handleChange}
+            >
               <option value="happiness">happiness</option>
               <option value="anger">anger</option>
               <option value="sadness">sadness</option>
@@ -140,14 +128,20 @@ const Journal = () => {
           </FormGroup>
           <FormGroup>
             <Label for="nutrition">nutrition notes:</Label>
-            <Input type="textarea" name="nutrition" id="nutrition" onChange={handleChange} />
+            <Input
+              type="textarea"
+              name="nutrition"
+              id="nutrition"
+              onChange={handleChange}
+            />
           </FormGroup>
         </Form>
-        <Button color="primary" size="sm">Submit</Button>{' '}
+        <Button color="primary" size="sm">
+          Submit
+        </Button>{' '}
       </div>
     </div>
   );
 };
-
 
 export default Journal;
