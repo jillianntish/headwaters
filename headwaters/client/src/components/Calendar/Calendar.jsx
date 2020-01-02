@@ -117,7 +117,7 @@ const Calendar = () => {
           {showEventOptions && <EventOptions event={clickedEvent} />}
         </Col>
       </Row>
-    </div >
+    </div>
   );
 };
 
