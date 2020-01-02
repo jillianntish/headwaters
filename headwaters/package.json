@@ -25,6 +25,7 @@
 		"eslint-plugin-react": "^7.12.4",
 		"express-ejs-layouts": "^2.5.0",
 		"express-session": "^1.17.0",
+		"mocha": "^6.2.2",
 		"node-sass": "^4.13.0",
 		"nodemon": "^2.0.2",
 		"sass-loader": "^8.0.0",
