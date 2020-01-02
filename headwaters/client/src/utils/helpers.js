@@ -1,7 +1,7 @@
 /* eslint-disable no-return-await */
 import axios from 'axios';
 
-export const validateEmail = async email => {
+export const validateEmail = async(email) => {
   return await axios.get('/api/auth', {
     params: {
       email,
@@ -58,7 +58,7 @@ export const handleIncomingData = incomingEvents => {
 // };
 
 // axios journal helpers
-export const getUserEntries = async userId => {
+export const getUserEntries = async(userId) => {
   return await axios.get(`/journal/${userId}/entries`)
     .then(res => {
       res.data;
@@ -70,7 +70,7 @@ export const getUserEntries = async userId => {
     });
 };
 
-export const addJournalEntry = async newEntryObj => {
+export const addJournalEntry = async(newEntryObj) => {
   return await axios.post(`/journal/${newEntryObj.userId}/entries`, newEntryObj)
     .then((response) => {
       response;
@@ -81,7 +81,7 @@ export const addJournalEntry = async newEntryObj => {
 
 
 // axios pillbox helpers
-export const getUserMedications = async userId => {
+export const getUserMedications = async(userId) => {
   return await axios.get(`/pillbox/${userId}`)
     .then(res => {
       res.data;
@@ -90,7 +90,7 @@ export const getUserMedications = async userId => {
     .catch(err => console.error(err));
 };
 
-export const addUserMedication = async newMedObj => {
+export const addUserMedication = async(newMedObj) => {
   return await axios.post(`/pillbox/${newMedObj.userId}`, newMedObj)
     .then((response) => {
       response;
