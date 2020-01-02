@@ -27,6 +27,12 @@ const EventOptions = (props) => {
     handleEventDeletion(id, user);
   };
 
+  const handleAddClick = (e) => {
+    e.preventDefault();
+    const { handleOpenFormAtEvent } = props;
+    handleOpenFormAtEvent(start);
+  };
+
   return (
     <div className="event-options">
       <Toast isOpen={show}>
@@ -41,7 +47,7 @@ const EventOptions = (props) => {
           <div className="option-buttons-container">
             <Button color="dark" size="sm">edit info</Button>{' '}
             <Button onClick={handleDeleteClick} color="danger" size="sm">delete event</Button>{' '}
-            <Button color="primary" size="sm">add event</Button>{' '}
+            <Button onClick={handleAddClick} color="primary" size="sm">add event</Button>{' '}
           </div>
         </ToastBody>
       </Toast>
