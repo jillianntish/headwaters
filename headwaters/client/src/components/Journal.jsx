@@ -8,6 +8,7 @@ import '../styles/event-form.css';
 
 const Journal = () => {
   // const { user } = useAuth0();
+  const [journal, setJournal] = useState([]);
   const [feeling, setFeeling] = useState([]);
   const [water, setWater] = useState([]);
   const [sleep, setSleep] = useState([]);
@@ -23,15 +24,6 @@ const Journal = () => {
     // const { water, sleep, exercise, nutrition, feelings, journal } = this.state;
     // e.preventDefault();
     // // const { water } = this.state;
-    // axios
-    //   .post('/journal', {
-    //     water,
-    //     sleep,
-    //     exercise,
-    //     nutrition,
-    //     feelings,
-    //     journal,
-    //   })
     //   .then(response => {
     //     console.log(response);
     //   })
@@ -53,7 +45,9 @@ const Journal = () => {
               type="textarea"
               name="journal"
               id="journal"
-              // onChange={handleChange}
+              onChange={e => {
+                setJournal(e.target.value);
+              }}
               rows="10"
               cols="50"
             />
