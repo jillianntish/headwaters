@@ -92,7 +92,7 @@ export const addJournal = async ({
   exercise,
   journal_id_user
 }) => {
-  return await axios.post('/:userId/entries', {
+  return await axios.post('/journal/:userId/entries', {
     date,
     text,
     status,
