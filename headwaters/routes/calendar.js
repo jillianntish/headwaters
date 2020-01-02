@@ -8,20 +8,26 @@ calendarRouter.get('/:userId/events', (req, res) => {
 
   getUserEvents(userId)
     .then(userRows => {
-      if (userRows.length) {
-        res.send(userRows);
-      }
-      res.sendStatus(204);
+      const userEvents = Array.from(userRows);
+      res.send(userEvents);
     })
-    .catch(res.sendStatus(404));
+    .catch(err => {
+      res.sendStatus(404);
+    });
 });
 
 calendarRouter.post('/:userId/events', (req, res) => {
   const newEventObj = req.body[0];
 
   insertUserEvent(newEventObj)
-    .then(res.sendStatus(201))
-    .catch(res.sendStatus(501));
+    .then(okResponse => {
+      res.sendStatus(201);
+    })
+    .catch(err => {
+      console.log(err)
+      debugger;
+      res.sendStatus(501);
+    });
 });
 
 module.exports = calendarRouter;
