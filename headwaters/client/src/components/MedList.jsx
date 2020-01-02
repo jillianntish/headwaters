@@ -4,24 +4,27 @@ import {
   Button, Form, FormGroup, Label, Input,
 } from 'reactstrap';
 
+import { useAuth0 } from '../react-auth0-spa.jsx';
 import '../styles/event-form.css';
 import '../styles/pillbox.css';
 import sample from './exampleData';
 
-class MedList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      med: '',
-      physician: '',
-      dosage: '',
-      time: '',
-      times: [],
-      notes: '',
-      pic: null,
-      // fullMedsList: {}
-    };
-  }
+const MedList = () => {
+  const { user } = useAuth0();
+  // class MedList extends React.Component {
+  //   constructor(props) {
+  //     super(props);
+  //     this.state = {
+  //       med: '',
+  //       physician: '',
+  //       dosage: '',
+  //       time: '',
+  //       times: [],
+  //       notes: '',
+  //       pic: null,
+  //       // fullMedsList: {}
+  //     };
+  //   }
 
 
   componentDidMount() {
@@ -35,29 +38,27 @@ class MedList extends React.Component {
     //   };
   }
 
-  render() {
-    const {
-      med, dosage, times, time, notes, pic, physician,
-    } = this.state;
 
-    return (
 
-      <div>
-        {sample.map(med =>
-          <div id="rcorners1">
-            <li>Medication: {med.medication} </li>
-            {/* <li> Physician: {med.physician} </li> */}
-            <li> Dosage: {med.dosage} </li>
-            <li>Times:  {med.times} </li>
-            <li>Notes:  {med.notes} </li>
-            <li>Picture:</li>
-            {/*  <img src={med.url} height="95" width="95" alt="" /> */}
-          </div>
-        )}
 
-      </div>
-    );
-  }
+  return (
+
+    <div>
+      {sample.map(med =>
+        <div id="rcorners1">
+          <li>Medication: {med.medication} </li>
+          {/* <li> Physician: {med.physician} </li> */}
+          <li> Dosage: {med.dosage} </li>
+          <li>Times:  {med.times} </li>
+          <li>Notes:  {med.notes} </li>
+          <li>Picture:</li>
+          {/*  <img src={med.url} height="95" width="95" alt="" /> */}
+        </div>
+      )}
+
+    </div>
+  );
+
 }
 
 export default MedList;
