@@ -8,15 +8,14 @@ const pillboxRouter = express.Router();
 pillboxRouter.get('/:userId', (req, res) => {
   const { userId } = req.params;
 
-  getUserMedications(userId) 
-  .then(response => {
-    res.send(response);
-  })
-  .catch(err => {
-    console.error(err);
-    res.sendStatus(404);
-  })
-  
+  getUserMedications(userId)
+    .then(response => {
+      res.send(response);
+    })
+    .catch(err => {
+      console.error(err);
+      res.sendStatus(404);
+    });
 });
 
 // @Route --> POST '/:userId'
@@ -27,13 +26,12 @@ pillboxRouter.post('/:userId', (req, res) => {
 
   addUserMedicationMaster(newMedicationObj, userId)
     .then(okResponse => {
-      debugger;
       res.sendStatus(201);
     })
     .catch(err => {
       console.error(err);
       res.sendStatus(501);
-    })
+    });
 });
 
 module.exports = pillboxRouter;
