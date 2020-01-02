@@ -12,7 +12,6 @@ import { getUserEvents, handleIncomingData, createUserEvent } from '../../utils/
 
 import '../../styles/calendar.css';
 
-
 const Calendar = () => {
   const { user } = useAuth0();
   const [events, setEvents] = useState([]);
@@ -35,6 +34,7 @@ const Calendar = () => {
     }
 
     fetchUserEvents();
+    // eslint-disable-next-line
   }, []);
 
   const [clickedDate, setClickedDate] = useState([]);

@@ -1,78 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import {
-  Button, Form, FormGroup, Label, Input,
+  Button, FormGroup, Label, Input,
 } from 'reactstrap';
+import { useAuth0 } from '../react-auth0-spa.jsx';
 
 import '../styles/event-form.css';
 import '../styles/pillbox.css';
-import sample from './exampleData';
+// import sample from './exampleData';
 
-class Pillbox extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      med: '',
-      dosage: '',
-      time: '',
-      times: [],
-      notes: '',
-      pic: null,
-      // fullMedsList: {}
-    };
+const Pillbox = () => {
+  const { user } = useAuth0();
 
+  // componentDidMount() {
+  // axios.get('/api/pillbox/:userId')
+  //   .then(response){
+  //   console.log(response);
+  // }
+  // .catch((error) => {
+  //     console.log(error);
+  //   };
+  // }
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.selectFileHandler = this.selectFileHandler.bind(this);
-    this.addTime = this.addTime.bind(this);
-  }
+  const [med, setMed] = useState([]);
+  const handleMed = (e) => {
+    e.preventDefault();
+    const { value } = e.target;
+    setMed(value);
+  };
+  const [dosage, setDosage] = useState([]);
+  const handleDosage = (e) => {
+    e.preventDefault();
+    const { value } = e.target;
+    setDosage(value);
+  };
 
+  const [time, setTime] = useState([]);
+  const handleTime = (e) => {
+    e.preventDefault();
+    const { value } = e.target;
+    setTime(value);
+  };
 
-  componentDidMount() {
+  const [notes, setNotes] = useState([]);
+  const handleNotes = (e) => {
+    e.preventDefault();
+    const { value } = e.target;
+    setNotes(value);
+  };
 
-    // axios.get('/api/pillbox/:userId')
-    //   .then(response){
-    //   console.log(response);
-    // }
-    // .catch((error) => {
-    //     console.log(error);
-    //   };
-  }
-
-  addTime() {
+  let [times] = useState([]);
+  const addTime = () => {
     // may need to change times to a string and concat string
-    let { times, time } = this.state;
     console.log('getting time', times);
     times = times.push(time);
-  }
+  };
 
-  handleChange(event) {
-    const { time } = this.state;
-    // event.preventDefault();
-    const { value } = event.target;
-    this.setState({
+  const [pic, setPic] = useState([]);
+  const handlePic = (e) => {
+    setPic(URL.createObjectURL(e.target.files[0]));
+  };
 
-      [event.target.name]: value,
-    });
-  }
-
-  selectFileHandler(e) {
-    // let files = e.target.files;
-    // let reader = new FileReader();
-    // reader.readAsDataURL(files[0]);
-    // reader.onload = (e) => {
-
-    this.setState({
-      pic: URL.createObjectURL(e.target.files[0]),
-    });
-    console.log(e.target.files[0]);
-  }
-
-  handleClick(e) {
-    const {
-      med, dosage, times, notes, pic,
-    } = this.state;
+  const handleClick = (e) => {
     e.preventDefault();
     axios.post('/pillbox', {
       med,
@@ -87,17 +76,11 @@ class Pillbox extends React.Component {
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
-
-  render() {
-    const {
-      med, dosage, times, time, notes, pic,
-    } = this.state;
-
-    return (
-      <div>
-        {/* {sample.map((med) => {
+  return (
+    <div>
+      {/* {sample.map((med) => {
           return (
             <div>
               <p id="rcorners1">
@@ -114,91 +97,90 @@ class Pillbox extends React.Component {
           );
         })} */}
 
-        <div>
-          <p id="rcorners1">
+      <div>
+        <p id="rcorners1">
             Medication: {med}
-            <br />
-            Dosage: {dosage}
-            <br />
+          <br />
+            Dosage (mg): {dosage}
+          <br />
             Times: {times}
-            {/* This needs to be fixed */}
-            {times.map((time) => {
-              return (
-                <row> {time} </row>
-              );
-            })}
-            <br />
+          {/* This needs to be fixed */}
+          {times.map((newTime, i) => {
+            return (
+              <li key={times[i]}> {newTime} </li>
+            );
+          })}
+          <br />
             Notes: {notes}
-            <br />
+          <br />
             Pic:
-            <br />
-            <img src={pic} height="95" width="95" alt="" />
-          </p>
-          <img src={pic} height="100" width="100" alt="" />
-        </div>
-        <div className="form-container">
-          <h1>
-            Pillbox <span className="text-primary" />
-          </h1>
-        </div>
-        <div className="new-event-form">
-          <form onSubmit={this.handleClick}>
-            <FormGroup>
-              <Label for="med">Medication</Label>
-              <Input
-                type="text"
-                name="med"
-                id="med"
-                placeholder="medication"
-                value={med}
-                onChange={this.handleChange}
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Label for="dosage">Dosage</Label>
-              <Input
-                type="text"
-                name="dosage"
-                id="dosage"
-                placeholder="dosage"
-                value={dosage}
-                onChange={this.handleChange}
-              />
-            </FormGroup>
-            <br />
-            <FormGroup>
-              <Label for="time">Time</Label>
-              <Input
-                type="time"
-                name="time"
-                id="time"
-                dateformat="HH:mm"
-                placeholder="time placeholder"
-                value={time}
-                onChange={this.handleChange}
-              />
-              <br />
-              <Button color="primary" size="sm" onClick={this.addTime}>Add Time</Button>{' '}
-            </FormGroup>
-            <FormGroup>
-              <Label for="notes">Notes</Label>
-              <Input
-                type="textarea"
-                name="notes"
-                id="notes"
-                onChange={this.handleChange}
-              />
-            </FormGroup>
-            <input type="file" name="pic" onChange={this.selectFileHandler} />
-            <br />
-            <br />
-            <Button color="primary" size="sm">Submit</Button>{' '}
-
-          </form>
-        </div>
+          <br />
+          <img src={pic} height="95" width="95" alt="" />
+        </p>
       </div>
-    );
-  }
-}
+      <div className="form-container">
+        <h1>
+            Pillbox <span className="text-primary" />
+        </h1>
+      </div>
+      <div className="new-event-form">
+        <form onSubmit={handleClick}>
+          <FormGroup>
+            <Label for="med">Medication</Label>
+            <Input
+              type="text"
+              name="med"
+              id="med"
+              placeholder="medication"
+              value={med}
+              onChange={handleMed}
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <Label for="dosage">Dosage</Label>
+            <Input
+              type="text"
+              name="dosage"
+              id="dosage"
+              placeholder="dosage"
+              value={dosage}
+              onChange={handleDosage}
+            />
+          </FormGroup>
+          <br />
+          <FormGroup>
+            <Label for="time">Time</Label>
+            <Input
+              type="time"
+              name="time"
+              id="time"
+              dateformat="HH:mm"
+              placeholder="time placeholder"
+              value={time}
+              onChange={handleTime}
+            />
+            <br />
+            <Button color="primary" size="sm" onClick={addTime}>Add Time</Button>{' '}
+          </FormGroup>
+          <FormGroup>
+            <Label for="notes">Notes</Label>
+            <Input
+              type="textarea"
+              name="notes"
+              id="notes"
+              onChange={handleNotes}
+            />
+          </FormGroup>
+          <input type="file" name="pic" onChange={handlePic} />
+          <img src={pic} height="100" width="100" alt="" />
+          <br />
+          <br />
+          <Button color="primary" size="sm">Submit</Button>{' '}
+
+        </form>
+      </div>
+    </div>
+  );
+};
 export default Pillbox;
