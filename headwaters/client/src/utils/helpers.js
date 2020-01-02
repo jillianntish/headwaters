@@ -48,6 +48,28 @@ export const handleIncomingData = incomingEvents => {
 // };
 
 // axios journal helpers
+export const getPrevJournal = async ({ date,
+  text,
+  status,
+  h2oz,
+  nutrition,
+  sleep,
+  exercise, }) => {
+  return await axios.get('/:userId', {
+    params: {
+      date,
+      text,
+      status,
+      h2oz,
+      nutrition,
+      sleep,
+      exercise,
+    }
+  })
+    .then(res => res.data)
+    .catch(err => console.log("error getting data from db for pillbox", err);
+};
+
 export const addJournal = async ({
   date,
   text,
@@ -78,8 +100,8 @@ export const addJournal = async ({
 
 
 // axios pillbox helpers
-export const addMed = async ({ med, dosage, times, notes, pic }) => {
-  return await axios.post('/:userId', { med, dosage, times, notes, pic })
+export const addMed = async ({ users_meds_med, id_img, dosage, times, notes }) => {
+  return await axios.post('/:userId', { users_meds_med, id_img, dosage, times, notes })
     .then((response) => {
       console.log("posting pillbox to server", response);
     })
