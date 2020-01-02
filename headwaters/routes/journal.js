@@ -1,13 +1,13 @@
 const express = require('express');
 
-const router = express.Router();
+const journalRouter = express.Router();
 
-router.get('/api/journal/:userId', (req, res) => res.send('get journal from db'));
+// @Route --> GET '/:userId/entries'
+// @Desc --> Get a user's journals from database
+journalRouter.get('/:userId/entries', (req, res) => res.send('get journal from db'));
 
-// @Route --> POST api/pillbpx
-// @Desc --> post pillbox input data to sever/db
-router.post('/api/journal/:userId', (req, res) => res.send('send journal input to server'));
+// @Route --> POST '/:userId/entries'
+// @Desc --> Post a user's journal entry to database
+journalRouter.post('/:userId/entries', (req, res) => res.send('send journal input to server'));
 
-module.exports = router;
-
-module.exports = router;
+module.exports = journalRouter;

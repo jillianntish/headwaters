@@ -3,6 +3,8 @@ const path = require('path');
 const { DB_NAME } = require('./db/connection');
 const { checkEmail, newUser, findUserByEmail } = require('./db/connection');
 const calendarRouter = require('../routes/calendar');
+const journalRouter = require('../routes/journal');
+const pillboxRouter = require('../routes/pillbox');
 
 const app = express();
 
@@ -10,6 +12,8 @@ const app = express();
 app.use(express.json({ extended: false }));
 
 app.use('/calendar', calendarRouter);
+app.use('/journal', journalRouter);
+app.use('/pillbox', pillboxRouter);
 
 app.get('/api/auth', async(req, res) => {
   const payload = req.query;

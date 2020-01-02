@@ -9,6 +9,7 @@ import { useAuth0 } from '../react-auth0-spa.jsx';
 
 // eslint-disable-next-line no-unused-vars
 const App = props => {
+  // eslint-disable-next-line no-unused-vars
   const { user } = useAuth0();
 
   return (

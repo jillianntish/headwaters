@@ -49,13 +49,14 @@ class Pillbox extends React.Component {
   }
 
   handleChange(event) {
+    const { time } = this.state;
     // event.preventDefault();
     const { value } = event.target;
     this.setState({
 
       [event.target.name]: value,
     });
-    console.log("we're setting state", this.state.time);
+    console.log("we're setting state", time);
   }
 
   selectFileHandler(e) {
@@ -76,8 +77,8 @@ class Pillbox extends React.Component {
     } = this.state;
     e.preventDefault();
     // const { water } = this.state;
-    console.log("we're clicking", this.state.pic);
-    axios.post('/api/pillbox/:userId', {
+    console.log("we're clicking", pic);
+    axios.post('/pillbox', {
       med,
       dosage,
       times,
@@ -135,8 +136,9 @@ class Pillbox extends React.Component {
             <br />
             Pic:
             <br />
-            <img src={pic} height="95" width="95" />
+            <img src={pic} height="95" width="95" alt="" />
           </p>
+          <img src={pic} height="100" width="100" alt="" />
         </div>
         <div className="form-container">
           <h1>
