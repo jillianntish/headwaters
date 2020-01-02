@@ -135,6 +135,12 @@ const insertUserEvent = (newEventObj) => {
   return query(newEventSQL, eventFieldValues);
 };
 
+const deleteUserEvent = (userId, eventId) => {
+  const deletionFields = [`${userId}`, `${eventId}`];
+  const deleteEventSQL = 'delete from events where event_id_user = ? and id = ?';
+  return query(deleteEventSQL, deletionFields);
+};
+
 /*
 * Journal Helpers
 * listed below
@@ -310,4 +316,5 @@ module.exports = {
   getUserJournalEntries,
   addJournalEntry,
   createUserMedEvents,
+  deleteUserEvent,
 };
