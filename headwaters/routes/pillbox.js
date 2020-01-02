@@ -9,8 +9,8 @@ pillboxRouter.get('/:userId', (req, res) => {
   const { userId } = req.params;
 
   getUserMedications(userId)
-    .then(response => {
-      res.send(response);
+    .then(medRows => {
+      res.send(medRows);
     })
     .catch(err => {
       console.error(err);
@@ -25,7 +25,7 @@ pillboxRouter.post('/:userId', (req, res) => {
   const newMedicationObj = req.body[0];
 
   addUserMedicationMaster(newMedicationObj, userId)
-    .then(okResponse => {
+    .then(() => {
       res.sendStatus(201);
     })
     .catch(err => {
