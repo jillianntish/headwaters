@@ -24,8 +24,7 @@ calendarRouter.post('/:userId/events', (req, res) => {
       res.sendStatus(201);
     })
     .catch(err => {
-      console.log(err)
-      debugger;
+      console.log(err);
       res.sendStatus(501);
     });
 });
