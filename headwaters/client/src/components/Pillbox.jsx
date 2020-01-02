@@ -3,9 +3,10 @@ import axios from 'axios';
 import {
   Button, Form, FormGroup, Label, Input,
 } from 'reactstrap';
-import moment from 'moment';
 
 import '../styles/event-form.css';
+import '../styles/pillbox.css';
+import sample from './exampleData';
 
 class Pillbox extends React.Component {
   constructor(props) {
@@ -15,8 +16,9 @@ class Pillbox extends React.Component {
       dosage: '',
       time: '',
       times: [],
-      notes: 'Notes',
+      notes: '',
       pic: null,
+      // fullMedsList: {}
     };
 
 
@@ -26,23 +28,24 @@ class Pillbox extends React.Component {
     this.addTime = this.addTime.bind(this);
   }
 
-  // componentDidMount() {
-  // axios.get('/pillbox')
-  //   .then(response){
-  //   console.log(response);
-  // }
-  // .catch ((error) => {
-  //   console.log(error);
-  // });
-  // }
+
+  componentDidMount() {
+
+    // axios.get('/api/pillbox/:userId')
+    //   .then(response){
+    //   console.log(response);
+    // }
+    // .catch((error) => {
+    //     console.log(error);
+    //   };
+  }
 
   addTime() {
+    // may need to change times to a string and concat string
     let { times, time } = this.state;
-    console.log("getting time", times);
+    console.log('getting time', times);
     times = times.push(time);
-    // this.setState({
-    //   time: event.target.value,
-    // })
+    // time = times.concat(time);
   }
 
   handleChange(event) {
@@ -74,7 +77,7 @@ class Pillbox extends React.Component {
     e.preventDefault();
     // const { water } = this.state;
     console.log("we're clicking", this.state.pic);
-    axios.post('/pillbox', {
+    axios.post('/api/pillbox/:userId', {
       med,
       dosage,
       times,
@@ -94,21 +97,46 @@ class Pillbox extends React.Component {
     const {
       med, dosage, times, time, notes, pic,
     } = this.state;
+
     return (
       <div>
-        <div>
+        {/* {sample.map((med) => {
+          return (
+            <div>
+              <p id="rcorners1">
+                Medication: {med.medication}
+                <br />
+                Dosage: {med.dosage}
+                <br />
+                Times: {med.times}
+                <br />
+                Notes: {med.notes}
+                <br />
+              </p>
+            </div>
+          );
+        })} */}
 
-          <p>
+        <div>
+          <p id="rcorners1">
             Medication: {med}
             <br />
             Dosage: {dosage}
             <br />
             Times: {times}
+            {/* This needs to be fixed */}
+            {times.map((time) => {
+              return (
+                <row> {time} </row>
+              );
+            })}
             <br />
             Notes: {notes}
             <br />
+            Pic:
+            <br />
+            <img src={pic} height="95" width="95" />
           </p>
-          <img src={pic} height="100" width="100" />
         </div>
         <div className="form-container">
           <h1>
@@ -147,7 +175,7 @@ class Pillbox extends React.Component {
                 type="time"
                 name="time"
                 id="time"
-                dateFormat="HH:mm"
+                dateformat="HH:mm"
                 placeholder="time placeholder"
                 value={time}
                 onChange={this.handleChange}
@@ -157,7 +185,12 @@ class Pillbox extends React.Component {
             </FormGroup>
             <FormGroup>
               <Label for="notes">Notes</Label>
-              <Input type="textarea" name="notes" id="notes" />
+              <Input
+                type="textarea"
+                name="notes"
+                id="notes"
+                onChange={this.handleChange}
+              />
             </FormGroup>
             <input type="file" name="pic" onChange={this.selectFileHandler} />
             <br />
