@@ -29,8 +29,8 @@ const Home = () => {
 
   return (
     <div className="home">
-      <h1>"{quote.quote}"</h1>
-      <h5>~{quote.author}</h5>
+      <h1>&#39;{quote.quote}&#39;</h1>
+      <h5>—{quote.author}</h5>
     </div>
   );
 };
