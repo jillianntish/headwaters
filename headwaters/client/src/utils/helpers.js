@@ -38,6 +38,33 @@ export const createUserEvent = async(eventObj) => {
     });
 };
 
+export const chooseEventColor = type => {
+  let color;
+  switch (type) {
+    case 'physical well-being':
+      color = '#148f86';
+      break;
+    case 'mental well-being':
+      color = '#596cb0';
+      break;
+    case 'medication':
+      color = '5b1236';
+      break;
+    case 'personal':
+      color = '#f64545';
+      break;
+    case 'other':
+      color = '#edbe2c';
+      break;
+    case 'journal entry':
+      color = '#d8afef';
+      break;
+    default:
+      color = '#596cb0';
+  }
+  return color;
+};
+
 export const handleIncomingData = incomingEvents => {
   return incomingEvents.reduce((newEventObj, incomingEvent) => {
     const start = incomingEvent.date_time;
@@ -46,6 +73,7 @@ export const handleIncomingData = incomingEvents => {
     newEventObj.push({
       title: incomingEvent.name,
       start,
+      color: chooseEventColor(incomingEvent.type),
       extendedProps: {
         user: incomingEvent.event_id_user,
         id: incomingEvent.id,
