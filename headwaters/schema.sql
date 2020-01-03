@@ -48,9 +48,14 @@ CREATE TABLE meds (
   name VARCHAR(255)
 );
 
-
 CREATE TABLE images (
   id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  meds_id INT,
+    INDEX par_ind_med (meds_id),
+    CONSTRAINT fk_meds FOREIGN KEY (meds_id)
+    REFERENCES meds(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   url VARCHAR(255)
 );
 
