@@ -150,7 +150,7 @@ const EditEventForm = (props) => {
           />
         </FormGroup>
       </Form>
-      <Button onClick={handleEditEvent} color="info" size="sm">
+      <Button style={{ backgroundColor: '#3024b0', border: '0px' }} onClick={handleEditEvent} size="sm">
         edit event
       </Button>{' '}
     </div>

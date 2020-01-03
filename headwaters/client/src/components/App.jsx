@@ -5,6 +5,7 @@ import Calendar from './Calendar/Calendar.jsx';
 import Journal from './Journal.jsx';
 import NavBar from './NavBar.jsx';
 import Pillbox from './Pillbox.jsx';
+import Home from './Home.jsx';
 import { useAuth0 } from '../react-auth0-spa.jsx';
 
 // eslint-disable-next-line no-unused-vars
@@ -23,6 +24,7 @@ const App = props => {
           <Route path="/calendar" component={Calendar} />{' '}
           <Route path="/journal" component={Journal} />{' '}
           <Route path="/pillbox" component={Pillbox} />{' '}
+          <Route path="/home" component={Home} />{' '}
         </Switch>
       </Router>
     </div>
