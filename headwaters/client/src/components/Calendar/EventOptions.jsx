@@ -3,19 +3,26 @@ import {
   Button, Toast, ToastHeader, ToastBody,
 } from 'reactstrap';
 import moment from 'moment';
+import EditEventForm from './EditEvent.jsx';
 
 import '../../styles/event-options.css';
 
 const EventOptions = (props) => {
+  const { handleEventPatch } = props;
+  
+  // eslint-disable-next-line react/destructuring-assignment
+  const event = props.event[0];
   const {
     title, start, user, id, practicioner, location, notes, type,
-  // eslint-disable-next-line react/destructuring-assignment
-  } = props.event[0];
+  } = event;
+
   // date conversion for display
   const dateFormat = moment(start, 'ddd MMM DD YYYY HH:mm:ss').format('ddd MMM Do, YYYY');
+
   // time conversion for display
   const timeFormat = moment(start, 'ddd MMM DD YYYY HH:mm:ss').format('hh:mm A');
   const [show, setShow] = useState(true);
+  const [showEditForm, setShowEditForm] = useState(false);
 
   const toggle = () => {
     setShow(false);
@@ -33,6 +40,19 @@ const EventOptions = (props) => {
     handleOpenFormAtEvent(start);
   };
 
+  const handleOpenEditForm = (e) => {
+    e.preventDefault();
+    setShowEditForm(true);
+  };
+
+  if (showEditForm) {
+    return (
+      <div>
+        <EditEventForm event={event} handleEventPatch={handleEventPatch} />
+      </div>
+    );
+  }
+
   return (
     <div className="event-options">
       <Toast isOpen={show}>
@@ -45,7 +65,7 @@ const EventOptions = (props) => {
           <div>{location}</div>
           <div>{notes}</div>
           <div className="option-buttons-container">
-            <Button color="dark" size="sm">edit info</Button>{' '}
+            <Button onClick={handleOpenEditForm} color="dark" size="sm">edit info</Button>{' '}
             <Button onClick={handleDeleteClick} color="danger" size="sm">delete event</Button>{' '}
             <Button onClick={handleAddClick} color="primary" size="sm">add event</Button>{' '}
           </div>
