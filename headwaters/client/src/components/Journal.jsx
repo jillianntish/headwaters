@@ -110,7 +110,7 @@ const Journal = () => {
               type="text"
               name="exercise"
               id="exercise"
-              placeholder="exercise"
+              placeholder="minutes"
               onChange={e => {
                 setExercise(e.target.value);
                 console.log(e.target.value);
@@ -129,8 +129,8 @@ const Journal = () => {
             />
           </FormGroup>
         </Form>
-        <Button color="primary" size="sm">
-          Submit
+        <Button style={{ backgroundColor: '#3024b0', border: '0px' }}>
+          save
         </Button>{' '}
       </div>
     </div>
