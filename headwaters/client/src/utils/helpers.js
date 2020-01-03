@@ -1,6 +1,10 @@
 /* eslint-disable no-return-await */
 import axios from 'axios';
 
+/**
+ * Axios authentication helpers
+ */
+
 export const validateEmail = async email => {
   return await axios
     .get('/api/auth', {
@@ -18,7 +22,9 @@ export const createUser = async ({ nickname, email }) => {
   });
 };
 
-// axios calendar helpers
+/**
+ * Axios calendar helpers
+ */
 
 export const createUserEvent = async eventObj => {
   return await axios
@@ -37,8 +43,6 @@ export const handleIncomingData = incomingEvents => {
     start.replace(' ', 'T');
 
     newEventObj.push({
-      user: incomingEvent.event_id_user,
-      id: incomingEvent.id,
       title: incomingEvent.name,
       start,
       extendedProps: {
@@ -57,7 +61,32 @@ export const handleIncomingData = incomingEvents => {
 //  await.axios.patch(endpoint, {})
 // };
 
-// axios journal helpers
+export const deleteUserEvent = async (eventId, userId) => {
+  return await axios
+    .delete(`/calendar/${userId}/events/${eventId}`)
+    .then(response => {
+      return response;
+    })
+    .catch(err => {
+      console.error(err);
+    });
+};
+
+export const patchUserEvent = async (editEventObj, userId, eventId) => {
+  return await axios
+    .patch(`/calendar/${userId}/events/${eventId}`, editEventObj)
+    .then(response => {
+      return response;
+    })
+    .catch(err => {
+      console.error(err);
+    });
+};
+
+/**
+ * Axios journal helpers
+ */
+
 export const getUserEntries = async userId => {
   return await axios
     .get(`/journal/${userId}/entries`)
@@ -78,7 +107,10 @@ export const addJournalEntry = async newEntryObj => {
     .catch(err => console.error(err));
 };
 
-// axios pillbox helpers
+/**
+ * Axios pillbox helpers
+ */
+
 export const getUserMedications = async userId => {
   return await axios
     .get(`/pillbox/${userId}`)
@@ -92,7 +124,6 @@ export const getUserMedications = async userId => {
 export const addUserMedication = async newMedObj => {
   const newMedArr = [];
   newMedArr.push(newMedObj);
-  debugger;
   return await axios
     .post(`/pillbox/${newMedObj.userId}`, newMedArr)
     .then(response => {

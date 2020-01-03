@@ -1,49 +1,55 @@
 import React, { useState } from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import {
+  Button, Form, FormGroup, Label, Input,
+} from 'reactstrap';
 import moment from 'moment';
 import { useAuth0 } from '../../react-auth0-spa.jsx';
 
 import '../../styles/event-form.css';
 
-const NewEvent = props => {
+const EditEventForm = (props) => {
   const { user } = useAuth0();
+  const { event } = props;
 
-  let { date } = props;
-  date = date.toString().slice(0, 15);
-  const dateFormat = moment(date, 'ddd MMM DD YYYY').format('MM/DD/YY');
+  const {
+    title, start, id, practicioner, location, notes, type,
+    // eslint-disable-next-line react/destructuring-assignment
+  } = event;
+
+  // date conversion for display
+  const dateFormat = moment(start, 'ddd MMM DD YYYY HH:mm:ss').format('MM-DD-YYYY');
+  // time conversion for display
+  const timeFormat = moment(start, 'ddd MMM DD YYYY HH:mm:ss').format('hh:mm A');
 
   const [userId] = useState(user.id);
-  const [name, setName] = useState('Counseling Session');
-  const [prac, setPrac] = useState('Deanna Troi');
-  const [eventDate, setDate] = useState(date);
-  const [time, setTime] = useState('00:00');
-  const [type, setType] = useState('other');
-  const [notes, setNotes] = useState('Stardate 43125.8');
-  const [locale, setLocale] = useState('Starship Enterprise');
+  const [eventId] = useState(id);
+  const [name, setName] = useState(title);
+  const [prac, setPrac] = useState(practicioner);
+  const [eventDate, setDate] = useState(dateFormat);
+  const [time, setTime] = useState(timeFormat);
+  const [editType, setType] = useState(type);
+  const [editNotes, setNotes] = useState(notes);
+  const [locale, setLocale] = useState(location);
 
-  const handleEventSubmit = event => {
-    event.preventDefault();
+  const handleEditEvent = (e) => {
+    e.preventDefault();
+    const { handleEventPatch } = props;
 
-    const { handleEventPost } = props;
-    // date and time conversion for mysql insertion
-    const dateConvert = moment(eventDate, 'ddd MMM DD YYYY').format(
-      'YYYY-MM-DD',
-    );
-    const dateTime = `${dateConvert} ${time}`;
+    const dateTime = `${eventDate} ${time}`;
 
-    const newEvent = [
+    const editEventObj = [
       {
         userId,
         name,
         dateTime,
-        notes,
+        editNotes,
         prac,
-        type,
+        editType,
         locale,
       },
     ];
 
-    handleEventPost(newEvent);
+    handleEventPatch(editEventObj, userId, eventId);
   };
 
   return (
@@ -59,20 +65,20 @@ const NewEvent = props => {
             name="name"
             id="name"
             placeholder={name}
-            onChange={event => {
-              setName(event.target.value);
+            onChange={e => {
+              setName(e.target.value);
             }}
           />
         </FormGroup>
         <FormGroup>
-          <Label for="practitioner">Practitioner</Label>
+          <Label for="practitioner">Practicioner</Label>
           <Input
             type="text"
-            name="practicioner"
-            id="practicioner"
+            name="practitioner"
+            id="practitioner"
             placeholder={prac}
-            onChange={event => {
-              setPrac(event.target.value);
+            onChange={e => {
+              setPrac(e.target.value);
             }}
           />
         </FormGroup>
@@ -82,9 +88,9 @@ const NewEvent = props => {
             type="text"
             name="date"
             id="date"
-            placeholder={dateFormat}
-            onChange={event => {
-              setDate(event.target.value);
+            placeholder={eventDate}
+            onChange={e => {
+              setDate(e.target.value);
             }}
             onFocus={e => (e.target.type = 'date')}
             onBlur={e => (e.target.type = 'text')}
@@ -96,9 +102,9 @@ const NewEvent = props => {
             type="time"
             name="time"
             id="time"
-            placeholder="time placeholder"
-            onChange={event => {
-              setTime(event.target.value);
+            defaultValue={time}
+            onChange={e => {
+              setTime(e.target.value);
             }}
           />
         </FormGroup>
@@ -108,9 +114,9 @@ const NewEvent = props => {
             type="select"
             name="appointment"
             id="appointment"
-            placeholder={type}
-            onChange={event => {
-              setType(event.target.value);
+            placeholder={editType}
+            onChange={e => {
+              setType(e.target.value);
             }}
           >
             <option>mental well-being</option>
@@ -125,9 +131,9 @@ const NewEvent = props => {
             type="textarea"
             name="notes"
             id="notes"
-            placeholder={notes}
-            onChange={event => {
-              setNotes(event.target.value);
+            placeholder={editNotes}
+            onChange={e => {
+              setNotes(e.target.value);
             }}
           />
         </FormGroup>
@@ -138,17 +144,17 @@ const NewEvent = props => {
             name="location"
             id="location"
             placeholder={locale}
-            onChange={event => {
-              setLocale(event.target.value);
+            onChange={e => {
+              setLocale(e.target.value);
             }}
           />
         </FormGroup>
       </Form>
-      <Button onClick={handleEventSubmit} color="primary" size="sm">
-        add event
+      <Button onClick={handleEditEvent} color="info" size="sm">
+        edit event
       </Button>{' '}
     </div>
   );
 };
 
-export default NewEvent;
+export default EditEventForm;
