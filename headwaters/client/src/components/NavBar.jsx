@@ -29,7 +29,7 @@ const NavBar = () => {
         <Collapse isOpen={!collapsed} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink to="/" onClick={() => setCollapsed(true)}>Home</NavLink>
+              <NavLink tag={Link} to="/home" onClick={() => setCollapsed(true)}>Home</NavLink>
             </NavItem>
             <NavItem>
               <NavLink tag={Link} to="/calendar" onClick={() => setCollapsed(true)}>
