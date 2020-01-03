@@ -1,7 +1,15 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, FormGroup, Label, Input } from 'reactstrap';
+import {
+  Button,
+  FormGroup,
+  Label,
+  Input,
+  Toast,
+  ToastBody,
+  ToastHeader,
+} from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa.jsx';
 
 import '../styles/event-form.css';
@@ -87,6 +95,14 @@ const Pillbox = () => {
       userId,
     };
     addUserMedication(medEntryObj);
+    setMed('');
+    setDosage('');
+    setPractitioner('');
+    setTime('');
+    setNotes('');
+    setUrl('');
+    setLoading(false);
+    // getUserMedications();
   };
 
   if (loading) {
@@ -158,6 +174,7 @@ const Pillbox = () => {
               type="textarea"
               name="notes"
               id="notes"
+              value={notes}
               onChange={handleNotes}
             />
           </FormGroup>
@@ -174,8 +191,8 @@ const Pillbox = () => {
         {medEntries.map(medEntry => (
           <div id="rcorners1">
             <li>Medication: {medEntry.name} </li>
-            <li> Physician: {medEntry.practitioner} </li>
-            <li> Dosage: {medEntry.dosage} </li>
+            <li>Physician: {medEntry.practitioner} </li>
+            <li>Dosage: {medEntry.dosage} </li>
             <li>Times: {medEntry.scheduled_times} </li>
             <li>Notes: {medEntry.notes} </li>
             <li>Picture:</li>
