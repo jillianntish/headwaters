@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa.jsx';
+import MedList from './MedList.jsx';
 
 import '../styles/event-form.css';
 import '../styles/pillbox.css';
@@ -172,24 +173,8 @@ const Pillbox = () => {
           </Button>{' '}
         </form>
       </div>
-<<<<<<< HEAD
-
-=======
-      <div>
-        {medEntries.map(medEntry => (
-          <div id="rcorners1">
-            <li>Medication: {medEntry.name} </li>
-            <li> Physician: {medEntry.practitioner} </li>
-            <li> Dosage: {medEntry.dosage} </li>
-            <li>Times: {medEntry.scheduled_times} </li>
-            <li>Notes: {medEntry.notes} </li>
-            <li>Picture:</li>
-            <img src={medEntry.url} height="95" width="95" alt="" />
-          </div>
-        ))}
-      </div>
->>>>>>> ffd54542625a29559eaaac9a038ed9ca19671e82
-    </div >
+      <MedList medEntries={medEntries} />
+    </div>
   );
 };
 export default Pillbox;
