@@ -63,9 +63,9 @@ const Pillbox = () => {
     setNotes(value);
   };
 
-  const [pic, setPic] = useState([]);
-  const handlePic = e => {
-    setPic(URL.createObjectURL(e.target.files[0]));
+  const [url, setUrl] = useState([]);
+  const handleUrl = e => {
+    setUrl(URL.createObjectURL(e.target.files[0]));
   };
 
   const [userId] = useState(user.id);
@@ -78,7 +78,7 @@ const Pillbox = () => {
       frequency: times.length,
       times,
       notes,
-      pic,
+      url: url.toString(),
       userId,
     };
     addUserMedication(medEntryObj);
@@ -152,8 +152,8 @@ const Pillbox = () => {
               onChange={handleNotes}
             />
           </FormGroup>
-          <input type="file" name="pic" onChange={handlePic} />
-          <img src={pic} height="100" width="100" alt="" />
+          <input type="file" name="url" onChange={handleUrl} />
+          <img src={url} height="100" width="100" alt="" />
           <br />
           <br />
           <Button color="primary" size="sm">
