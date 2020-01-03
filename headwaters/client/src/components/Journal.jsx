@@ -1,16 +1,22 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import moment from 'moment';
+import {
+ Button, Form, FormGroup, Label, Input 
+} from 'reactstrap';
 
-// import { useAuth0 } from '../../react-auth0-spa.jsx';
+import { useAuth0 } from '../react-auth0-spa.jsx';
 import '../styles/event-form.css';
 
+const { getUserJournalEntries, addJournalEntry } = require('../utils/helpers');
+
 const Journal = () => {
-  // const { user } = useAuth0();
-  const [journal, setJournal] = useState([]);
-  const [feeling, setFeeling] = useState([]);
-  const [water, setWater] = useState([]);
+  const { user } = useAuth0();
+  const [userId] = useState(user.id);
+  const [text, setJournal] = useState([]);
+  const [status, setStatus] = useState([]);
+  const [h2oz, setWater] = useState([]);
   const [sleep, setSleep] = useState([]);
   const [exercise, setExercise] = useState([]);
   const [nutrition, setNutrition] = useState([]);
@@ -20,16 +26,23 @@ const Journal = () => {
   //   console.log('Register submit');
   // };
 
-  const handleClick = e => {
-    // const { water, sleep, exercise, nutrition, feelings, journal } = this.state;
-    // e.preventDefault();
-    // // const { water } = this.state;
-    //   .then(response => {
-    //     console.log(response);
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
+  const submitJournal = e => {
+    e.preventDefault();
+    const entryDate = new Date().toString();
+    const date = moment(entryDate, 'ddd MMM DD YYYY HH:mm:ss').format(
+      'YYYY-MM-DD HH:mm:ss',
+    );
+    const journalEntryObj = {
+      date,
+      text,
+      status,
+      h2oz,
+      nutrition,
+      sleep,
+      exercise,
+      userId,
+    };
+    addJournalEntry(journalEntryObj);
   };
 
   return (
@@ -38,13 +51,13 @@ const Journal = () => {
         <h3>
           Journal <span className="text-primary" />
         </h3>
-        <Form onSubmit={handleClick}>
+        <Form>
           <FormGroup>
-            <Label for="journal">today&apos;s journal entry:</Label>
+            <Label for="text">today&apos;s journal entry:</Label>
             <Input
               type="textarea"
-              name="journal"
-              id="journal"
+              name="text"
+              id="text"
               onChange={e => {
                 setJournal(e.target.value);
               }}
@@ -52,15 +65,14 @@ const Journal = () => {
               cols="50"
             />
           </FormGroup>
-
           <FormGroup>
-            <Label htmlFor="feelings">what are you feeling?</Label>
+            <Label htmlFor="status">what are you feeling?</Label>
             <Input
-              name="feelings"
+              name="status"
               type="select"
               bsSize="sm"
               onChange={e => {
-                setFeeling(e.target.value);
+                setStatus(e.target.value);
               }}
             >
               <option value="happiness">happiness</option>
@@ -79,13 +91,12 @@ const Journal = () => {
               <option value="envy">envy</option>
             </Input>
           </FormGroup>
-
           <FormGroup>
-            <Label for="water">water intake in ounces:</Label>
+            <Label for="h2oz">water intake in ounces:</Label>
             <Input
               type="text"
-              name="water"
-              id="water"
+              name="h2oz"
+              id="h2oz"
               placeholder="ounces"
               onChange={e => {
                 setWater(e.target.value);
@@ -113,7 +124,6 @@ const Journal = () => {
               placeholder="minutes"
               onChange={e => {
                 setExercise(e.target.value);
-                console.log(e.target.value);
               }}
             />
           </FormGroup>
@@ -128,10 +138,10 @@ const Journal = () => {
               }}
             />
           </FormGroup>
+          <Button style={{ backgroundColor: '#3024b0', border: '0px' }} onClick={submitJournal}>
+            save
+          </Button>{' '}
         </Form>
-        <Button style={{ backgroundColor: '#3024b0', border: '0px' }}>
-          save
-        </Button>{' '}
       </div>
     </div>
   );
