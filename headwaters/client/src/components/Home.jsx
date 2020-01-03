@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Image from 'react-bootstrap/Image';
-import axios from 'axios';
-import { useAuth0 } from '../react-auth0-spa.jsx';
-import '../styles/home.css';
 
 const Home = () => {
   return (
@@ -13,4 +10,5 @@ const Home = () => {
     </section>
   );
 };
+
 export default Home;
