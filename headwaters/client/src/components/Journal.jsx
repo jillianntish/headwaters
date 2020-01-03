@@ -2,7 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import {
+  Button, Form, FormGroup, Label, Input
+} from 'reactstrap';
 
 import { useAuth0 } from '../react-auth0-spa.jsx';
 import '../styles/event-form.css';
@@ -119,7 +121,7 @@ const Journal = () => {
               type="text"
               name="exercise"
               id="exercise"
-              placeholder="exercise"
+              placeholder="minutes"
               onChange={e => {
                 setExercise(e.target.value);
               }}
@@ -136,8 +138,8 @@ const Journal = () => {
               }}
             />
           </FormGroup>
-          <Button color="primary" size="sm" onClick={submitJournal}>
-            Submit
+        <Button style={{ backgroundColor: '#3024b0', border: '0px' }} onClick={submitJournal}>
+          save
           </Button>{' '}
         </Form>
       </div>

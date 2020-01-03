@@ -65,9 +65,9 @@ const EventOptions = (props) => {
           <div>{location}</div>
           <div>{notes}</div>
           <div className="option-buttons-container">
-            <Button onClick={handleOpenEditForm} color="dark" size="sm">edit info</Button>{' '}
-            <Button onClick={handleDeleteClick} color="danger" size="sm">delete event</Button>{' '}
-            <Button onClick={handleAddClick} color="primary" size="sm">add event</Button>{' '}
+            <Button onClick={handleOpenEditForm} style={{ backgroundColor: '#596cb0', border: '0px' }} size="sm">edit info</Button>{' '}
+            <Button onClick={handleDeleteClick} style={{ backgroundColor: '#f45d5d', border: '0px' }} size="sm">delete event</Button>{' '}
+            <Button onClick={handleAddClick} style={{ backgroundColor: '#3024b0', border: '0px' }} size="sm">add event</Button>{' '}
           </div>
         </ToastBody>
       </Toast>

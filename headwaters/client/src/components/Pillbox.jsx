@@ -139,8 +139,8 @@ const Pillbox = () => {
               onChange={handleTime}
             />
             <br />
-            <Button color="primary" size="sm" onClick={addTime}>
-              Add Time
+            <Button style={{ backgroundColor: '#148f86', border: '0px' }} size="sm" onClick={addTime}>
+              add time
             </Button>{' '}
           </FormGroup>
           <FormGroup>
@@ -156,8 +156,8 @@ const Pillbox = () => {
           <img src={pic} height="100" width="100" alt="" />
           <br />
           <br />
-          <Button color="primary" size="sm">
-            Submit
+          <Button style={{ backgroundColor: '#3024b0', border: '0px' }}>
+            save
           </Button>{' '}
         </form>
       </div>

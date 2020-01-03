@@ -144,7 +144,7 @@ const Calendar = () => {
             />
           </div>
         </Col>
-        <Col xs="6">
+        <Col xs="5">
           {showEventForm && (
             <NewEvent
               className="calendar"
