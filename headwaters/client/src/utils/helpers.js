@@ -1,18 +1,17 @@
 /* eslint-disable no-return-await */
 import axios from 'axios';
 
-export const validateEmail = async(email) => {
-  return await axios.get('/api/auth', {
-    params: {
-      email,
-    },
-  }).then(res => res.data);
+export const validateEmail = async email => {
+  return await axios
+    .get('/api/auth', {
+      params: {
+        email,
+      },
+    })
+    .then(res => res.data);
 };
 
-export const createUser = async({
-  nickname,
-  email,
-}) => {
+export const createUser = async ({ nickname, email }) => {
   return await axios.post('/api/auth', {
     nickname,
     email,
@@ -21,8 +20,9 @@ export const createUser = async({
 
 // axios calendar helpers
 
-export const createUserEvent = async(eventObj) => {
-  return await axios.post(`/calendar/${eventObj.userId}/events`, eventObj)
+export const createUserEvent = async eventObj => {
+  return await axios
+    .post(`/calendar/${eventObj.userId}/events`, eventObj)
     .then(res => {
       console.log(res.status);
     })
@@ -58,42 +58,42 @@ export const handleIncomingData = incomingEvents => {
 // };
 
 // axios journal helpers
-export const getUserEntries = async(userId) => {
-  return await axios.get(`/journal/${userId}/entries`)
+export const getUserEntries = async userId => {
+  return await axios
+    .get(`/journal/${userId}/entries`)
     .then(res => {
-      res.data;
-      debugger;
+      return res.data;
     })
     .catch(err => {
       console.error(err);
-      debugger;
     });
 };
 
-export const addJournalEntry = async(newEntryObj) => {
-  return await axios.post(`/journal/${newEntryObj.userId}/entries`, newEntryObj)
-    .then((response) => {
-      response;
-      debugger;
-    })
+export const addJournalEntry = async newEntryObj => {
+  const newEntryArr = [];
+  newEntryArr.push(newEntryObj);
+  return await axios
+    .post(`/journal/${newEntryObj.userId}/entries`, newEntryArr)
+    .then(response => response)
     .catch(err => console.error(err));
 };
-
 
 // axios pillbox helpers
-export const getUserMedications = async(userId) => {
-  return await axios.get(`/pillbox/${userId}`)
+export const getUserMedications = async userId => {
+  return await axios
+    .get(`/pillbox/${userId}`)
     .then(res => {
-      res.data;
+      return res.data;
       debugger;
     })
     .catch(err => console.error(err));
 };
 
-export const addUserMedication = async(newMedObj) => {
-  return await axios.post(`/pillbox/${newMedObj.userId}`, newMedObj)
-    .then((response) => {
-      response;
+export const addUserMedication = async newMedObj => {
+  return await axios
+    .post(`/pillbox/${newMedObj.userId}`, newMedObj)
+    .then(response => {
+      return response;
       debugger;
     })
     .catch(err => console.error(err));
