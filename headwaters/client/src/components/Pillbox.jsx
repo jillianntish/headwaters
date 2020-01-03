@@ -6,22 +6,31 @@ import { useAuth0 } from '../react-auth0-spa.jsx';
 
 import '../styles/event-form.css';
 import '../styles/pillbox.css';
-import MedList from './MedList.jsx';
+
 
 // import sample from './exampleData';
 const { addUserMedication, getUserMedications } = require('../utils/helpers');
 
 const Pillbox = () => {
   const { user } = useAuth0();
+  const [userId] = useState(user.id);
+  const [medEntries, setMedEntries] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getUserMedications()
-      .then(res => {
-
-        console.log("getting data from db", res.data);
-      })
-      .catch(err => console.error(err));
-  });
+    async function getUserMedications() {
+      await axios
+        .get(`/pillbox/${userId}`)
+        .then(res => {
+          setMedEntries(res.data);
+        })
+        .catch(err => console.error(err));
+    }
+    getUserMedications().then(medications => {
+      const data = medications;
+      setLoading(false);
+    });
+  }, []);
 
   const [med, setMed] = useState([]);
   const handleMed = e => {
@@ -52,8 +61,6 @@ const Pillbox = () => {
 
   let [times] = useState([]);
   const addTime = () => {
-    // may need to change times to a string and concat string
-    console.log('getting time', times);
     times = times.push(time);
   };
 
@@ -64,12 +71,11 @@ const Pillbox = () => {
     setNotes(value);
   };
 
-  const [pic, setPic] = useState([]);
-  const handlePic = e => {
-    setPic(URL.createObjectURL(e.target.files[0]));
+  const [url, setUrl] = useState([]);
+  const handleUrl = e => {
+    setUrl(URL.createObjectURL(e.target.files[0]));
   };
 
-  const [userId] = useState(user.id);
   const submitMed = e => {
     e.preventDefault();
     const medEntryObj = {
@@ -79,11 +85,15 @@ const Pillbox = () => {
       frequency: times.length,
       times,
       notes,
-      pic,
+      url: url.toString(),
       userId,
     };
     addUserMedication(medEntryObj);
   };
+
+  if (loading) {
+    return 'Loading...';
+  }
 
   return (
     <div>
@@ -153,8 +163,8 @@ const Pillbox = () => {
               onChange={handleNotes}
             />
           </FormGroup>
-          <input type="file" name="pic" onChange={handlePic} />
-          <img src={pic} height="100" width="100" alt="" />
+          <input type="file" name="url" onChange={handleUrl} />
+          <img src={url} height="100" width="100" alt="" />
           <br />
           <br />
           <Button style={{ backgroundColor: '#3024b0', border: '0px' }}>
@@ -162,8 +172,24 @@ const Pillbox = () => {
           </Button>{' '}
         </form>
       </div>
+<<<<<<< HEAD
 
-    </div>
+=======
+      <div>
+        {medEntries.map(medEntry => (
+          <div id="rcorners1">
+            <li>Medication: {medEntry.name} </li>
+            <li> Physician: {medEntry.practitioner} </li>
+            <li> Dosage: {medEntry.dosage} </li>
+            <li>Times: {medEntry.scheduled_times} </li>
+            <li>Notes: {medEntry.notes} </li>
+            <li>Picture:</li>
+            <img src={medEntry.url} height="95" width="95" alt="" />
+          </div>
+        ))}
+      </div>
+>>>>>>> ffd54542625a29559eaaac9a038ed9ca19671e82
+    </div >
   );
 };
 export default Pillbox;
