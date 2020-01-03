@@ -7,6 +7,7 @@ import { useAuth0 } from '../react-auth0-spa.jsx';
 
 import '../styles/event-form.css';
 import '../styles/pillbox.css';
+import MedList from './MedList.jsx';
 // import sample from './exampleData';
 
 const Pillbox = () => {
@@ -99,11 +100,11 @@ const Pillbox = () => {
 
       <div>
         <p id="rcorners1">
-            Medication: {med}
+          Medication: {med}
           <br />
-            Dosage (mg): {dosage}
+          Dosage (mg): {dosage}
           <br />
-            Times: {times}
+          Times: {times}
           {/* This needs to be fixed */}
           {times.map((newTime, i) => {
             return (
@@ -111,16 +112,16 @@ const Pillbox = () => {
             );
           })}
           <br />
-            Notes: {notes}
+          Notes: {notes}
           <br />
-            Pic:
+          Pic:
           <br />
           <img src={pic} height="95" width="95" alt="" />
         </p>
       </div>
       <div className="form-container">
         <h1>
-            Pillbox <span className="text-primary" />
+          Pillbox <span className="text-primary" />
         </h1>
       </div>
       <div className="new-event-form">
@@ -177,9 +178,9 @@ const Pillbox = () => {
           <br />
           <br />
           <Button color="primary" size="sm">Submit</Button>{' '}
-
         </form>
       </div>
+      <MedList />
     </div>
   );
 };
