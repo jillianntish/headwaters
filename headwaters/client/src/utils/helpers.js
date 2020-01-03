@@ -42,7 +42,7 @@ export const handleIncomingData = incomingEvents => {
       title: incomingEvent.name,
       start,
       extendedProps: {
-        practictioner: incomingEvent.practicioner,
+        practictioner: incomingEvent.practitioner,
         location: incomingEvent.location,
         notes: incomingEvent.notes,
         type: incomingEvent.type,
@@ -90,11 +90,13 @@ export const getUserMedications = async userId => {
 };
 
 export const addUserMedication = async newMedObj => {
+  const newMedArr = [];
+  newMedArr.push(newMedObj);
+  debugger;
   return await axios
-    .post(`/pillbox/${newMedObj.userId}`, newMedObj)
+    .post(`/pillbox/${newMedObj.userId}`, newMedArr)
     .then(response => {
       return response;
-      debugger;
     })
     .catch(err => console.error(err));
 };
