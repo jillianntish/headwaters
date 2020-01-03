@@ -135,6 +135,35 @@ const insertUserEvent = (newEventObj) => {
   return query(newEventSQL, eventFieldValues);
 };
 
+const deleteUserEvent = (userId, eventId) => {
+  const deletionFields = [`${userId}`, `${eventId}`];
+  const deleteEventSQL = 'delete from events where event_id_user = ? and id = ?';
+  return query(deleteEventSQL, deletionFields);
+};
+
+const patchUserEvent = (editEventObj, userId, eventId) => {
+  const {
+    dateTime,
+    editNotes,
+    editType,
+    locale,
+    name,
+    prac,
+  } = editEventObj;
+
+  const patchFields = [
+    `${name}`,
+    `${dateTime}`,
+    `${editNotes}`,
+    `${prac}`,
+    `${editType}`,
+    `${locale}`,
+  ];
+
+  const updateEventSQL = `update events set name = ?, date_time = ?, notes = ?, practicioner = ?, type = ?, location = ? where id = ${eventId} and event_id_user = ${userId}`;
+  return query(updateEventSQL, patchFields);
+};
+
 /*
 * Journal Helpers
 * listed below
@@ -310,4 +339,6 @@ module.exports = {
   getUserJournalEntries,
   addJournalEntry,
   createUserMedEvents,
+  deleteUserEvent,
+  patchUserEvent,
 };
