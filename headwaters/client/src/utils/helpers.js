@@ -1,6 +1,10 @@
 /* eslint-disable no-return-await */
 import axios from 'axios';
 
+/**
+ * Axios authentication helpers
+ */
+
 export const validateEmail = async email => {
   return await axios
     .get('/api/auth', {
@@ -42,7 +46,7 @@ export const handleIncomingData = incomingEvents => {
       title: incomingEvent.name,
       start,
       extendedProps: {
-        practictioner: incomingEvent.practicioner,
+        practitioner: incomingEvent.practitioner,
         location: incomingEvent.location,
         notes: incomingEvent.notes,
         type: incomingEvent.type,
@@ -57,7 +61,32 @@ export const handleIncomingData = incomingEvents => {
 //  await.axios.patch(endpoint, {})
 // };
 
-// axios journal helpers
+export const deleteUserEvent = async (eventId, userId) => {
+  return await axios
+    .delete(`/calendar/${userId}/events/${eventId}`)
+    .then(response => {
+      return response;
+    })
+    .catch(err => {
+      console.error(err);
+    });
+};
+
+export const patchUserEvent = async (editEventObj, userId, eventId) => {
+  return await axios
+    .patch(`/calendar/${userId}/events/${eventId}`, editEventObj)
+    .then(response => {
+      return response;
+    })
+    .catch(err => {
+      console.error(err);
+    });
+};
+
+/**
+ * Axios journal helpers
+ */
+
 export const getUserEntries = async userId => {
   return await axios
     .get(`/journal/${userId}/entries`)
@@ -90,11 +119,12 @@ export const getUserMedications = async userId => {
 };
 
 export const addUserMedication = async newMedObj => {
+  const newMedArr = [];
+  newMedArr.push(newMedObj);
   return await axios
-    .post(`/pillbox/${newMedObj.userId}`, newMedObj)
+    .post(`/pillbox/${newMedObj.userId}`, newMedArr)
     .then(response => {
       return response;
-      debugger;
     })
     .catch(err => console.error(err));
 };
