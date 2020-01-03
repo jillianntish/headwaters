@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth0 } from '../react-auth0-spa.jsx';
-import '../styles/home.css'
+import '../styles/home.css';
 
 const Home = () => {
   const { user } = useAuth0();
@@ -13,21 +13,10 @@ const Home = () => {
     },
   ]);
 
-
-  // const getQuote = () => {
-  //   const url = 'https://quote-garden.herokuapp.com/quotes/random';
-
-  //   axios.get(url)
-  //     .then(res => {
-  //       const quote = res.quoteText;
-  //       console.log(res);
-  //     });
-  // };
-
   useEffect(() => {
-    // getQuote();
+
     const quotes = axios('https://quote-garden.herokuapp.com/quotes/random')
-      // const data = await quotes.json();
+
       .then(res => {
         console.log(res.data);
         setQuote({
@@ -36,8 +25,6 @@ const Home = () => {
         });
       })
       .catch(err => console.log(err));
-    // const apiQuote = quotes.data.quoteText;
-    // const apiAuthor = quotes.data.quoteAuthor;
   }, []);
 
   return (
