@@ -15,16 +15,12 @@ const Journal = () => {
   const { user } = useAuth0();
   const [userId] = useState(user.id);
   const [text, setJournal] = useState([]);
-  const [status, setStatus] = useState([]);
+  const [status] = useState('happiness');
+  const [setStatus] = useState([]);
   const [h2oz, setWater] = useState([]);
   const [sleep, setSleep] = useState([]);
   const [exercise, setExercise] = useState([]);
   const [nutrition, setNutrition] = useState([]);
-
-  // const onSubmit = e => {
-  //   e.preventDefault();
-  //   console.log('Register submit');
-  // };
 
   const submitJournal = e => {
     e.preventDefault();
