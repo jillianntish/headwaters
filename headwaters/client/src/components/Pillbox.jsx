@@ -1,26 +1,27 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa.jsx';
 
 import '../styles/event-form.css';
 import '../styles/pillbox.css';
+import MedList from './MedList.jsx';
+
 // import sample from './exampleData';
-const { addUserMedication } = require('../utils/helpers');
+const { addUserMedication, getUserMedications } = require('../utils/helpers');
 
 const Pillbox = () => {
   const { user } = useAuth0();
 
-  // componentDidMount() {
-  // axios.get('/api/pillbox/:userId')
-  //   .then(response){
-  //   console.log(response);
-  // }
-  // .catch((error) => {
-  //     console.log(error);
-  //   };
-  // }
+  useEffect(() => {
+    getUserMedications()
+      .then(res => {
+
+        console.log("getting data from db", res.data);
+      })
+      .catch(err => console.error(err));
+  });
 
   const [med, setMed] = useState([]);
   const handleMed = e => {
@@ -161,6 +162,7 @@ const Pillbox = () => {
           </Button>{' '}
         </form>
       </div>
+
     </div>
   );
 };
