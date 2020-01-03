@@ -8,9 +8,12 @@ import { Col, Row } from 'reactstrap';
 import NewEvent from './NewEvent.jsx';
 import EventOptions from './EventOptions.jsx';
 import { useAuth0 } from '../../react-auth0-spa.jsx';
-import { createUserEvent, deleteUserEvent, handleIncomingData } from '../../utils/helpers';
+import {
+ createUserEvent, deleteUserEvent, handleIncomingData, patchUserEvent 
+} from '../../utils/helpers';
 
 import '../../styles/calendar.css';
+import EditEventForm from './EditEvent.jsx';
 
 const Calendar = () => {
   const { user } = useAuth0();
@@ -42,6 +45,7 @@ const Calendar = () => {
 
   const [showEventForm, setShowEventForm] = useState(false);
   const [showEventOptions, setShowEventOptions] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
 
   const handleDateClick = arg => {
     setClickedDate([arg.date]);
@@ -79,8 +83,8 @@ const Calendar = () => {
     }
   };
 
-  const handleEventPost = newEvent => {
-    createUserEvent(newEvent)
+  const handleEventPost = newEventObj => {
+    createUserEvent(newEventObj)
       .then(() => {
         // let user know
       })
@@ -96,6 +100,17 @@ const Calendar = () => {
         setShowEventOptions(false);
       })
       .catch(err => console.error(err));
+  };
+
+  const handleEventPatch = (editEventObj, userId, eventId) => {
+    patchUserEvent(editEventObj, userId, eventId)
+      .then(() => {
+        // let the user know
+      })
+      .catch((err) => {
+        console.error(err);
+        // let the user know
+      })
   };
 
   if (loading) {
@@ -128,7 +143,7 @@ const Calendar = () => {
             <NewEvent className="calendar" date={clickedDate} handleEventPost={handleEventPost} />
           )}
           {showEventOptions && (
-          <EventOptions event={clickedEvent} handleEventDeletion={handleEventDeletion} handleOpenFormAtEvent={handleOpenFormAtEvent} />
+          <EventOptions event={clickedEvent} handleEventDeletion={handleEventDeletion} handleOpenFormAtEvent={handleOpenFormAtEvent} handleEventPatch={handleEventPatch} />
           )}
         </Col>
       </Row>
