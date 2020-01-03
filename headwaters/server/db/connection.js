@@ -108,20 +108,18 @@ const findUserByEmail = email => {
 };
 
 /*
-* Calendar Helpers
-* listed below
-*/
+ * Calendar Helpers
+ * listed below
+ */
 
-const getUserEvents = (userId) => {
+const getUserEvents = userId => {
   // retrieves all rows from events table that match userId
   const selectEventsByUserId = 'select * from events where event_id_user = ?';
   return query(selectEventsByUserId, [`${userId}`]);
 };
 
-const insertUserEvent = (newEventObj) => {
-  const {
-    userId, name, dateTime, notes, prac, type, locale,
-  } = newEventObj;
+const insertUserEvent = newEventObj => {
+  const { userId, name, dateTime, notes, prac, type, locale } = newEventObj;
   const eventFieldValues = [
     `${userId}`,
     `${name}`,
@@ -131,20 +129,21 @@ const insertUserEvent = (newEventObj) => {
     `${type}`,
     `${locale}`,
   ];
-  const newEventSQL = 'insert into events(event_id_user, name, date_time, notes, practicioner, type, location) values(?, ?, ?, ?, ?, ?, ?)';
+  const newEventSQL =
+    'insert into events(event_id_user, name, date_time, notes, practitioner, type, location) values(?, ?, ?, ?, ?, ?, ?)';
   return query(newEventSQL, eventFieldValues);
 };
 
 /*
-* Journal Helpers
-* listed below
-*/
+ * Journal Helpers
+ * listed below
+ */
 
 const getUserJournalEntries = userId => {
-  const selectEntriesByUserId = 'select * from journals where journal_id_user = ?';
+  const selectEntriesByUserId =
+    'select * from journals where journal_id_user = ?';
   return query(selectEntriesByUserId, [`${userId}`]);
 };
-
 
 const addJournalEntry = (journalEntryObj, userId) => {
   const {
@@ -168,38 +167,40 @@ const addJournalEntry = (journalEntryObj, userId) => {
     `${userId}`,
   ];
 
-  const newEntrySQL = 'insert into journals(date, text, status, h2oz, nutrition, sleep, exercise, journal_id_user) values(?, ?, ?, ?, ?, ?, ?, ?)';
+  const newEntrySQL =
+    'insert into journals(date, text, status, h2oz, nutrition, sleep, exercise, journal_id_user) values(?, ?, ?, ?, ?, ?, ?, ?)';
   return query(newEntrySQL, entryFieldValues);
 };
 
 /*
-* Pillbox Helpers
-* listed below
-*/
+ * Pillbox Helpers
+ * listed below
+ */
 
-const getUserMedications = (userId) => {
-// takes in user's id
-// retrieves all medications stored for user @ user_meds
-// user_meds is a join table
+const getUserMedications = userId => {
+  // takes in user's id
+  // retrieves all medications stored for user @ user_meds
+  // user_meds is a join table
 
-  // SELECT name, url, dosage, frequency, scheduled_times, practicioner, notes
+  // SELECT name, url, dosage, frequency, scheduled_times, practitioner, notes
   // FROM meds, images, users_meds
   // WHERE users_meds_user = 1;
   // +-----------+-------------+--------+-----------+-----------------+--------------+--------------+
-  // | name      | url         | dosage | frequency | scheduled_times | practicioner | notes        |
+  // | name      | url         | dosage | frequency | scheduled_times | practitioner | notes        |
   // +-----------+-------------+--------+-----------+-----------------+--------------+--------------+
   // | grapjuice | thismed.jpg |      2 |         2 | [13:00]         | dr.crusher   | away vaccine |
   // +-----------+-------------+--------+-----------+-----------------+--------------+--------------+
 
-  const userMedicationsSQL = 'SELECT name, url, dosage, frequency, scheduled_times, practicioner, notes FROM meds, images, users_meds WHERE users_meds_user = ?';
+  const userMedicationsSQL =
+    'SELECT name, url, dosage, frequency, scheduled_times, practitioner, notes FROM meds, images, users_meds WHERE users_meds_user = ?';
   return query(userMedicationsSQL, [`${userId}`]);
 };
 
-const insertIntoMeds = (userId, name) => {
+const insertIntoMeds = (userId, med) => {
   // takes in a userId and a medication name
   // adds both to meds table
   // query returns row with med id
-  const medicationFields = [`${userId}`, `${name}`];
+  const medicationFields = [`${userId}`, `${med}`];
   const medicationSQL = 'insert into meds(med_id_user, name) values(?, ?)';
   const getMedId = 'SELECT LAST_INSERT_ID()';
 
@@ -210,7 +211,7 @@ const insertIntoMeds = (userId, name) => {
     .catch(err => console.error(err));
 };
 
-const insertIntoImages = (url) => {
+const insertIntoImages = url => {
   // takes in a medication img url
   // adds both to imgs table
   // query returns row with image id
@@ -226,12 +227,12 @@ const insertIntoImages = (url) => {
 };
 
 const insertIntoUsersMeds = (userId, medId, imgId, newMedicationObj) => {
-  // insert into users_meds(users_meds_user, users_meds_med, id_img, dosage, frequency, scheduled_times, practicioner, notes) values(1, 3, 1, 2, 2, '[13:00]', 'dr.crusher', 'away vaccine');
+  // insert into users_meds(users_meds_user, users_meds_med, id_img, dosage, frequency, scheduled_times, practitioner, notes) values(1, 3, 1, 2, 2, '[13:00]', 'dr.crusher', 'away vaccine');
   const {
     dosage,
     frequency,
-    scheduled_times,
-    practicioner,
+    times,
+    practitioner,
     notes,
   } = newMedicationObj;
 
@@ -241,56 +242,51 @@ const insertIntoUsersMeds = (userId, medId, imgId, newMedicationObj) => {
     `${imgId}`,
     `${dosage}`,
     `${frequency}`,
-    `${scheduled_times}`,
-    `${practicioner}`,
+    `${times}`,
+    `${practitioner}`,
     `${notes}`,
   ];
 
-  const userMedicationsSQL = 'insert into users_meds(users_meds_user, users_meds_med, id_img, dosage, frequency, scheduled_times, practicioner, notes) values(?, ?, ?, ?, ?, ?, ?, ?)';
+  const userMedicationsSQL =
+    'insert into users_meds(users_meds_user, users_meds_med, id_img, dosage, frequency, scheduled_times, practitioner, notes) values(?, ?, ?, ?, ?, ?, ?, ?)';
   return query(userMedicationsSQL, medicationFields);
 };
 
 const addUserMedicationMaster = (newMedicationObj, userId) => {
-// takes in a userId and a medication values object
-// will need to add userId, name to meds table (2nd helper?)
-// will need to add url to images table (2nd helper?)
-// will need to add userId, medId, imgId, dosage, frequency, scheduled_times, practicioner, notes to users_meds
+  // takes in a userId and a medication values object
+  // will need to add userId, name to meds table (2nd helper?)
+  // will need to add url to images table (2nd helper?)
+  // will need to add userId, medId, imgId, dosage, frequency, scheduled_times, practitioner, notes to users_meds
 
-  const {
-    name,
-    url,
-  } = newMedicationObj;
+  const { med, url } = newMedicationObj;
 
-  const asyncInsertion = async() => {
-    const medIdResponse = await insertIntoMeds(userId, name);
+  const asyncInsertion = async () => {
+    const medIdResponse = await insertIntoMeds(userId, med);
     const imgIdResponse = await insertIntoImages(url);
     return [medIdResponse, imgIdResponse];
   };
 
-  return asyncInsertion()
-    .then(idArray => {
-      let medId = Object.values(idArray[0])[0];
-      medId = medId['LAST_INSERT_ID()'];
-      let imgId = Object.values(idArray[1])[0];
-      imgId = imgId['LAST_INSERT_ID()'];
-      return insertIntoUsersMeds(userId, medId, imgId, newMedicationObj);
-    });
+  return asyncInsertion().then(idArray => {
+    let medId = Object.values(idArray[0])[0];
+    medId = medId['LAST_INSERT_ID()'];
+    let imgId = Object.values(idArray[1])[0];
+    imgId = imgId['LAST_INSERT_ID()'];
+    return insertIntoUsersMeds(userId, medId, imgId, newMedicationObj);
+  });
 };
 
 const createUserMedEvents = () => {
-// will create an event for the user *for each submitted time with:
-// userId, name = name of medication
-// date_time
-// repeated daily somehow ?
-// for all medications in users database
-// notes = medication notes
-// practicioner (needs to be added as field on medication submit)
-// type (medication)
-// location null
-
-// will be retrieved on calendar load like other events
+  // will create an event for the user *for each submitted time with:
+  // userId, name = name of medication
+  // date_time
+  // repeated daily somehow ?
+  // for all medications in users database
+  // notes = medication notes
+  // practitioner (needs to be added as field on medication submit)
+  // type (medication)
+  // location null
+  // will be retrieved on calendar load like other events
 };
-
 
 module.exports = {
   connection,

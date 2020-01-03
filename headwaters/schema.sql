@@ -79,7 +79,7 @@ CREATE TABLE users_meds (
   -- times per day
   frequency INT,
   scheduled_times MEDIUMTEXT,
-  practicioner VARCHAR(255) NOT NULL,
+  practitioner VARCHAR(255) NOT NULL,
   notes MEDIUMTEXT
 );
 
@@ -94,7 +94,7 @@ CREATE TABLE events (
   name VARCHAR(255) NOT NULL,
   date_time VARCHAR(255) NOT NULL,
   notes MEDIUMTEXT NOT NULL,
-  practicioner VARCHAR(255),
+  practitioner VARCHAR(255),
   type ENUM('mental well-being', 'physical well-being', 'personal', 'medication', 'other'),
   -- physical address
   location VARCHAR(255)

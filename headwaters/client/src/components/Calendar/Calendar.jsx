@@ -17,7 +17,6 @@ const Calendar = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     async function fetchUserEvents() {
       await axios.get(`/calendar/${user.id}/events`).then(res => {
@@ -25,11 +24,10 @@ const Calendar = () => {
           const response = await handleIncomingData(res.data);
           return response;
         }
-        formatEvents()
-          .then(formattedResponse => {
-            setEvents(formattedResponse);
-            setLoading(false);
-          });
+        formatEvents().then(formattedResponse => {
+          setEvents(formattedResponse);
+          setLoading(false);
+        });
       });
     }
 
@@ -42,7 +40,7 @@ const Calendar = () => {
     {
       title: '',
       state: '',
-      practicioner: '',
+      practitioner: '',
       location: '',
     },
   ]);
@@ -63,7 +61,7 @@ const Calendar = () => {
       {
         title: info.event.title,
         start: info.event.start.toString(),
-        practicioner: info.event.extendedProps.practicioner,
+        practitioner: info.event.extendedProps.practitioner,
         location: info.event.extendedProps.location,
       },
     ]);
@@ -112,7 +110,11 @@ const Calendar = () => {
         </Col>
         <Col xs="6">
           {showEventForm && (
-            <NewEvent className="calendar" date={clickedDate} handleEventPost={handleEventPost} />
+            <NewEvent
+              className="calendar"
+              date={clickedDate}
+              handleEventPost={handleEventPost}
+            />
           )}
           {showEventOptions && <EventOptions event={clickedEvent} />}
         </Col>

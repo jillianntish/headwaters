@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import {
-  Button, Form, FormGroup, Label, Input,
-} from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import moment from 'moment';
 import { useAuth0 } from '../../react-auth0-spa.jsx';
 
 import '../../styles/event-form.css';
 
-const NewEvent = (props) => {
+const NewEvent = props => {
   const { user } = useAuth0();
 
   let { date } = props;
@@ -23,7 +21,7 @@ const NewEvent = (props) => {
   const [notes, setNotes] = useState('Stardate 43125.8');
   const [locale, setLocale] = useState('Starship Enterprise');
 
-  const handleEventSubmit = (event) => {
+  const handleEventSubmit = event => {
     event.preventDefault();
 
     const { handleEventPost } = props;
@@ -67,7 +65,7 @@ const NewEvent = (props) => {
           />
         </FormGroup>
         <FormGroup>
-          <Label for="practitioner">Practicioner</Label>
+          <Label for="practitioner">Practitioner</Label>
           <Input
             type="text"
             name="practitioner"

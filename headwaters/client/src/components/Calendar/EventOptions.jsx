@@ -10,12 +10,12 @@ class EventOptions extends React.Component {
   constructor(props) {
     super(props);
     const {
-      title, start, practicioner, location,
+      title, start, practitioner, location,
     } = props.event[0];
     this.state = {
       title,
       start,
-      practicioner,
+      practitioner,
       location,
       show: true,
     };
@@ -32,7 +32,7 @@ class EventOptions extends React.Component {
 
   render() {
     const {
-      title, start, practicioner, location, show,
+      title, start, practitioner, location, show,
     } = this.state;
     // date conversion
     const dateFormat = moment(start, 'ddd MMM DD YYYY HH:mm:ss').format('ddd MMM Do, YYYY');
@@ -47,7 +47,7 @@ class EventOptions extends React.Component {
             <div>{title}</div>
             <div>{dateFormat}</div>
             <div>{timeFormat}</div>
-            <div>{practicioner}</div>
+            <div>{practitioner}</div>
             <div>{location}</div>
             <div className="option-buttons-container">
               <Button color="dark" size="sm">edit info</Button>{' '}
