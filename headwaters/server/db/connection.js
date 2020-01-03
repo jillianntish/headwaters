@@ -136,19 +136,13 @@ const insertUserEvent = newEventObj => {
 
 const deleteUserEvent = (userId, eventId) => {
   const deletionFields = [`${userId}`, `${eventId}`];
-  const deleteEventSQL = 'delete from events where event_id_user = ? and id = ?';
+  const deleteEventSQL =
+    'delete from events where event_id_user = ? and id = ?';
   return query(deleteEventSQL, deletionFields);
 };
 
 const patchUserEvent = (editEventObj, userId, eventId) => {
-  const {
-    dateTime,
-    editNotes,
-    editType,
-    locale,
-    name,
-    prac,
-  } = editEventObj;
+  const { dateTime, editNotes, editType, locale, name, prac } = editEventObj;
 
   const patchFields = [
     `${name}`,
@@ -221,7 +215,7 @@ const getUserMedications = userId => {
   // +-----------+-------------+--------+-----------+-----------------+--------------+--------------+
 
   const userMedicationsSQL =
-    'SELECT name, url, dosage, frequency, scheduled_times, practitioner, notes FROM meds, images, users_meds WHERE users_meds_user = ?';
+    'SELECT name, url, dosage, frequency, scheduled_times, practitioner, notes FROM meds m inner join images i on m.id = i.meds_id inner join users_meds u on u.users_meds_med = m.id WHERE users_meds_user = ?';
   return query(userMedicationsSQL, [`${userId}`]);
 };
 
@@ -240,13 +234,13 @@ const insertIntoMeds = (userId, med) => {
     .catch(err => console.error(err));
 };
 
-const insertIntoImages = url => {
+const insertIntoImages = (url, medId) => {
   // takes in a medication img url
   // adds both to imgs table
   // query returns row with image id
 
-  const imageFields = [`${url}`];
-  const imageSQL = 'insert into images(url) values(?)';
+  const imageFields = [`${url}`, `${medId}`];
+  const imageSQL = 'insert into images(url, meds_id) values(?, ?)';
   const getImgId = 'SELECT LAST_INSERT_ID()';
   return query(imageSQL, imageFields)
     .then(() => {
@@ -257,13 +251,7 @@ const insertIntoImages = url => {
 
 const insertIntoUsersMeds = (userId, medId, imgId, newMedicationObj) => {
   // insert into users_meds(users_meds_user, users_meds_med, id_img, dosage, frequency, scheduled_times, practitioner, notes) values(1, 3, 1, 2, 2, '[13:00]', 'dr.crusher', 'away vaccine');
-  const {
-    dosage,
-    frequency,
-    times,
-    practitioner,
-    notes,
-  } = newMedicationObj;
+  const { dosage, frequency, times, practitioner, notes } = newMedicationObj;
 
   const medicationFields = [
     `${userId}`,
@@ -289,18 +277,24 @@ const addUserMedicationMaster = (newMedicationObj, userId) => {
 
   const { med, url } = newMedicationObj;
 
-  const asyncInsertion = async () => {
+  const medIdInsertion = async () => {
     const medIdResponse = await insertIntoMeds(userId, med);
-    const imgIdResponse = await insertIntoImages(url);
-    return [medIdResponse, imgIdResponse];
+    return medIdResponse;
   };
 
-  return asyncInsertion().then(idArray => {
-    let medId = Object.values(idArray[0])[0];
+  const imageIdInsertion = async (imgUrl, mId) => {
+    const imageIdResponse = await insertIntoImages(imgUrl, mId);
+    return imageIdResponse;
+  };
+
+  return medIdInsertion().then(medIdArray => {
+    let medId = Object.values(medIdArray)[0];
     medId = medId['LAST_INSERT_ID()'];
-    let imgId = Object.values(idArray[1])[0];
-    imgId = imgId['LAST_INSERT_ID()'];
-    return insertIntoUsersMeds(userId, medId, imgId, newMedicationObj);
+    imageIdInsertion(url, medId).then(imgIdArray => {
+      let imgId = Object.values(imgIdArray)[0];
+      imgId = imgId['LAST_INSERT_ID()'];
+      return insertIntoUsersMeds(userId, medId, imgId, newMedicationObj);
+    });
   });
 };
 
