@@ -67,11 +67,11 @@ const NewEvent = (props) => {
           />
         </FormGroup>
         <FormGroup>
-          <Label for="practitioner">Practicioner</Label>
+          <Label for="practicioner">Practicioner</Label>
           <Input
             type="text"
-            name="practitioner"
-            id="practitioner"
+            name="practicioner"
+            id="practicioner"
             placeholder={prac}
             onChange={event => {
               setPrac(event.target.value);
