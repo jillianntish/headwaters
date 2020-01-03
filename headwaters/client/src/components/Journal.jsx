@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import {
-  Button, Form, FormGroup, Label, Input
+  Button, Form, FormGroup, Label, Input,
 } from 'reactstrap';
 
 import { useAuth0 } from '../react-auth0-spa.jsx';
@@ -138,7 +138,7 @@ const Journal = () => {
               }}
             />
           </FormGroup>
-        <Button style={{ backgroundColor: '#3024b0', border: '0px' }} onClick={submitJournal}>
+          <Button style={{ backgroundColor: '#3024b0', border: '0px' }} onClick={submitJournal}>
           save
           </Button>{' '}
         </Form>
