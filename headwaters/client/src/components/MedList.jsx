@@ -7,6 +7,7 @@ import {
 import { useAuth0 } from '../react-auth0-spa.jsx';
 import '../styles/event-form.css';
 import '../styles/pillbox.css';
+import getMeds from '../utils/helpers';
 import sample from './exampleData';
 
 const MedList = () => {
@@ -38,6 +39,9 @@ const MedList = () => {
     //   };
   }
 
+  const getDBMeds = () => {
+
+  }
 
 
 
