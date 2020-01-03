@@ -11,7 +11,8 @@ const { getUserJournalEntries, addJournalEntry } = require('../utils/helpers');
 
 const Journal = () => {
   const { user } = useAuth0();
-  const [journal, setJournal] = useState([]);
+  const [userId] = useState(user.id);
+  const [text, setJournal] = useState([]);
   const [status, setStatus] = useState([]);
   const [h2oz, setWater] = useState([]);
   const [sleep, setSleep] = useState([]);
@@ -29,19 +30,16 @@ const Journal = () => {
     const date = moment(entryDate, 'ddd MMM DD YYYY HH:mm:ss').format(
       'YYYY-MM-DD HH:mm:ss',
     );
-    date;
-    debugger;
     const journalEntryObj = {
       date,
-      journal,
+      text,
       status,
       h2oz,
       nutrition,
       sleep,
       exercise,
-      userId: user.id,
+      userId,
     };
-    debugger;
     addJournalEntry(journalEntryObj);
   };
 
@@ -53,11 +51,11 @@ const Journal = () => {
         </h3>
         <Form>
           <FormGroup>
-            <Label for="journal">today&apos;s journal entry:</Label>
+            <Label for="text">today&apos;s journal entry:</Label>
             <Input
               type="textarea"
-              name="journal"
-              id="journal"
+              name="text"
+              id="text"
               onChange={e => {
                 setJournal(e.target.value);
               }}
