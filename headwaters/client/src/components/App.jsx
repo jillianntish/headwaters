@@ -24,7 +24,6 @@ const App = props => {
           <Route path="/calendar" component={Calendar} />{' '}
           <Route path="/journal" component={Journal} />{' '}
           <Route path="/pillbox" component={Pillbox} />{' '}
-          <Route path="/home" component={Home} />{' '}
         </Switch>
       </Router>
     </div>
