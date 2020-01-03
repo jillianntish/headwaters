@@ -13,7 +13,7 @@ const EventOptions = (props) => {
   // eslint-disable-next-line react/destructuring-assignment
   const event = props.event[0];
   const {
-    title, start, user, id, practicioner, location, notes, type,
+    title, start, user, id, practitioner, location, notes, type,
   } = event;
 
   // date conversion for display
@@ -61,7 +61,7 @@ const EventOptions = (props) => {
           <div>{title}</div>
           <div>{dateFormat}</div>
           <div>{timeFormat}</div>
-          <div>{practicioner}</div>
+          <div>{practitioner}</div>
           <div>{location}</div>
           <div>{notes}</div>
           <div className="option-buttons-container">

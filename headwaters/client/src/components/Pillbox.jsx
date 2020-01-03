@@ -1,13 +1,13 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import axios from 'axios';
-import {
-  Button, FormGroup, Label, Input,
-} from 'reactstrap';
+import { Button, FormGroup, Label, Input } from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa.jsx';
 
 import '../styles/event-form.css';
 import '../styles/pillbox.css';
 // import sample from './exampleData';
+const { addUserMedication } = require('../utils/helpers');
 
 const Pillbox = () => {
   const { user } = useAuth0();
@@ -35,11 +35,11 @@ const Pillbox = () => {
     setDosage(value);
   };
 
-  const [physician, setPhysician] = useState([]);
-  const handlePhysician = e => {
+  const [practitioner, setPractitioner] = useState([]);
+  const handlePractitioner = e => {
     e.preventDefault();
     const { value } = e.target;
-    setPhysician(value);
+    setPractitioner(value);
   };
 
   const [time, setTime] = useState([]);
@@ -68,53 +68,31 @@ const Pillbox = () => {
     setPic(URL.createObjectURL(e.target.files[0]));
   };
 
-  const handleClick = e => {
+  const [userId] = useState(user.id);
+  const submitMed = e => {
     e.preventDefault();
-    axios
-      .post('/pillbox', {
-        med,
-        dosage,
-        times,
-        notes,
-        pic,
-      })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    const medEntryObj = {
+      med,
+      dosage,
+      practitioner,
+      frequency: times.length,
+      times,
+      notes,
+      pic,
+      userId,
+    };
+    addUserMedication(medEntryObj);
   };
 
   return (
     <div>
-      <div>
-        <p id="rcorners1">
-          Medication: {med}
-          <br />
-          Dosage (mg): {dosage}
-          <br />
-          Physician: {physician}
-          <br />
-          Times: {times}
-          {times.map((newTime, i) => {
-            return <li key={times[i]}> {newTime} </li>;
-          })}
-          <br />
-          Notes: {notes}
-          <br />
-          Pic:
-          <br />
-          <img src={pic} height="95" width="95" alt="" />
-        </p>
-      </div>
       <div className="form-container">
         <h1>
           Pillbox <span className="text-primary" />
         </h1>
       </div>
       <div className="new-event-form">
-        <form onSubmit={handleClick}>
+        <form onSubmit={submitMed}>
           <FormGroup>
             <Label for="med">Medication</Label>
             <Input
@@ -127,7 +105,7 @@ const Pillbox = () => {
             />
           </FormGroup>
           <FormGroup>
-            <Label for="dosage">Dosage</Label>
+            <Label for="dosage">Dosage (mg)</Label>
             <Input
               type="text"
               name="dosage"
@@ -138,14 +116,14 @@ const Pillbox = () => {
             />
           </FormGroup>
           <FormGroup>
-            <Label for="physician">Physician</Label>
+            <Label for="practitioner">Practitioner</Label>
             <Input
               type="text"
-              name="physician"
-              id="physician"
-              placeholder="physician"
-              value={physician}
-              onChange={handlePhysician}
+              name="practitioner"
+              id="practitioner"
+              placeholder="practitioner"
+              value={practitioner}
+              onChange={handlePractitioner}
             />
           </FormGroup>
           <br />

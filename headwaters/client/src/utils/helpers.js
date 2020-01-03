@@ -1,35 +1,32 @@
 /* eslint-disable no-return-await */
 import axios from 'axios';
 
-
 /**
  * Axios authentication helpers
  */
 
-export const validateEmail = async(email) => {
-  return await axios.get('/api/auth', {
-    params: {
-      email,
-    },
-  }).then(res => res.data);
+export const validateEmail = async email => {
+  return await axios
+    .get('/api/auth', {
+      params: {
+        email,
+      },
+    })
+    .then(res => res.data);
 };
 
-export const createUser = async({
-  nickname,
-  email,
-}) => {
+export const createUser = async ({ nickname, email }) => {
   return await axios.post('/api/auth', {
     nickname,
     email,
   });
 };
 
-/**
- * Axios calendar helpers
- */
+// axios calendar helpers
 
-export const createUserEvent = async(eventObj) => {
-  return await axios.post(`/calendar/${eventObj.userId}/events`, eventObj)
+export const createUserEvent = async eventObj => {
+  return await axios
+    .post(`/calendar/${eventObj.userId}/events`, eventObj)
     .then(res => {
       console.log(res.status);
     })
@@ -70,13 +67,13 @@ export const handleIncomingData = incomingEvents => {
     start.replace(' ', 'T');
 
     newEventObj.push({
+      user: incomingEvent.event_id_user,
+      id: incomingEvent.id,
       title: incomingEvent.name,
       start,
       color: chooseEventColor(incomingEvent.type),
       extendedProps: {
-        user: incomingEvent.event_id_user,
-        id: incomingEvent.id,
-        practicioner: incomingEvent.practicioner,
+        practitioner: incomingEvent.practitioner,
         location: incomingEvent.location,
         notes: incomingEvent.notes,
         type: incomingEvent.type,
@@ -91,8 +88,9 @@ export const handleIncomingData = incomingEvents => {
 //  await.axios.patch(endpoint, {})
 // };
 
-export const deleteUserEvent = async(eventId, userId) => {
-  return await axios.delete(`/calendar/${userId}/events/${eventId}`)
+export const deleteUserEvent = async (eventId, userId) => {
+  return await axios
+    .delete(`/calendar/${userId}/events/${eventId}`)
     .then(response => {
       return response;
     })
@@ -101,8 +99,9 @@ export const deleteUserEvent = async(eventId, userId) => {
     });
 };
 
-export const patchUserEvent = async(editEventObj, userId, eventId) => {
-  return await axios.patch(`/calendar/${userId}/events/${eventId}`, editEventObj)
+export const patchUserEvent = async (editEventObj, userId, eventId) => {
+  return await axios
+    .patch(`/calendar/${userId}/events/${eventId}`, editEventObj)
     .then(response => {
       return response;
     })
@@ -115,46 +114,44 @@ export const patchUserEvent = async(editEventObj, userId, eventId) => {
  * Axios journal helpers
  */
 
-export const getUserEntries = async(userId) => {
-  return await axios.get(`/journal/${userId}/entries`)
+export const getUserEntries = async userId => {
+  return await axios
+    .get(`/journal/${userId}/entries`)
     .then(res => {
-      res.data;
-      debugger;
+      return res.data;
     })
     .catch(err => {
       console.error(err);
-      debugger;
     });
 };
 
-export const addJournalEntry = async(newEntryObj) => {
-  return await axios.post(`/journal/${newEntryObj.userId}/entries`, newEntryObj)
-    .then((response) => {
-      response;
-      debugger;
-    })
+export const addJournalEntry = async newEntryObj => {
+  const newEntryArr = [];
+  newEntryArr.push(newEntryObj);
+  return await axios
+    .post(`/journal/${newEntryObj.userId}/entries`, newEntryArr)
+    .then(response => response)
     .catch(err => console.error(err));
 };
 
-
-/**
- * Axios pillbox helpers
- */
-
-export const getUserMedications = async(userId) => {
-  return await axios.get(`/pillbox/${userId}`)
+// axios pillbox helpers
+export const getUserMedications = async userId => {
+  return await axios
+    .get(`/pillbox/${userId}`)
     .then(res => {
-      res.data;
+      return res.data;
       debugger;
     })
     .catch(err => console.error(err));
 };
 
-export const addUserMedication = async(newMedObj) => {
-  return await axios.post(`/pillbox/${newMedObj.userId}`, newMedObj)
-    .then((response) => {
-      response;
-      debugger;
+export const addUserMedication = async newMedObj => {
+  const newMedArr = [];
+  newMedArr.push(newMedObj);
+  return await axios
+    .post(`/pillbox/${newMedObj.userId}`, newMedArr)
+    .then(response => {
+      return response;
     })
     .catch(err => console.error(err));
 };

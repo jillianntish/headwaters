@@ -9,7 +9,10 @@ import NewEvent from './NewEvent.jsx';
 import EventOptions from './EventOptions.jsx';
 import { useAuth0 } from '../../react-auth0-spa.jsx';
 import {
- createUserEvent, deleteUserEvent, handleIncomingData, patchUserEvent 
+  createUserEvent,
+  deleteUserEvent,
+  handleIncomingData,
+  patchUserEvent,
 } from '../../utils/helpers';
 
 import '../../styles/calendar.css';
@@ -20,7 +23,6 @@ const Calendar = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     async function fetchUserEvents() {
       await axios.get(`/calendar/${user.id}/events`).then(res => {
@@ -28,11 +30,10 @@ const Calendar = () => {
           const response = await handleIncomingData(res.data);
           return response;
         }
-        formatEvents()
-          .then(formattedResponse => {
-            setEvents(formattedResponse);
-            setLoading(false);
-          });
+        formatEvents().then(formattedResponse => {
+          setEvents(formattedResponse);
+          setLoading(false);
+        });
       });
     }
 
@@ -41,7 +42,14 @@ const Calendar = () => {
   }, []);
 
   const [clickedDate, setClickedDate] = useState([]);
-  const [clickedEvent, setClickedEvent] = useState([]);
+  const [clickedEvent, setClickedEvent] = useState([
+    {
+      title: '',
+      state: '',
+      practitioner: '',
+      location: '',
+    },
+  ]);
 
   const [showEventForm, setShowEventForm] = useState(false);
   const [showEventOptions, setShowEventOptions] = useState(false);
@@ -55,7 +63,7 @@ const Calendar = () => {
     }
   };
 
-  const handleOpenFormAtEvent = (date) => {
+  const handleOpenFormAtEvent = date => {
     setClickedDate(date);
     setShowEventForm(true);
     if (showEventOptions) {
@@ -68,9 +76,7 @@ const Calendar = () => {
       {
         title: info.event.title,
         start: info.event.start.toString(),
-        user: info.event.extendedProps.user,
-        id: info.event.extendedProps.id,
-        practicioner: info.event.extendedProps.practicioner,
+        practitioner: info.event.extendedProps.practitioner,
         location: info.event.extendedProps.location,
         notes: info.event.extendedProps.notes,
         type: info.event.extendedProps.type,
@@ -107,10 +113,10 @@ const Calendar = () => {
       .then(() => {
         // let the user know
       })
-      .catch((err) => {
+      .catch(err => {
         console.error(err);
         // let the user know
-      })
+      });
   };
 
   if (loading) {
@@ -140,10 +146,19 @@ const Calendar = () => {
         </Col>
         <Col xs="5">
           {showEventForm && (
-            <NewEvent className="calendar" date={clickedDate} handleEventPost={handleEventPost} />
+            <NewEvent
+              className="calendar"
+              date={clickedDate}
+              handleEventPost={handleEventPost}
+            />
           )}
           {showEventOptions && (
-          <EventOptions event={clickedEvent} handleEventDeletion={handleEventDeletion} handleOpenFormAtEvent={handleOpenFormAtEvent} handleEventPatch={handleEventPatch} />
+            <EventOptions
+              event={clickedEvent}
+              handleEventDeletion={handleEventDeletion}
+              handleOpenFormAtEvent={handleOpenFormAtEvent}
+              handleEventPatch={handleEventPatch}
+            />
           )}
         </Col>
       </Row>
