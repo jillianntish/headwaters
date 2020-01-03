@@ -8,6 +8,7 @@ import {
   Nav,
   NavItem,
   NavLink,
+  Button,
 } from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa.jsx';
 
@@ -28,20 +29,20 @@ const NavBar = () => {
         <Collapse isOpen={!collapsed} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink tag={Link} to="/home">Home</NavLink>
+              <NavLink to="/" onClick={() => setCollapsed(true)}>Home</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={Link} to="/calendar">
+              <NavLink tag={Link} to="/calendar" onClick={() => setCollapsed(true)}>
                 Calendar
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={Link} to="/journal">
+              <NavLink tag={Link} to="/journal" onClick={() => setCollapsed(true)}>
                 Journal
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={Link} to="/pillbox">
+              <NavLink tag={Link} to="/pillbox" onClick={() => setCollapsed(true)}>
                 Pillbox
               </NavLink>
             </NavItem>
@@ -53,7 +54,7 @@ const NavBar = () => {
           </Nav>
         </Collapse>
         {!isAuthenticated && (
-          <button onClick={() => loginWithRedirect({})}>Log in</button>
+          <Button style={{ backgroundColor: '#148f86', border: '0px' }} onClick={() => loginWithRedirect({})}>Log in</Button>
         )}
       </Navbar>
     </div>
