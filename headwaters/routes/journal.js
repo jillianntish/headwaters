@@ -1,5 +1,8 @@
 const express = require('express');
-const { getUserJournalEntries, addJournalEntry } = require('../server/db/connection');
+const {
+  getUserJournalEntries,
+  addJournalEntry,
+} = require('../server/db/connection');
 
 const journalRouter = express.Router();
 
@@ -23,8 +26,6 @@ journalRouter.get('/:userId/entries', (req, res) => {
 journalRouter.post('/:userId/entries', (req, res) => {
   const { userId } = req.params;
   const newJournalEntryObj = req.body[0];
-  // newJournalEntryObj;
-  // debugger;
 
   addJournalEntry(newJournalEntryObj, userId)
     .then(() => {
