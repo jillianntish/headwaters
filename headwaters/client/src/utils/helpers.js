@@ -40,28 +40,27 @@ export const createUserEvent = async(eventObj) => {
 
 export const chooseEventColor = type => {
   let color;
+
   switch (type) {
     case 'physical well-being':
-      color = '#148f86';
+      color = '#596cb0';
       break;
     case 'mental well-being':
-      color = '#596cb0';
-      break;
-    case 'medication':
-      color = '5b1236';
-      break;
-    case 'personal':
-      color = '#f64545';
+      color = '#e19892';
       break;
     case 'other':
-      color = '#edbe2c';
+      color = '#148f86';
       break;
-    case 'journal entry':
-      color = '#d8afef';
+    case 'personal':
+      color = '#59b4a6';
+      break;
+    case 'medication':
+      color = '#f45d5d';
       break;
     default:
-      color = '#596cb0';
+      color = '#3024b0';
   }
+
   return color;
 };
 
