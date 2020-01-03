@@ -22,9 +22,7 @@ export const createUser = async ({ nickname, email }) => {
   });
 };
 
-/**
- * Axios calendar helpers
- */
+// axios calendar helpers
 
 export const createUserEvent = async eventObj => {
   return await axios
@@ -43,10 +41,12 @@ export const handleIncomingData = incomingEvents => {
     start.replace(' ', 'T');
 
     newEventObj.push({
+      user: incomingEvent.event_id_user,
+      id: incomingEvent.id,
       title: incomingEvent.name,
       start,
       extendedProps: {
-        practictioner: incomingEvent.practitioner,
+        practitioner: incomingEvent.practitioner,
         location: incomingEvent.location,
         notes: incomingEvent.notes,
         type: incomingEvent.type,
@@ -107,10 +107,7 @@ export const addJournalEntry = async newEntryObj => {
     .catch(err => console.error(err));
 };
 
-/**
- * Axios pillbox helpers
- */
-
+// axios pillbox helpers
 export const getUserMedications = async userId => {
   return await axios
     .get(`/pillbox/${userId}`)
