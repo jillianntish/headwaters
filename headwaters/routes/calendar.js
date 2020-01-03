@@ -1,5 +1,5 @@
 const express = require('express');
-const { getUserEvents, insertUserEvent, deleteUserEvent } = require('../server/db/connection');
+const { getUserEvents, insertUserEvent, deleteUserEvent, patchUserEvent } = require('../server/db/connection');
 
 const calendarRouter = express.Router();
 
@@ -37,6 +37,19 @@ calendarRouter.delete('/:userId/events/:eventId', (req, res) => {
     })
     .catch(() => {
       res.sendStatus(404);
+    });
+});
+
+calendarRouter.patch('/:userId/events/:eventId', (req, res) => {
+  const { userId, eventId } = req.params;
+  const editEventObj = req.body[0];
+
+  patchUserEvent(editEventObj, userId, eventId)
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch(() => {
+      res.sendStatus(418);
     });
 });
 
