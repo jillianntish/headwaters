@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   Button,
+  Container,
   FormGroup,
   Label,
   Input,
@@ -116,7 +117,7 @@ const Pillbox = () => {
           Pillbox <span className="text-primary" />
         </h1>
       </div>
-      <div className="new-event-form">
+      <Container className="new-event-form">
         <form onSubmit={submitMed}>
           <FormGroup>
             <Label for="med">Medication</Label>
@@ -186,7 +187,7 @@ const Pillbox = () => {
             save
           </Button>{' '}
         </form>
-      </div>
+      </Container>
       <div>
         {medEntries.map(medEntry => (
           <div id="rcorners1">
