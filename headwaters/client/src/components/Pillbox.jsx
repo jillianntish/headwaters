@@ -4,6 +4,8 @@ import axios from 'axios';
 import {
   Button,
   Container,
+  Row,
+  Col,
   FormGroup,
   Label,
   Input,
@@ -118,89 +120,97 @@ const Pillbox = () => {
         </h1>
       </div>
       <Container className="new-event-form">
-        <form onSubmit={submitMed}>
-          <FormGroup>
-            <Label for="med">Medication</Label>
-            <Input
-              type="text"
-              name="med"
-              id="med"
-              placeholder="medication"
-              value={med}
-              onChange={handleMed}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="dosage">Dosage (mg)</Label>
-            <Input
-              type="text"
-              name="dosage"
-              id="dosage"
-              placeholder="dosage"
-              value={dosage}
-              onChange={handleDosage}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="practitioner">Practitioner</Label>
-            <Input
-              type="text"
-              name="practitioner"
-              id="practitioner"
-              placeholder="practitioner"
-              value={practitioner}
-              onChange={handlePractitioner}
-            />
-          </FormGroup>
-          <br />
-          <FormGroup>
-            <Label for="time">Time</Label>
-            <Input
-              type="time"
-              name="time"
-              id="time"
-              dateformat="HH:mm"
-              placeholder="time placeholder"
-              value={time}
-              onChange={handleTime}
-            />
-            <br />
-            <Button style={{ backgroundColor: '#148f86', border: '0px' }} size="sm" onClick={addTime}>
-              add time
-            </Button>{' '}
-          </FormGroup>
-          <FormGroup>
-            <Label for="notes">Notes</Label>
-            <Input
-              type="textarea"
-              name="notes"
-              id="notes"
-              value={notes}
-              onChange={handleNotes}
-            />
-          </FormGroup>
-          <input type="file" name="url" onChange={handleUrl} />
-          <img src={url} height="100" width="100" alt="" />
-          <br />
-          <br />
-          <Button style={{ backgroundColor: '#3024b0', border: '0px' }}>
-            save
-          </Button>{' '}
-        </form>
+        <Row>
+          <Col xs="6">
+            <form onSubmit={submitMed}>
+              <FormGroup>
+                <Label for="med">Medication</Label>
+                <Input
+                  type="text"
+                  name="med"
+                  id="med"
+                  placeholder="medication"
+                  value={med}
+                  onChange={handleMed}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="dosage">Dosage (mg)</Label>
+                <Input
+                  type="text"
+                  name="dosage"
+                  id="dosage"
+                  placeholder="dosage"
+                  value={dosage}
+                  onChange={handleDosage}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="practitioner">Practitioner</Label>
+                <Input
+                  type="text"
+                  name="practitioner"
+                  id="practitioner"
+                  placeholder="practitioner"
+                  value={practitioner}
+                  onChange={handlePractitioner}
+                />
+              </FormGroup>
+              <br />
+              <FormGroup>
+                <Label for="time">Time</Label>
+                <Input
+                  type="time"
+                  name="time"
+                  id="time"
+                  dateformat="HH:mm"
+                  placeholder="time placeholder"
+                  value={time}
+                  onChange={handleTime}
+                />
+                <br />
+                <Button
+                  style={{ backgroundColor: '#148f86', border: '0px' }}
+                  size="sm"
+                  onClick={addTime}
+                >
+                  add time
+                </Button>{' '}
+              </FormGroup>
+              <FormGroup>
+                <Label for="notes">Notes</Label>
+                <Input
+                  type="textarea"
+                  name="notes"
+                  id="notes"
+                  value={notes}
+                  onChange={handleNotes}
+                />
+              </FormGroup>
+              <input type="file" name="url" onChange={handleUrl} />
+              <img src={url} height="100" width="100" alt="" />
+              <br />
+              <br />
+              <Button style={{ backgroundColor: '#3024b0', border: '0px' }}>
+                save
+              </Button>{' '}
+            </form>
+          </Col>
+          <Col sm={{ size: 'auto', offset: 1 }}>
+            {medEntries.map(medEntry => (
+              <div id="rcorners1">
+                <li>Medication: {medEntry.name} </li>
+                <li>Physician: {medEntry.practitioner} </li>
+                <li>Dosage: {medEntry.dosage} </li>
+                <li>Times: {medEntry.scheduled_times} </li>
+                <li>Notes: {medEntry.notes} </li>
+                <li>Picture:</li>
+                <img src={medEntry.url} height="95" width="95" alt="" />
+              </div>
+            ))}
+          </Col>
+        </Row>
       </Container>
-      <div>
-        {medEntries.map(medEntry => (
-          <div id="rcorners1">
-            <li>Medication: {medEntry.name} </li>
-            <li>Physician: {medEntry.practitioner} </li>
-            <li>Dosage: {medEntry.dosage} </li>
-            <li>Times: {medEntry.scheduled_times} </li>
-            <li>Notes: {medEntry.notes} </li>
-            <li>Picture:</li>
-            <img src={medEntry.url} height="95" width="95" alt="" />
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
