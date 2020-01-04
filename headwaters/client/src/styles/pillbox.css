@@ -8,3 +8,15 @@
   display: flex;
   flex-direction: row;
 }
+
+[type='file'] {
+  filter: alpha(opacity=0);
+  color: rgba(0, 0, 0, 0);
+}
+
+.med-form {
+  margin: auto;
+  max-width: 800px;
+  min-width: 400px;
+  padding: 10px;
+}
