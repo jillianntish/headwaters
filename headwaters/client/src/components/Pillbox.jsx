@@ -20,15 +20,14 @@ import MedList from './MedList.jsx';
 import '../styles/event-form.css';
 import '../styles/pillbox.css';
 
-
-// import sample from './exampleData';
-const { addUserMedication, getUserMedications } = require('../utils/helpers');
+const { addUserMedication } = require('../utils/helpers');
 
 const Pillbox = () => {
   const { user } = useAuth0();
   const [userId] = useState(user.id);
   const [medEntries, setMedEntries] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [newPillboxToastObj, setPillboxToastObj] = useState([]);
 
   useEffect(() => {
     async function getUserMedications() {
@@ -89,9 +88,9 @@ const Pillbox = () => {
     setUrl(URL.createObjectURL(e.target.files[0]));
   };
 
-  let [show] = useState(false);
-  const setToast = () => {
-    show = !show;
+  const [showPillboxToast, setPillboxToast] = useState(false);
+  const togglePillboxToast = () => {
+    setPillboxToast(!showPillboxToast);
   };
 
   const submitMed = e => {
@@ -107,6 +106,8 @@ const Pillbox = () => {
       userId,
     };
     addUserMedication(medEntryObj);
+    setPillboxToastObj(medEntryObj);
+    togglePillboxToast();
     setMed('');
     setDosage('');
     setPractitioner('');
@@ -114,8 +115,6 @@ const Pillbox = () => {
     setNotes('');
     setUrl('');
     setLoading(false);
-    setToast();
-    // getUserMedications();
   };
 
   if (loading) {
@@ -123,84 +122,103 @@ const Pillbox = () => {
   }
 
   return (
-    <div>
-      <div className="form-container">
-        <h1>
-          Pillbox <span className="text-primary" />
-        </h1>
+    <Container className="new-medication-form">
+      <div>
+        <div className="form-container">
+          <h1>
+            Pillbox
+          </h1>
+        </div>
+        <Row>
+          <Col xs="6">
+            <form className="med-form" onSubmit={submitMed}>
+              <FormGroup>
+                <Label for="med">Medication</Label>
+                <Input
+                  type="text"
+                  name="med"
+                  id="med"
+                  placeholder="medication"
+                  value={med}
+                  onChange={handleMed}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="dosage">Dosage (mg)</Label>
+                <Input
+                  type="text"
+                  name="dosage"
+                  id="dosage"
+                  placeholder="dosage"
+                  value={dosage}
+                  onChange={handleDosage}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="practitioner">Practitioner</Label>
+                <Input
+                  type="text"
+                  name="practitioner"
+                  id="practitioner"
+                  placeholder="practitioner"
+                  value={practitioner}
+                  onChange={handlePractitioner}
+                />
+              </FormGroup>
+              <br />
+              <FormGroup>
+                <Label for="time">Time</Label>
+                <Input
+                  type="time"
+                  name="time"
+                  id="time"
+                  dateformat="HH:mm"
+                  placeholder="time placeholder"
+                  value={time}
+                  onChange={handleTime}
+                />
+                <br />
+                <Button
+                  style={{ backgroundColor: '#148f86', border: '0px' }}
+                  size="sm"
+                  onClick={addTime}
+                >
+                  add time
+                </Button>{' '}
+              </FormGroup>
+              <FormGroup>
+                <Label for="notes">Notes</Label>
+                <Input
+                  type="textarea"
+                  name="notes"
+                  id="notes"
+                  value={notes}
+                  onChange={handleNotes}
+                />
+              </FormGroup>
+              <input type="file" name="url" onChange={handleUrl} />
+              <img src={url} height="100" width="100" alt="" />
+              <br />
+              <br />
+              <Button style={{ backgroundColor: '#3024b0', border: '0px' }}>
+                save
+              </Button>{' '}
+            </form>
+          </Col>
+          <Col sm={{ size: 'auto', offset: 1 }}>
+            {!showPillboxToast && <MedList medEntries={medEntries} />}
+            {showPillboxToast && (
+              <PillboxToast
+                className="pillbox-toast"
+                isOpen={showPillboxToast}
+                newMed={newPillboxToastObj}
+                toggle={togglePillboxToast}
+              />
+            )}
+          </Col>
+        </Row>
       </div>
-      <div className="new-event-form">
-        <form onSubmit={submitMed}>
-          <FormGroup>
-            <Label for="med">Medication</Label>
-            <Input
-              type="text"
-              name="med"
-              id="med"
-              placeholder="medication"
-              value={med}
-              onChange={handleMed}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="dosage">Dosage (mg)</Label>
-            <Input
-              type="text"
-              name="dosage"
-              id="dosage"
-              placeholder="dosage"
-              value={dosage}
-              onChange={handleDosage}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="practitioner">Practitioner</Label>
-            <Input
-              type="text"
-              name="practitioner"
-              id="practitioner"
-              placeholder="practitioner"
-              value={practitioner}
-              onChange={handlePractitioner}
-            />
-          </FormGroup>
-          <br />
-          <FormGroup>
-            <Label for="time">Time</Label>
-            <Input
-              type="time"
-              name="time"
-              id="time"
-              dateformat="HH:mm"
-              placeholder="time placeholder"
-              value={time}
-              onChange={handleTime}
-            />
-            <br />
-            <Button style={{ backgroundColor: '#148f86', border: '0px' }} size="sm" onClick={addTime}>
-              add time
-            </Button>{' '}
-          </FormGroup>
-          <FormGroup>
-            <Label for="notes">Notes</Label>
-            <Input
-              type="textarea"
-              name="notes"
-              id="notes"
-              onChange={handleNotes}
-            />
-          </FormGroup>
-          <input type="file" name="url" onChange={handleUrl} />
-          <img src={url} height="100" width="100" alt="" />
-          <br />
-          <br />
-          <Button style={{ backgroundColor: '#3024b0', border: '0px' }}>
-            save
-          </Button>{' '}
-        </form>
-      </div>
-      <MedList medEntries={medEntries} />
-    </div>
+    </Container>
   );
 };
 
