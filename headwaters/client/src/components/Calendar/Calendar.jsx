@@ -7,7 +7,8 @@ import axios from 'axios';
 import { Col, Row } from 'reactstrap';
 import NewEvent from './NewEvent.jsx';
 import EventOptions from './EventOptions.jsx';
-import NewEventToast from './toasts/NewEventToast.jsx';
+import PostToast from './toasts/PostToast.jsx';
+import ErrorPostToast from './toasts/PostErrorToast.jsx';
 import { useAuth0 } from '../../react-auth0-spa.jsx';
 import {
   createUserEvent,
@@ -53,11 +54,17 @@ const Calendar = () => {
 
   const [showEventForm, setShowEventForm] = useState(false);
   const [showEventOptions, setShowEventOptions] = useState(false);
-  const [showEventAddedToast, setEventAddedToast] = useState(false);
-  const [newToastObjData, setToastObj] = useState([]);
+  const [showPostToast, setPostToast] = useState(false);
+  const [newPostToastObj, setPostToastObj] = useState([]);
+  const [showErrorPostToast, setErrorPostToast] = useState(false);
 
-  const toggleAddEventToast = () => { 
-    setEventAddedToast(false);
+
+  const togglePostToast = () => {
+    setPostToast(false);
+  };
+
+  const toggleErrorPostToast = () => {
+    setErrorPostToast(false);
   };
 
   const handleDateClick = arg => {
@@ -97,14 +104,15 @@ const Calendar = () => {
   const handleEventPost = newEventObj => {
     createUserEvent(newEventObj)
       .then(() => {
-        // let user know via new toast component
+        // let user know via post toast component
         setShowEventForm(false);
-        setToastObj(newEventObj);
-        setEventAddedToast(true);
+        setPostToastObj(newEventObj);
+        setPostToast(true);
       })
       .catch(err => {
         console.error(err);
-        // let user know via sad toast component
+        // let user know via sad post toast component
+        setErrorPostToast(true);
       });
   };
 
@@ -168,9 +176,10 @@ const Calendar = () => {
               handleEventPatch={handleEventPatch}
             />
           )}
-          {showEventAddedToast && (
-            <NewEventToast newEvent={newToastObjData} toggle={toggleAddEventToast} show />
+          {showPostToast && (
+            <PostToast newEvent={newPostToastObj} toggle={togglePostToast} show />
           )}
+          {showErrorPostToast && (<ErrorPostToast toggle={toggleErrorPostToast} show />)}
         </Col>
       </Row>
     </div>
