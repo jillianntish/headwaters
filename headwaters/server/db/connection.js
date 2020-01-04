@@ -119,7 +119,9 @@ const getUserEvents = userId => {
 };
 
 const insertUserEvent = newEventObj => {
-  const { userId, name, dateTime, notes, prac, type, locale } = newEventObj;
+  const {
+ userId, name, dateTime, notes, prac, type, locale 
+} = newEventObj;
   const eventFieldValues = [
     `${userId}`,
     `${name}`,
@@ -129,20 +131,20 @@ const insertUserEvent = newEventObj => {
     `${type}`,
     `${locale}`,
   ];
-  const newEventSQL =
-    'insert into events(event_id_user, name, date_time, notes, practitioner, type, location) values(?, ?, ?, ?, ?, ?, ?)';
+  const newEventSQL =    'insert into events(event_id_user, name, date_time, notes, practitioner, type, location) values(?, ?, ?, ?, ?, ?, ?)';
   return query(newEventSQL, eventFieldValues);
 };
 
 const deleteUserEvent = (userId, eventId) => {
   const deletionFields = [`${userId}`, `${eventId}`];
-  const deleteEventSQL =
-    'delete from events where event_id_user = ? and id = ?';
+  const deleteEventSQL =    'delete from events where event_id_user = ? and id = ?';
   return query(deleteEventSQL, deletionFields);
 };
 
 const patchUserEvent = (editEventObj, userId, eventId) => {
-  const { dateTime, editNotes, editType, locale, name, prac } = editEventObj;
+  const {
+ dateTime, editNotes, editType, locale, name, prac 
+} = editEventObj;
 
   const patchFields = [
     `${name}`,
@@ -163,8 +165,7 @@ const patchUserEvent = (editEventObj, userId, eventId) => {
  */
 
 const getUserJournalEntries = userId => {
-  const selectEntriesByUserId =
-    'select * from journals where journal_id_user = ?';
+  const selectEntriesByUserId =    'select * from journals where journal_id_user = ?';
   return query(selectEntriesByUserId, [`${userId}`]);
 };
 
@@ -190,8 +191,7 @@ const addJournalEntry = (journalEntryObj, userId) => {
     `${userId}`,
   ];
 
-  const newEntrySQL =
-    'insert into journals(date, text, status, h2oz, nutrition, sleep, exercise, journal_id_user) values(?, ?, ?, ?, ?, ?, ?, ?)';
+  const newEntrySQL =    'insert into journals(date, text, status, h2oz, nutrition, sleep, exercise, journal_id_user) values(?, ?, ?, ?, ?, ?, ?, ?)';
   return query(newEntrySQL, entryFieldValues);
 };
 
@@ -214,8 +214,7 @@ const getUserMedications = userId => {
   // | grapjuice | thismed.jpg |      2 |         2 | [13:00]         | dr.crusher   | away vaccine |
   // +-----------+-------------+--------+-----------+-----------------+--------------+--------------+
 
-  const userMedicationsSQL =
-    'SELECT name, url, dosage, frequency, scheduled_times, practitioner, notes FROM meds m inner join images i on m.id = i.meds_id inner join users_meds u on u.users_meds_med = m.id WHERE users_meds_user = ?';
+  const userMedicationsSQL =    'SELECT name, url, dosage, frequency, scheduled_times, practitioner, notes FROM meds m inner join images i on m.id = i.meds_id inner join users_meds u on u.users_meds_med = m.id WHERE users_meds_user = ?';
   return query(userMedicationsSQL, [`${userId}`]);
 };
 
@@ -251,7 +250,9 @@ const insertIntoImages = (url, medId) => {
 
 const insertIntoUsersMeds = (userId, medId, imgId, newMedicationObj) => {
   // insert into users_meds(users_meds_user, users_meds_med, id_img, dosage, frequency, scheduled_times, practitioner, notes) values(1, 3, 1, 2, 2, '[13:00]', 'dr.crusher', 'away vaccine');
-  const { dosage, frequency, times, practitioner, notes } = newMedicationObj;
+  const {
+ dosage, frequency, times, practitioner, notes 
+} = newMedicationObj;
 
   const medicationFields = [
     `${userId}`,
@@ -264,8 +265,7 @@ const insertIntoUsersMeds = (userId, medId, imgId, newMedicationObj) => {
     `${notes}`,
   ];
 
-  const userMedicationsSQL =
-    'insert into users_meds(users_meds_user, users_meds_med, id_img, dosage, frequency, scheduled_times, practitioner, notes) values(?, ?, ?, ?, ?, ?, ?, ?)';
+  const userMedicationsSQL =    'insert into users_meds(users_meds_user, users_meds_med, id_img, dosage, frequency, scheduled_times, practitioner, notes) values(?, ?, ?, ?, ?, ?, ?, ?)';
   return query(userMedicationsSQL, medicationFields);
 };
 
@@ -277,12 +277,12 @@ const addUserMedicationMaster = (newMedicationObj, userId) => {
 
   const { med, url } = newMedicationObj;
 
-  const medIdInsertion = async () => {
+  const medIdInsertion = async() => {
     const medIdResponse = await insertIntoMeds(userId, med);
     return medIdResponse;
   };
 
-  const imageIdInsertion = async (imgUrl, mId) => {
+  const imageIdInsertion = async(imgUrl, mId) => {
     const imageIdResponse = await insertIntoImages(imgUrl, mId);
     return imageIdResponse;
   };
