@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "node server/index.js",
 		"dev": "nodemon server/index.js",
-		"react-build": "webpack --config webpack.config.js --mode development --watch",
+		"build": "webpack --config webpack.config.js",
 		"test": "mocha"
 	},
 	"author": "",
