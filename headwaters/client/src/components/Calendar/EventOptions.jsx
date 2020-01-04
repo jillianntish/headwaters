@@ -1,32 +1,34 @@
 import React, { useState } from 'react';
+import moment from 'moment';
 import {
   Button, Toast, ToastHeader, ToastBody,
 } from 'reactstrap';
-import moment from 'moment';
+import { useAuth0 } from '../../react-auth0-spa.jsx';
 
 import '../../styles/event-options.css';
 
 const EventOptions = (props) => {
+  const { user } = useAuth0();
   const event = props.event[0];
   const {
-    title, start, user, id, practitioner, location, notes, type,
+    title, start, id, practitioner, location, notes, type,
   } = event;
-
+  
   // date conversion for display
   const dateFormat = moment(start, 'ddd MMM DD YYYY HH:mm:ss').format('ddd MMM Do, YYYY');
 
   // time conversion for display
   const timeFormat = moment(start, 'ddd MMM DD YYYY HH:mm:ss').format('hh:mm A');
   const [show, setShow] = useState(true);
-
+  
   const toggle = () => {
     setShow(false);
   };
-
+  
   const handleDeleteClick = (e) => {
     e.preventDefault();
     const { handleEventDeletion } = props;
-    handleEventDeletion(id, user);
+    handleEventDeletion(id, user.id);
   };
 
   const handleAddClick = (e) => {
