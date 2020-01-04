@@ -101,6 +101,16 @@ const Calendar = () => {
     setErrorRemoveToast(false);
   };
 
+
+  const toggleEventOptions = () => {
+    setShowEventOptions(false);
+  };
+
+  const toggleEditForm = () => {
+    setShowEditForm(false);
+  }
+
+
   const handleDateClick = arg => {
     setClickedDate([arg.date]);
     setShowEventForm(true);
@@ -225,7 +235,7 @@ const Calendar = () => {
               handleEventPost={handleEventPost}
             />
           )}
-          {showEditForm && (<EditEvent event={clickedEvent} handleEventPatch={handleEventPatch} />)}
+          {showEditForm && (<EditEvent event={clickedEvent} handleEventPatch={handleEventPatch} toggle={toggleEditForm} />)}
           {showEventOptions && (
             <EventOptions
               event={clickedEvent}
@@ -233,6 +243,7 @@ const Calendar = () => {
               handleOpenEditForm={handleOpenEditForm}
               handleOpenFormAtEvent={handleOpenFormAtEvent}
               handleEventPatch={handleEventPatch}
+              toggle={toggleEventOptions}
             />
           )}
           {showPostToast && (
