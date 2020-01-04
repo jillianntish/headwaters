@@ -39,12 +39,6 @@ const Journal = () => {
     };
     addJournalEntry(journalEntryObj);
     document.getElementById('journal').reset();
-    // setJournal('');
-    // setStatus('happiness');
-    // setWater('');
-    // setSleep('');
-    // setExercise('');
-    // setNutrition('');
   };
 
   return (
