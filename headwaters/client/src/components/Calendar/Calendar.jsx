@@ -7,8 +7,13 @@ import axios from 'axios';
 import { Col, Row } from 'reactstrap';
 import NewEvent from './NewEvent.jsx';
 import EventOptions from './EventOptions.jsx';
+import EditEvent from './EditEvent.jsx';
+// toast imports
 import PostToast from './toasts/PostToast.jsx';
-import ErrorPostToast from './toasts/PostErrorToast.jsx';
+import ErrorPostToast from './toasts/ErrorPostToast.jsx';
+import PatchToast from './toasts/PatchToast.jsx';
+import ErrorPatchToast from './toasts/ErrorPatchToast.jsx';
+// toast import end
 import { useAuth0 } from '../../react-auth0-spa.jsx';
 import {
   createUserEvent,
@@ -53,10 +58,22 @@ const Calendar = () => {
   ]);
 
   const [showEventForm, setShowEventForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
   const [showEventOptions, setShowEventOptions] = useState(false);
+
+  /* toast states */
+  // success toasts
   const [showPostToast, setPostToast] = useState(false);
   const [newPostToastObj, setPostToastObj] = useState([]);
+  const [showPatchToast, setPatchToast] = useState(false);
+  const [newPatchToastObj, setPatchToastObj] = useState([]);
+  const [showRemoveToast, setRemoveToast] = useState(false);
+  const [newRemoveToastObj, setRemoveToastObj] = useState([]);
+
+  // error toasts
   const [showErrorPostToast, setErrorPostToast] = useState(false);
+  const [showErrorPatchToast, setErrorPatchToast] = useState(false);
+  const [showErrorRemoveToast, setErrorRemoveToast] = useState(false);
 
 
   const togglePostToast = () => {
@@ -65,6 +82,14 @@ const Calendar = () => {
 
   const toggleErrorPostToast = () => {
     setErrorPostToast(false);
+  };
+
+  const togglePatchToast = () => {
+    setPatchToast(false);
+  };
+
+  const toggleErrorPatchToast = () => {
+    setErrorPatchToast(false);
   };
 
   const handleDateClick = arg => {
@@ -83,6 +108,17 @@ const Calendar = () => {
     }
   };
 
+  const handleOpenEditForm = (event) => {
+    setClickedEvent(event);
+    setShowEditForm(true);
+    if (showEventOptions) {
+      setShowEventOptions(false);
+    }
+    if (showEventForm) {
+      setShowEventForm(false);
+    }
+  };
+
   const eventClick = info => {
     setClickedEvent([
       {
@@ -92,6 +128,7 @@ const Calendar = () => {
         location: info.event.extendedProps.location,
         notes: info.event.extendedProps.notes,
         type: info.event.extendedProps.type,
+        id: info.event.id,
       },
     ]);
 
@@ -112,6 +149,7 @@ const Calendar = () => {
       .catch(err => {
         console.error(err);
         // let user know via sad post toast component
+        setShowEventForm(false);
         setErrorPostToast(true);
       });
   };
@@ -126,12 +164,17 @@ const Calendar = () => {
 
   const handleEventPatch = (editEventObj, userId, eventId) => {
     patchUserEvent(editEventObj, userId, eventId)
-      .then(() => {
+      .then((response) => {
+        if (response.status === 200) {
         // let the user know
-      })
-      .catch(err => {
-        console.error(err);
-        // let the user know
+          setShowEditForm(false);
+          setPatchToastObj(editEventObj);
+          setPatchToast(true);
+        } else {
+          console.log(response.status);
+          setShowEditForm(false);
+          setErrorPatchToast(true);
+        }
       });
   };
 
@@ -168,10 +211,12 @@ const Calendar = () => {
               handleEventPost={handleEventPost}
             />
           )}
+          {showEditForm && (<EditEvent event={clickedEvent} handleEventPatch={handleEventPatch} />)}
           {showEventOptions && (
             <EventOptions
               event={clickedEvent}
               handleEventDeletion={handleEventDeletion}
+              handleOpenEditForm={handleOpenEditForm}
               handleOpenFormAtEvent={handleOpenFormAtEvent}
               handleEventPatch={handleEventPatch}
             />
@@ -180,6 +225,10 @@ const Calendar = () => {
             <PostToast newEvent={newPostToastObj} toggle={togglePostToast} show />
           )}
           {showErrorPostToast && (<ErrorPostToast toggle={toggleErrorPostToast} show />)}
+          {showPatchToast && (
+            <PatchToast newEvent={newPatchToastObj} toggle={togglePatchToast} show />
+          )}
+          {showErrorPatchToast && (<ErrorPatchToast toggle={toggleErrorPatchToast} show />)}
         </Col>
       </Row>
     </div>
