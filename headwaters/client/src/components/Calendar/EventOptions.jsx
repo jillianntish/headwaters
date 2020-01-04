@@ -62,6 +62,7 @@ const EventOptions = (props) => {
           <div>{dateFormat}</div>
           <div>{timeFormat}</div>
           <div>{practitioner}</div>
+          <div>{type}</div>
           <div>{location}</div>
           <div>{notes}</div>
           <div className="option-buttons-container">
