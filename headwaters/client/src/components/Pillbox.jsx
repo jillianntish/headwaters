@@ -130,7 +130,7 @@ const Pillbox = () => {
           </h1>
         </div>
         <Row>
-          <Col xs="6">
+          <Col sm={8}>
             <form className="med-form" onSubmit={submitMed}>
               <FormGroup>
                 <Label for="med">Medication</Label>
@@ -205,7 +205,7 @@ const Pillbox = () => {
               </Button>{' '}
             </form>
           </Col>
-          <Col sm={{ size: 'auto', offset: 1 }}>
+          <Col sm={4}>
             {!showPillboxToast && <MedList medEntries={medEntries} />}
             {showPillboxToast && (
               <PillboxToast
