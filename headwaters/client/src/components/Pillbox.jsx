@@ -13,6 +13,7 @@ import {
   ToastBody,
   ToastHeader,
 } from 'reactstrap';
+import PillboxToast from './toasts/PillboxToast.jsx';
 import { useAuth0 } from '../react-auth0-spa.jsx';
 
 import '../styles/event-form.css';
@@ -85,6 +86,11 @@ const Pillbox = () => {
     setUrl(URL.createObjectURL(e.target.files[0]));
   };
 
+  let [show] = useState(false);
+  const setToast = () => {
+    show = !show;
+  };
+
   const submitMed = e => {
     e.preventDefault();
     const medEntryObj = {
@@ -105,6 +111,7 @@ const Pillbox = () => {
     setNotes('');
     setUrl('');
     setLoading(false);
+    setToast();
     // getUserMedications();
   };
 
@@ -113,16 +120,16 @@ const Pillbox = () => {
   }
 
   return (
-    <div>
-      <div className="form-container">
-        <h1>
+    <Container className="new-medication-form">
+      <div>
+        <div className="form-container">
+          <h1>
           Pillbox <span className="text-primary" />
-        </h1>
-      </div>
-      <Container className="new-event-form">
+          </h1>
+        </div>
         <Row>
           <Col xs="6">
-            <form onSubmit={submitMed}>
+            <form className="med-form" onSubmit={submitMed}>
               <FormGroup>
                 <Label for="med">Medication</Label>
                 <Input
@@ -209,9 +216,24 @@ const Pillbox = () => {
               </div>
             ))}
           </Col>
+          <Col xs="5">
+            {show && (
+              <PillboxToast
+                className="pillbox-toast"
+                med={med}
+                dosage={dosage}
+                practitioner={practitioner}
+                times={times}
+                notes={notes}
+                show={show}
+                setToast={setToast}
+              />
+            )}
+          </Col>
         </Row>
-      </Container>
-    </div>
+      </div>
+    </Container>
   );
 };
+
 export default Pillbox;
