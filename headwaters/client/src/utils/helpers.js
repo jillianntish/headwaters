@@ -40,14 +40,14 @@ export const chooseEventColor = type => {
 
   switch (type) {
     case 'physical well-being':
-      color = '#596cb0';
+      color = '#86adc2';
       break;
     case 'mental well-being':
       color = '#e19892';
       break;
     case 'other':
-      color = '#148f86';
-      break;
+      color = '#596cb0';
+      break; 
     case 'personal':
       color = '#59b4a6';
       break;
