@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { Toast, ToastBody, ToastHeader } from 'reactstrap';
 
 const PillboxToast = ({ newMed, toggle, isOpen }) => {
@@ -6,6 +7,12 @@ const PillboxToast = ({ newMed, toggle, isOpen }) => {
     med, practitioner, dosage, times, notes,
   } = newMed;
 
+  const formattedTimes = times.map(time => {
+    time = moment(time, 'HH:mm').format('hh:mm A');
+    return time;
+  });
+
+  const time = moment(times, 'HH:mm').format('hh:mm A');
   return (
     <Toast isOpen={isOpen}>
       <ToastHeader toggle={toggle}>Medication Entered</ToastHeader>
@@ -13,7 +20,9 @@ const PillboxToast = ({ newMed, toggle, isOpen }) => {
         <div>{med}</div>
         <div>{practitioner}</div>
         <div>{dosage}</div>
-        <div>{times}</div>
+        {formattedTimes.map(formattedTime => {
+          return (<div>{formattedTime}</div>);
+        })}
         <div>{notes}</div>
       </ToastBody>
     </Toast>
