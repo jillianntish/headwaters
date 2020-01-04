@@ -12,7 +12,7 @@ const EditEventForm = (props) => {
   const { event } = props;
 
   const {
-    title, start, id, practicioner, location, notes, type,
+    title, start, id, practitioner, location, notes, type,
     // eslint-disable-next-line react/destructuring-assignment
   } = event;
 
@@ -24,7 +24,7 @@ const EditEventForm = (props) => {
   const [userId] = useState(user.id);
   const [eventId] = useState(id);
   const [name, setName] = useState(title);
-  const [prac, setPrac] = useState(practicioner);
+  const [prac, setPrac] = useState(practitioner);
   const [eventDate, setDate] = useState(dateFormat);
   const [time, setTime] = useState(timeFormat);
   const [editType, setType] = useState(type);
@@ -46,6 +46,7 @@ const EditEventForm = (props) => {
         prac,
         editType,
         locale,
+        eventId,
       },
     ];
 
@@ -71,7 +72,7 @@ const EditEventForm = (props) => {
           />
         </FormGroup>
         <FormGroup>
-          <Label for="practitioner">Practicioner</Label>
+          <Label for="practitioner">Practitioner</Label>
           <Input
             type="text"
             name="practitioner"
