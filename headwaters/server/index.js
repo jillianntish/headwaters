@@ -33,7 +33,7 @@ app.post('/api/auth', async(req, res) => {
   res.json(foundUsers[0]);
 });
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 443;
 const CLIENT_PATH = path.join(__dirname, '../client/dist/');
 
 app.use(express.static(CLIENT_PATH));
