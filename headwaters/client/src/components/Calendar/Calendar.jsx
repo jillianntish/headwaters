@@ -13,6 +13,8 @@ import PostToast from './toasts/PostToast.jsx';
 import ErrorPostToast from './toasts/ErrorPostToast.jsx';
 import PatchToast from './toasts/PatchToast.jsx';
 import ErrorPatchToast from './toasts/ErrorPatchToast.jsx';
+import RemoveToast from './toasts/RemoveToast.jsx';
+import ErrorRemoveToast from './toasts/ErrorRemoveToast.jsx';
 // toast import end
 import { useAuth0 } from '../../react-auth0-spa.jsx';
 import {
@@ -68,7 +70,6 @@ const Calendar = () => {
   const [showPatchToast, setPatchToast] = useState(false);
   const [newPatchToastObj, setPatchToastObj] = useState([]);
   const [showRemoveToast, setRemoveToast] = useState(false);
-  const [newRemoveToastObj, setRemoveToastObj] = useState([]);
 
   // error toasts
   const [showErrorPostToast, setErrorPostToast] = useState(false);
@@ -90,6 +91,14 @@ const Calendar = () => {
 
   const toggleErrorPatchToast = () => {
     setErrorPatchToast(false);
+  };
+
+  const toggleRemoveToast = () => {
+    setRemoveToast(false);
+  };
+
+  const toggleErrorRemoveToast = () => {
+    setErrorRemoveToast(false);
   };
 
   const handleDateClick = arg => {
@@ -156,10 +165,15 @@ const Calendar = () => {
 
   const handleEventDeletion = (id, userId) => {
     deleteUserEvent(id, userId)
-      .then(() => {
-        setShowEventOptions(false);
-      })
-      .catch(err => console.error(err));
+      .then((response) => {
+        if (response.status === 200) {
+          setShowEventOptions(false);
+          setRemoveToast(true);
+        } else {
+          setShowEventOptions(false);
+          setErrorRemoveToast(true);
+        }
+      });
   };
 
   const handleEventPatch = (editEventObj, userId, eventId) => {
@@ -229,6 +243,10 @@ const Calendar = () => {
             <PatchToast newEvent={newPatchToastObj} toggle={togglePatchToast} show />
           )}
           {showErrorPatchToast && (<ErrorPatchToast toggle={toggleErrorPatchToast} show />)}
+          {showRemoveToast && (
+            <RemoveToast toggle={toggleRemoveToast} show />
+          )}
+          {showErrorRemoveToast && (<ErrorRemoveToast toggle={toggleErrorRemoveToast} show />)}
         </Col>
       </Row>
     </div>
