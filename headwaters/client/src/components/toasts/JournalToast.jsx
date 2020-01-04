@@ -3,13 +3,14 @@ import { Toast, ToastBody, ToastHeader } from 'reactstrap';
 
 const JournalToast = ({ newEntry, toggle, isOpen }) => {
   const {
-    text, status, h2oz, sleep, exercise, nutrition,
+    date, text, status, h2oz, sleep, exercise, nutrition,
   } = newEntry;
 
   return (
     <Toast isOpen={isOpen}>
       <ToastHeader toggle={toggle}>Journal Entry Recorded</ToastHeader>
       <ToastBody>
+        <div>{date}</div>
         <div>{text}</div>
         <div>{status}</div>
         <div>{h2oz}</div>
