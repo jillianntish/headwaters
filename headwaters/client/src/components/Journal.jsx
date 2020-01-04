@@ -15,8 +15,7 @@ const Journal = () => {
   const { user } = useAuth0();
   const [userId] = useState(user.id);
   const [text, setJournal] = useState([]);
-  const [status] = useState('happiness');
-  const [setStatus] = useState([]);
+  const [status, setStatus] = useState('happiness');
   const [h2oz, setWater] = useState([]);
   const [sleep, setSleep] = useState([]);
   const [exercise, setExercise] = useState([]);
@@ -39,6 +38,7 @@ const Journal = () => {
       userId,
     };
     addJournalEntry(journalEntryObj);
+    document.getElementById('journal').reset();
   };
 
   return (
@@ -47,7 +47,7 @@ const Journal = () => {
         <h3>
           Journal <span className="text-primary" />
         </h3>
-        <Form>
+        <Form id="journal">
           <FormGroup>
             <Label for="text">today&apos;s journal entry:</Label>
             <Input
