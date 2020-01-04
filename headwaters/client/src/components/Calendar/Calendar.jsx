@@ -7,6 +7,15 @@ import axios from 'axios';
 import { Col, Row } from 'reactstrap';
 import NewEvent from './NewEvent.jsx';
 import EventOptions from './EventOptions.jsx';
+import EditEvent from './EditEvent.jsx';
+// toast imports
+import PostToast from './toasts/PostToast.jsx';
+import ErrorPostToast from './toasts/ErrorPostToast.jsx';
+import PatchToast from './toasts/PatchToast.jsx';
+import ErrorPatchToast from './toasts/ErrorPatchToast.jsx';
+import RemoveToast from './toasts/RemoveToast.jsx';
+import ErrorRemoveToast from './toasts/ErrorRemoveToast.jsx';
+// toast import end
 import { useAuth0 } from '../../react-auth0-spa.jsx';
 import {
   createUserEvent,
@@ -16,7 +25,6 @@ import {
 } from '../../utils/helpers';
 
 import '../../styles/calendar.css';
-import EditEventForm from './EditEvent.jsx';
 
 const Calendar = () => {
   const { user } = useAuth0();
@@ -52,8 +60,56 @@ const Calendar = () => {
   ]);
 
   const [showEventForm, setShowEventForm] = useState(false);
-  const [showEventOptions, setShowEventOptions] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [showEventOptions, setShowEventOptions] = useState(false);
+
+  /* toast states */
+  // success toasts
+  const [showPostToast, setPostToast] = useState(false);
+  const [newPostToastObj, setPostToastObj] = useState([]);
+  const [showPatchToast, setPatchToast] = useState(false);
+  const [newPatchToastObj, setPatchToastObj] = useState([]);
+  const [showRemoveToast, setRemoveToast] = useState(false);
+
+  // error toasts
+  const [showErrorPostToast, setErrorPostToast] = useState(false);
+  const [showErrorPatchToast, setErrorPatchToast] = useState(false);
+  const [showErrorRemoveToast, setErrorRemoveToast] = useState(false);
+
+
+  const togglePostToast = () => {
+    setPostToast(false);
+  };
+
+  const toggleErrorPostToast = () => {
+    setErrorPostToast(false);
+  };
+
+  const togglePatchToast = () => {
+    setPatchToast(false);
+  };
+
+  const toggleErrorPatchToast = () => {
+    setErrorPatchToast(false);
+  };
+
+  const toggleRemoveToast = () => {
+    setRemoveToast(false);
+  };
+
+  const toggleErrorRemoveToast = () => {
+    setErrorRemoveToast(false);
+  };
+
+
+  const toggleEventOptions = () => {
+    setShowEventOptions(false);
+  };
+
+  const toggleEditForm = () => {
+    setShowEditForm(false);
+  }
+
 
   const handleDateClick = arg => {
     setClickedDate([arg.date]);
@@ -71,6 +127,17 @@ const Calendar = () => {
     }
   };
 
+  const handleOpenEditForm = (event) => {
+    setClickedEvent(event);
+    setShowEditForm(true);
+    if (showEventOptions) {
+      setShowEventOptions(false);
+    }
+    if (showEventForm) {
+      setShowEventForm(false);
+    }
+  };
+
   const eventClick = info => {
     setClickedEvent([
       {
@@ -80,6 +147,7 @@ const Calendar = () => {
         location: info.event.extendedProps.location,
         notes: info.event.extendedProps.notes,
         type: info.event.extendedProps.type,
+        id: info.event.id,
       },
     ]);
 
@@ -92,30 +160,45 @@ const Calendar = () => {
   const handleEventPost = newEventObj => {
     createUserEvent(newEventObj)
       .then(() => {
-        // let user know
+        // let user know via post toast component
+        setShowEventForm(false);
+        setPostToastObj(newEventObj);
+        setPostToast(true);
       })
       .catch(err => {
         console.error(err);
-        // let user know
+        // let user know via sad post toast component
+        setShowEventForm(false);
+        setErrorPostToast(true);
       });
   };
 
   const handleEventDeletion = (id, userId) => {
     deleteUserEvent(id, userId)
-      .then(() => {
-        setShowEventOptions(false);
-      })
-      .catch(err => console.error(err));
+      .then((response) => {
+        if (response.status === 200) {
+          setShowEventOptions(false);
+          setRemoveToast(true);
+        } else {
+          setShowEventOptions(false);
+          setErrorRemoveToast(true);
+        }
+      });
   };
 
   const handleEventPatch = (editEventObj, userId, eventId) => {
     patchUserEvent(editEventObj, userId, eventId)
-      .then(() => {
+      .then((response) => {
+        if (response.status === 200) {
         // let the user know
-      })
-      .catch(err => {
-        console.error(err);
-        // let the user know
+          setShowEditForm(false);
+          setPatchToastObj(editEventObj);
+          setPatchToast(true);
+        } else {
+          console.log(response.status);
+          setShowEditForm(false);
+          setErrorPatchToast(true);
+        }
       });
   };
 
@@ -152,14 +235,29 @@ const Calendar = () => {
               handleEventPost={handleEventPost}
             />
           )}
+          {showEditForm && (<EditEvent event={clickedEvent} handleEventPatch={handleEventPatch} toggle={toggleEditForm} />)}
           {showEventOptions && (
             <EventOptions
               event={clickedEvent}
               handleEventDeletion={handleEventDeletion}
+              handleOpenEditForm={handleOpenEditForm}
               handleOpenFormAtEvent={handleOpenFormAtEvent}
               handleEventPatch={handleEventPatch}
+              toggle={toggleEventOptions}
             />
           )}
+          {showPostToast && (
+            <PostToast newEvent={newPostToastObj} toggle={togglePostToast} show />
+          )}
+          {showErrorPostToast && (<ErrorPostToast toggle={toggleErrorPostToast} show />)}
+          {showPatchToast && (
+            <PatchToast newEvent={newPatchToastObj} toggle={togglePatchToast} show />
+          )}
+          {showErrorPatchToast && (<ErrorPatchToast toggle={toggleErrorPatchToast} show />)}
+          {showRemoveToast && (
+            <RemoveToast toggle={toggleRemoveToast} show />
+          )}
+          {showErrorRemoveToast && (<ErrorRemoveToast toggle={toggleErrorRemoveToast} show />)}
         </Col>
       </Row>
     </div>
