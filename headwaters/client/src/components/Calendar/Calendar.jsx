@@ -7,6 +7,7 @@ import axios from 'axios';
 import { Col, Row } from 'reactstrap';
 import NewEvent from './NewEvent.jsx';
 import EventOptions from './EventOptions.jsx';
+import NewEventToast from './toasts/NewEventToast.jsx';
 import { useAuth0 } from '../../react-auth0-spa.jsx';
 import {
   createUserEvent,
@@ -16,7 +17,6 @@ import {
 } from '../../utils/helpers';
 
 import '../../styles/calendar.css';
-import EditEventForm from './EditEvent.jsx';
 
 const Calendar = () => {
   const { user } = useAuth0();
@@ -53,7 +53,12 @@ const Calendar = () => {
 
   const [showEventForm, setShowEventForm] = useState(false);
   const [showEventOptions, setShowEventOptions] = useState(false);
-  const [showEditForm, setShowEditForm] = useState(false);
+  const [showEventAddedToast, setEventAddedToast] = useState(false);
+  const [newToastObjData, setToastObj] = useState([]);
+
+  const toggleAddEventToast = () => { 
+    setEventAddedToast(false);
+  };
 
   const handleDateClick = arg => {
     setClickedDate([arg.date]);
@@ -92,11 +97,14 @@ const Calendar = () => {
   const handleEventPost = newEventObj => {
     createUserEvent(newEventObj)
       .then(() => {
-        // let user know
+        // let user know via new toast component
+        setShowEventForm(false);
+        setToastObj(newEventObj);
+        setEventAddedToast(true);
       })
       .catch(err => {
         console.error(err);
-        // let user know
+        // let user know via sad toast component
       });
   };
 
@@ -159,6 +167,9 @@ const Calendar = () => {
               handleOpenFormAtEvent={handleOpenFormAtEvent}
               handleEventPatch={handleEventPatch}
             />
+          )}
+          {showEventAddedToast && (
+            <NewEventToast newEvent={newToastObjData} toggle={toggleAddEventToast} show />
           )}
         </Col>
       </Row>
