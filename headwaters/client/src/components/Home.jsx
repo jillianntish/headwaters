@@ -1,37 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useAuth0 } from '../react-auth0-spa.jsx';
-import '../styles/home.css';
+import React from 'react';
+import Image from 'react-bootstrap/Image';
 
 const Home = () => {
-  const { user } = useAuth0();
-
-  const [quote, setQuote] = useState([
-    {
-      quote: '',
-      author: '',
-    },
-  ]);
-
-  useEffect(() => {
-
-    const quotes = axios('https://quote-garden.herokuapp.com/quotes/random')
-
-      .then(res => {
-        console.log(res.data);
-        setQuote({
-          quote: res.data.quoteText,
-          author: res.data.quoteAuthor,
-        });
-      })
-      .catch(err => console.log(err));
-  }, []);
-
   return (
-    <div className="home">
-      <h1>&#39;{quote.quote}&#39;</h1>
-      <h5>—{quote.author}</h5>
-    </div>
+    <section className="home">
+      <div className="home-image">
+        <Image src="https://i.ibb.co/9nSQ3ds/41590019.jpg" fluid />
+      </div>
+    </section>
   );
 };
+
 export default Home;

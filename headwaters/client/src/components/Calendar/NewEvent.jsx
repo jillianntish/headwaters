@@ -68,8 +68,8 @@ const NewEvent = props => {
           <Label for="practitioner">Practitioner</Label>
           <Input
             type="text"
-            name="practicioner"
-            id="practicioner"
+            name="practitioner"
+            id="practitioner"
             placeholder={prac}
             onChange={event => {
               setPrac(event.target.value);

@@ -153,7 +153,7 @@ const patchUserEvent = (editEventObj, userId, eventId) => {
     `${locale}`,
   ];
 
-  const updateEventSQL = `update events set name = ?, date_time = ?, notes = ?, practicioner = ?, type = ?, location = ? where id = ${eventId} and event_id_user = ${userId}`;
+  const updateEventSQL = `update events set name = ?, date_time = ?, notes = ?, practitioner = ?, type = ?, location = ? where id = ${eventId} and event_id_user = ${userId}`;
   return query(updateEventSQL, patchFields);
 };
 
