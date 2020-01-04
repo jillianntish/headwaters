@@ -9,7 +9,7 @@ import '../../styles/event-form.css';
 
 const EditEventForm = (props) => {
   const { user } = useAuth0();
-  const { event } = props;
+  const { event, toggle } = props;
 
   const {
     title, start, id, practitioner, location, notes, type,
@@ -51,6 +51,7 @@ const EditEventForm = (props) => {
     ];
 
     handleEventPatch(editEventObj, userId, eventId);
+    toggle();
   };
 
   return (
