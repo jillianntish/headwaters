@@ -6,15 +6,14 @@ const MedList = ({ medEntries }) => {
   return (
     <div>
       {
-        medEntries.map(medEntry => (
-          <div id="rcorners1">
-            <li>Medication: {medEntry.name} </li>
-            <li>Physician: {medEntry.practitioner} </li>
-            <li>Dosage: {medEntry.dosage} </li>
-            <li>Times: {medEntry.scheduled_times} </li>
-            <li>Notes: {medEntry.notes} </li>
-            <li>Picture:</li>
+        medEntries.map((medEntry, index) => (
+          <div key={index} className="box">
             <img src={medEntry.url} height="95" width="95" alt="" />
+            <div>{medEntry.name}</div>
+            <div>{medEntry.practitioner}</div>
+            <div>{medEntry.dosage}mg</div>
+            <div>{medEntry.scheduled_times} </div>
+            <div>{medEntry.notes} </div>
           </div>
         ))
       }

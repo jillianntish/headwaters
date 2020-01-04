@@ -1,6 +1,4 @@
-#rcorners1 {
-  border-radius: 25px;
-  border: 6px solid rgb(32, 194, 206);
+.box {
   padding: 20px;
   width: 300px;
   height: 300px;
