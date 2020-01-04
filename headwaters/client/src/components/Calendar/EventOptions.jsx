@@ -9,6 +9,7 @@ import '../../styles/event-options.css';
 
 const EventOptions = (props) => {
   const { user } = useAuth0();
+  const { toggle } = props;
   const event = props.event[0];
   const {
     title, start, id, practitioner, location, notes, type,
@@ -19,12 +20,7 @@ const EventOptions = (props) => {
 
   // time conversion for display
   const timeFormat = moment(start, 'ddd MMM DD YYYY HH:mm:ss').format('hh:mm A');
-  const [show, setShow] = useState(true);
-  
-  const toggle = () => {
-    setShow(false);
-  };
-  
+
   const handleDeleteClick = (e) => {
     e.preventDefault();
     const { handleEventDeletion } = props;
@@ -45,7 +41,7 @@ const EventOptions = (props) => {
 
   return (
     <div className="event-options">
-      <Toast isOpen={show}>
+      <Toast>
         <ToastHeader toggle={toggle}>{title}</ToastHeader>
         <ToastBody>
           <div>{title}</div>
