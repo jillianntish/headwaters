@@ -160,7 +160,7 @@ const Pillbox = () => {
                   type="text"
                   name="practitioner"
                   id="practitioner"
-                  placeholder="practitioner"
+                  placeholder="name"
                   value={practitioner}
                   onChange={handlePractitioner}
                 />
@@ -185,6 +185,7 @@ const Pillbox = () => {
                 >
                   add time
                 </Button>{' '}
+                <span>*please click to save each time</span>
               </FormGroup>
               <FormGroup>
                 <Label for="notes">Notes</Label>
@@ -196,8 +197,11 @@ const Pillbox = () => {
                   onChange={handleNotes}
                 />
               </FormGroup>
+              <Label for="imgUpload">Medication image upload:</Label>{' '}
+              <div>
               <input type="file" name="url" onChange={handleUrl} />
               <img src={url} height="100" width="100" alt="" />
+              </div>
               <br />
               <br />
               <Button style={{ backgroundColor: '#3024b0', border: '0px' }}>
