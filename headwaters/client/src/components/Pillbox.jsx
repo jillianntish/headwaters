@@ -8,9 +8,6 @@ import {
   FormGroup,
   Label,
   Input,
-  Toast,
-  ToastBody,
-  ToastHeader,
 } from 'reactstrap';
 import PillboxToast from './toasts/PillboxToast.jsx';
 import { useAuth0 } from '../react-auth0-spa.jsx';
@@ -37,8 +34,7 @@ const Pillbox = () => {
         })
         .catch(err => console.error(err));
     }
-    getUserMedications().then(medications => {
-      const data = medications;
+    getUserMedications().then(() => {
       setLoading(false);
     });
   }, []);
