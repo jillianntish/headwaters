@@ -33,12 +33,14 @@ const MedList = ({ medEntries }) => {
             </div>
             <br />
             <div><b>Notes:</b> {medEntry.notes}</div>
-            <img
-              src={medEntry.url}
-              height="95"
-              width="95"
-              alt=""
-            />
+            <div><b>Image:</b>
+              <img
+                src={medEntry.url}
+                height="95"
+                width="95"
+                alt=""
+              />
+            </div>
           </ToastBody>
         </Toast>
       ))}
