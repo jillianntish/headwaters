@@ -22,7 +22,11 @@ const NavBar = () => {
   return (
     <div>
       <Navbar color="faded" light>
-        <NavbarBrand href="/" className="mr-auto">
+        <NavbarBrand
+          style={{ cursor: 'pointer' }}
+          onClick={() => setCollapsed(!collapsed)}
+          className="mr-auto"
+        >
           headwaters
         </NavbarBrand>
         {isAuthenticated && (
@@ -31,17 +35,29 @@ const NavBar = () => {
         <Collapse isOpen={!collapsed} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink tag={Link} to="/calendar" onClick={() => setCollapsed(true)}>
+              <NavLink
+                tag={Link}
+                to="/calendar"
+                onClick={() => setCollapsed(true)}
+              >
                 Calendar
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={Link} to="/journal" onClick={() => setCollapsed(true)}>
+              <NavLink
+                tag={Link}
+                to="/journal"
+                onClick={() => setCollapsed(true)}
+              >
                 Journal
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={Link} to="/pillbox" onClick={() => setCollapsed(true)}>
+              <NavLink
+                tag={Link}
+                to="/pillbox"
+                onClick={() => setCollapsed(true)}
+              >
                 Pillbox
               </NavLink>
             </NavItem>
@@ -53,10 +69,15 @@ const NavBar = () => {
           </Nav>
         </Collapse>
         {!isAuthenticated && (
-          <Button style={{ backgroundColor: '#148f86', border: '0px' }} onClick={() => loginWithRedirect({})}>Log in</Button>
+          <Button
+            style={{ backgroundColor: '#148f86', border: '0px' }}
+            onClick={() => loginWithRedirect({})}
+          >
+            Log in
+          </Button>
         )}
       </Navbar>
-      {!isAuthenticated && (<Home />)}
+      {!isAuthenticated && <Home />}
     </div>
   );
 };
