@@ -6,17 +6,9 @@ import '../styles/event-form.css';
 import '../styles/pillbox.css';
 
 const MedList = ({ medEntries }) => {
-  // const formattedTimes = [];
-
   return (
     <div>
       {medEntries.map((medEntry) => (
-        //       medEntry.scheduled_times.map(time => {
-        //   time = moment(time, 'HH:mm').format('hh:mm A');
-        //   return time;
-        // })
-
-        // const time = moment(times, 'HH:mm').format('hh:mm A');
         <Toast>
           <ToastHeader>Rx</ToastHeader>
           <ToastBody className="box">
