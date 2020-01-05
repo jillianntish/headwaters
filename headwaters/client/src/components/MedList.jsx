@@ -10,11 +10,15 @@ const MedList = ({ medEntries }) => {
         <Toast>
           <ToastHeader>Rx</ToastHeader>
           <ToastBody className="box">
-            <div>Medication: {medEntry.name}</div>
-            <div>Practitioner: {medEntry.practitioner}</div>
-            <div>Dosage: {medEntry.dosage}mg</div>
-            <div>Daily Times: {medEntry.scheduled_times} </div>
-            <div>Notes: {medEntry.notes} </div>
+            <div><b>Medication:</b> {medEntry.name}</div>
+            <br />
+            <div><b>Practitioner:</b> {medEntry.practitioner}</div>
+            <br />
+            <div><b>Dosage:</b> {medEntry.dosage}mg</div>
+            <br />
+            <div><b>Daily Times:</b> {medEntry.scheduled_times}</div>
+            <br />
+            <div><b>Notes:</b> {medEntry.notes}</div>
             <img
               src={medEntry.url}
               height="95"
