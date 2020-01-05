@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
@@ -71,9 +70,9 @@ const Pillbox = () => {
     setTime(value);
   };
 
-  let [times] = useState([]);
+  const [times] = useState([]);
   const addTime = () => {
-    times = times.push(time);
+    times.push(time);
   };
 
   const [notes, setNotes] = useState([]);
@@ -85,6 +84,7 @@ const Pillbox = () => {
 
   const [url, setUrl] = useState([]);
   const handleUrl = e => {
+    console.log(e.target.files[0]);
     setUrl(URL.createObjectURL(e.target.files[0]));
   };
 
@@ -102,7 +102,7 @@ const Pillbox = () => {
       frequency: times.length,
       times,
       notes,
-      url: url.toString(),
+      url,
       userId,
     };
     addUserMedication(medEntryObj);
@@ -199,8 +199,8 @@ const Pillbox = () => {
               </FormGroup>
               <Label for="imgUpload">Medication image upload:</Label>{' '}
               <div>
-              <input type="file" name="url" onChange={handleUrl} />
-              <img src={url} height="100" width="100" alt="" />
+                <input type="file" name="url" onChange={handleUrl} />
+                <img src={url} height="100" width="100" alt="" />
               </div>
               <br />
               <br />
