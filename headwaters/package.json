@@ -59,6 +59,7 @@
 		"history": "^4.10.1",
 		"moment": "^2.24.0",
 		"mysql": "^2.13.0",
+		"ngrok": "^3.2.7",
 		"passport-local": "^1.0.0",
 		"promise": "^8.0.3",
 		"promises": "^0.2.5",
