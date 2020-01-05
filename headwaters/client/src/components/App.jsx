@@ -12,13 +12,6 @@ import { useAuth0 } from '../react-auth0-spa.jsx';
 const App = props => {
   // eslint-disable-next-line no-unused-vars
   const { user } = useAuth0(); 
-  const { loading } = useAuth0();
-
-  if (loading) {
-    return (
-      <div>Loading...</div>
-    );
-  }
 
   return (
     <div className="App">
