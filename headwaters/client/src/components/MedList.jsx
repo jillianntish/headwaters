@@ -1,12 +1,22 @@
+/* eslint-disable no-param-reassign */
 import React from 'react';
 import { Toast, ToastBody, ToastHeader } from 'reactstrap';
+import moment from 'moment';
 import '../styles/event-form.css';
 import '../styles/pillbox.css';
 
 const MedList = ({ medEntries }) => {
+  // const formattedTimes = [];
+
   return (
     <div>
       {medEntries.map((medEntry) => (
+        //       medEntry.scheduled_times.map(time => {
+        //   time = moment(time, 'HH:mm').format('hh:mm A');
+        //   return time;
+        // })
+
+        // const time = moment(times, 'HH:mm').format('hh:mm A');
         <Toast>
           <ToastHeader>Rx</ToastHeader>
           <ToastBody className="box">
@@ -16,7 +26,11 @@ const MedList = ({ medEntries }) => {
             <br />
             <div><b>Dosage:</b> {medEntry.dosage}mg</div>
             <br />
-            <div><b>Daily Times:</b> {medEntry.scheduled_times}</div>
+            <div><b>Daily Times:</b>{medEntry.scheduled_times.split(',').map(time => {
+              time = moment(time, 'HH:mm').format('hh:mm A');
+              return ` - ${time}`;
+            })}
+            </div>
             <br />
             <div><b>Notes:</b> {medEntry.notes}</div>
             <img

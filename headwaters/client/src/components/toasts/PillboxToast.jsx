@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React from 'react';
 import moment from 'moment';
 import { Toast, ToastBody, ToastHeader } from 'reactstrap';
@@ -12,7 +13,6 @@ const PillboxToast = ({ newMed, toggle, isOpen }) => {
     return time;
   });
 
-  const time = moment(times, 'HH:mm').format('hh:mm A');
   return (
     <Toast isOpen={isOpen}>
       <ToastHeader toggle={toggle}>Medication Entered</ToastHeader>
