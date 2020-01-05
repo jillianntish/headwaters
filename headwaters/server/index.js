@@ -34,17 +34,10 @@ app.post('/api/auth', async(req, res) => {
   res.json(foundUsers[0]);
 });
 
-const PORT = process.env.PORT || 8443;
+const PORT = process.env.PORT || 8080;
 const CLIENT_PATH = path.join(__dirname, '../client/dist/');
-// const credentials = { key: privateKey, cert: certificate };
-const privateKey = '0000';
-const certificate = '0000';
 
-const credentials = { key: privateKey, cert: certificate };
 app.use(express.static(CLIENT_PATH));
-
-const httpsServer = https.createServer(credentials, app);
-httpsServer.listen(8443);
 
 app.listen(PORT, () => {
   console.log(`Listening on :${PORT} 🛸`);
