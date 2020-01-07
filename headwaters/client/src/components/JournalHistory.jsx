@@ -38,10 +38,11 @@ const JournalHistory = () => {
         <h1>Journal History</h1>
         <div>
           {journals.map(journal =>
-            <div>Date:</div>
-            )}
+            <div>Date:{moment(journal.date).format('MMMM Do YYYY')}</div>
+          )}
         </div>
       </div>
+      <br />
       <Button>Show More</Button>
     </Container>
   );
