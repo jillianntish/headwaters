@@ -6,6 +6,7 @@ import Journal from './Journal.jsx';
 import JournalHistory from './JournalHistory.jsx';
 import NavBar from './NavBar.jsx';
 import Pillbox from './Pillbox.jsx';
+import MedTracker from './MedTracker.jsx';
 import Home from './Home.jsx';
 import { useAuth0 } from '../react-auth0-spa.jsx';
 
@@ -26,6 +27,7 @@ const App = props => {
           <Route path="/journal" component={Journal} />{' '}
           <Route path="/journalHistory" component={JournalHistory} />{' '}
           <Route path="/pillbox" component={Pillbox} />{' '}
+          <Route path="/medTracker" component={MedTracker} />{' '}
         </Switch>
       </Router>
     </div>
