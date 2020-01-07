@@ -57,7 +57,7 @@ const NavBar = () => {
             <NavItem>
               <NavLink
                 tag={Link}
-                to="/journal"
+                to="/journalHistory"
                 onClick={() => setCollapsed(true)}
               >
                 Journal History
@@ -73,7 +73,7 @@ const NavBar = () => {
                 Pillbox
               </NavLink>
             </NavItem>
-            
+
             <NavItem>
               <NavLink tag={Link} 
               to="/" 
