@@ -26,12 +26,10 @@ const JournalHistory = () => {
         console.error(err);
       });
     }
-    
     getUserEntries(userId);
   }, []);
   
-  //console.log(userId);
-  console.log(journals);
+  
   return (
     <Container>
       <div className="journal-entry-form">
