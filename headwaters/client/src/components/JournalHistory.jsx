@@ -34,9 +34,17 @@ const JournalHistory = () => {
     <Container>
       <div className="journal-entry-form">
         <h1>Journal History</h1>
-        <div>
+        <div style={{ borderStyle: 'solid', padding: 0 }}>
           {journals.map(journal =>
-            <div>Date:{moment(journal.date).format('MMMM Do YYYY')}</div>
+            <div>
+              <div>Date: {moment(journal.date).format('MMMM Do YYYY')}</div>
+              <div>Journal Entry: {journal.text} </div>
+              <div>Feeling: {journal.status} </div>
+              <div>sleep: {journal.sleep} hours</div>
+              <div>Water Intake: {journal.hzoz}oz</div>
+              <div>Exercize: {journal.exercise} min</div>
+              <div>Nutrition Notes: {journal.nutrition}</div>
+            </div>
           )}
         </div>
       </div>
