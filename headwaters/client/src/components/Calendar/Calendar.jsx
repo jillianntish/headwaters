@@ -76,7 +76,6 @@ const Calendar = () => {
   const [showErrorPatchToast, setErrorPatchToast] = useState(false);
   const [showErrorRemoveToast, setErrorRemoveToast] = useState(false);
 
-
   const togglePostToast = () => {
     setPostToast(false);
   };
