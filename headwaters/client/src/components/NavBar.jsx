@@ -73,6 +73,16 @@ const NavBar = () => {
                 Pillbox
               </NavLink>
             </NavItem>
+            
+            <NavItem>
+              <NavLink
+                tag={Link}
+                to="/medTracker"
+                onClick={() => setCollapsed(true)}
+              >
+                Medecine Tracker
+              </NavLink>
+            </NavItem>
 
             <NavItem>
               <NavLink tag={Link} 
