@@ -43,6 +43,7 @@ const NavBar = () => {
                 Calendar
               </NavLink>
             </NavItem>
+
             <NavItem>
               <NavLink
                 tag={Link}
@@ -50,8 +51,19 @@ const NavBar = () => {
                 onClick={() => setCollapsed(true)}
               >
                 Journal
+              </NavLink> 
+            </NavItem>
+
+            <NavItem>
+              <NavLink
+                tag={Link}
+                to="/journalHistory"
+                onClick={() => setCollapsed(true)}
+              >
+                Journal History
               </NavLink>
             </NavItem>
+
             <NavItem>
               <NavLink
                 tag={Link}
@@ -61,8 +73,11 @@ const NavBar = () => {
                 Pillbox
               </NavLink>
             </NavItem>
+
             <NavItem>
-              <NavLink tag={Link} to="/" onClick={() => logout()}>
+              <NavLink tag={Link} 
+              to="/" 
+              onClick={() => logout()}>
                 Log out
               </NavLink>
             </NavItem>
