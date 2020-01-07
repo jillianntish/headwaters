@@ -12,29 +12,37 @@ import '../styles/event-form.css';
 const JournalHistory = () => {
   const { user } = useAuth0();
   const [userId] = useState(user.id);
+  const [journals, setJournals] = useState([])
 
   useEffect(() => {
     async function getUserEntries(userId) {
       return await axios
       .get(`/journal/${userId}/entries`)
       .then(res => {
-        console.log(res);
-          return res.data;
-        })
-        .catch(err => {
-          console.error(err);
-        });
+        setJournals(res.data);
+        return res.data;
+      })
+      .catch(err => {
+        console.error(err);
+      });
     }
-
+    
     getUserEntries(userId);
-  });
-
+  }, []);
+  
   //console.log(userId);
+  console.log(journals);
   return (
     <Container>
       <div className="journal-entry-form">
         <h1>Journal History</h1>
+        <div>
+          {journals.map(journal =>
+            <div>Date:</div>
+            )}
+        </div>
       </div>
+      <Button>Show More</Button>
     </Container>
   );
 };

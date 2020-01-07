@@ -166,7 +166,6 @@ const patchUserEvent = (editEventObj, userId, eventId) => {
 
 const getUserJournalEntries = userId => {
   const selectEntriesByUserId =    'select * from journals where journal_id_user = ?';
-  debugger;
   return query(selectEntriesByUserId, [`${userId}`]);
 };
 
