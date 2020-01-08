@@ -1,19 +1,24 @@
 const express = require('express');
-const { saveToGoogleCal } = require('../server/api/index');
+const { saveToGoogleCal } = require('../client/src/utils/google');
 
 const googleRouter = express.Router();
 
-googleRouter.post('/calendar/auth', (req, res) => {
+
+googleRouter.post('/posting/', (req, res) => {
   saveToGoogleCal()
     .then(() => {
       res.sendStatus(201);
+      debugger;
       console.log('that event has been routed to your google calendar!')
     })
-    .catch(() => {
+    .catch((err) => {
       res.sendStatus(404);
-      console.log('couldnt route that event to your google calendar!')
+      debugger;
+      console.log('couldnt route that event to your google calendar!', err)
 
     });
 });
+
+
 
 module.exports = googleRouter;
