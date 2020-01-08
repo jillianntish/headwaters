@@ -121,9 +121,7 @@ const Pillbox = () => {
     <Container className="new-medication-form">
       <div>
         <div className="form-container">
-          <h1>
-            Pillbox
-          </h1>
+          <h1 style={{ color: '#1B2F44' }}>Pillbox</h1>
         </div>
         <Row>
           <Col sm={8}>
@@ -175,7 +173,7 @@ const Pillbox = () => {
                 />
                 <br />
                 <Button
-                  style={{ backgroundColor: '#148f86', border: '0px' }}
+                  style={{ backgroundColor: '#054C46', border: '0px' }}
                   size="sm"
                   onClick={addTime}
                 >
@@ -200,7 +198,7 @@ const Pillbox = () => {
               </div>
               <br />
               <br />
-              <Button style={{ backgroundColor: '#3024b0', border: '0px' }}>
+              <Button style={{ backgroundColor: '#054C46', border: '0px' }}>
                 save
               </Button>{' '}
             </form>

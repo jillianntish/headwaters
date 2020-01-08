@@ -54,21 +54,21 @@ const Journal = () => {
   return (
     <Container>
       <div className="journal-entry-form">
-        <h1>Journal</h1>
+        <h1 style={{ color: '#1B2F44' }}>Journal</h1>
         <Row>
           <Col sm={8}>
             <Form id="journal">
               <FormGroup>
                 <Label for="text">today&apos;s journal entry:</Label>
                 <Input
-                  type="textarea"
+                  type="text"
                   name="text"
                   id="text"
+                  rows="10"
+                  cols="50"
                   onChange={e => {
                     setJournal(e.target.value);
                   }}
-                  rows="10"
-                  cols="50"
                 />
               </FormGroup>
               <FormGroup>
@@ -136,7 +136,7 @@ const Journal = () => {
               <FormGroup>
                 <Label for="nutrition">nutrition notes:</Label>
                 <Input
-                  type="textarea"
+                  type="text"
                   name="nutrition"
                   id="nutrition"
                   onChange={e => {
@@ -146,7 +146,7 @@ const Journal = () => {
               </FormGroup>
               <Button
                 style={{
-                  backgroundColor: '#3024b0',
+                  backgroundColor: '#054C46',
                   border: '0px',
                 }}
                 onClick={submitJournal}
