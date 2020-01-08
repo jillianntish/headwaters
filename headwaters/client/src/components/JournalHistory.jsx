@@ -35,14 +35,14 @@ const JournalHistory = () => {
         <h1>Journal History</h1>
         <div>
           {journals.map(journal =>
-            <div style={{ borderStyle: 'solid', padding: 10, margin: 10 }}>
-              <div>Date: {moment(journal.date).format('MMMM Do YYYY')}</div>
-              <div>Journal Entry: {journal.text} </div>
-              <div>Feeling: {journal.status} </div>
-              <div>sleep: {journal.sleep} hours</div>
-              <div>Water Intake: {journal.hzoz}oz</div>
-              <div>Exercize: {journal.exercise} min</div>
-              <div>Nutrition Notes: {journal.nutrition}</div>
+            <div style={{ borderStyle: 'solid', padding: 10, margin: 10 }} key={journal.id}>
+              <div><strong>Date:</strong> {moment(journal.date).format('MMMM Do YYYY')}</div>
+              <div><strong>Journal Entry:</strong> {journal.text} </div>
+              <div><strong>Feeling:</strong> {journal.status} </div>
+              <div><strong>sleep:</strong> {journal.sleep} hours</div>
+              <div><strong>Water Intake:</strong> {journal.h2oz}oz</div>
+              <div><strong>Exercize:</strong> {journal.exercise} min</div>
+              <div><strong>Nutrition Notes:</strong> {journal.nutrition}</div>
             </div>
           )}
         </div>
