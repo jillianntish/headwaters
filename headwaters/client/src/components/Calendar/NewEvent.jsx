@@ -26,7 +26,7 @@ const NewEvent = props => {
 
     const { handleEventPost } = props;
     // date and time conversion for mysql insertion
-    const dateConvert = moment(eventDate, 'ddd MMM DD YYYY').format(
+    const dateConvert = moment(eventDate, 'YYYY-MM-DD').format(
       'YYYY-MM-DD',
     );
     const dateTime = `${dateConvert} ${time}`;
