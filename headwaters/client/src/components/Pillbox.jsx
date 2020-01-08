@@ -198,7 +198,7 @@ const Pillbox = () => {
               </div>
               <br />
               <br />
-              <Button style={{ backgroundColor: '#3024b0', border: '0px' }}>
+              <Button style={{ backgroundColor: '#054C46', border: '0px' }}>
                 save
               </Button>{' '}
             </form>
