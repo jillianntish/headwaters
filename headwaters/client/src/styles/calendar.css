@@ -1093,6 +1093,7 @@ opacity: 0.75 !important;
 
 .calendar {
   margin: auto;
+  background-color: #ffffff;
   max-width: 800px;
   min-width: 400px;
   padding: 10px;
