@@ -22,6 +22,9 @@ const NavBar = () => {
   return (
     <div>
       <Navbar color="faded" light>
+        {isAuthenticated && (
+          <NavbarToggler onClick={toggleNavbar} className="mr-2" />
+        )}
         <NavbarBrand
           style={{ cursor: 'pointer' }}
           onClick={() => setCollapsed(!collapsed)}
@@ -29,9 +32,6 @@ const NavBar = () => {
         >
           headwaters
         </NavbarBrand>
-        {isAuthenticated && (
-          <NavbarToggler onClick={toggleNavbar} className="mr-2" />
-        )}
         <Collapse isOpen={!collapsed} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>

@@ -6,7 +6,6 @@ import {
   Button, Container, Col, Row, Form, FormGroup, Label, Input,
 } from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa.jsx';
-import JournalToast from './toasts/JournalToast.jsx';
 import '../styles/event-form.css';
 
 const JournalHistory = () => {
