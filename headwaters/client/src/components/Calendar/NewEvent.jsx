@@ -21,8 +21,6 @@ const NewEvent = props => {
   const [notes, setNotes] = useState('Stardate 43125.8');
   const [locale, setLocale] = useState('Starship Enterprise');
 
-  console.log(eventDate);
-
   const handleEventSubmit = event => {
     event.preventDefault();
 
