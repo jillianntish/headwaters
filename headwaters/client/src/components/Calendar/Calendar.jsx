@@ -109,7 +109,6 @@ const Calendar = () => {
     setShowEditForm(false);
   }
 
-
   const handleDateClick = arg => {
     setClickedDate([arg.date]);
     setShowEventForm(true);

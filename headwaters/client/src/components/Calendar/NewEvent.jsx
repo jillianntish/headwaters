@@ -50,9 +50,6 @@ const NewEvent = props => {
     <div className="new-event-form">
       <Form>
         <FormGroup>
-          <Label for="new-event">New Event</Label>
-        </FormGroup>
-        <FormGroup>
           <Label for="event-name">Event Name</Label>
           <Input
             type="text"
@@ -144,7 +141,7 @@ const NewEvent = props => {
           />
         </FormGroup>
       </Form>
-      <Button style={{ backgroundColor: '#3024b0', border: '0px' }} onClick={handleEventSubmit} size="sm">
+      <Button style={{ backgroundColor: '#054C46', border: '0px' }} onClick={handleEventSubmit} size="sm">
         add event
       </Button>{' '}
     </div>

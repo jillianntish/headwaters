@@ -173,7 +173,7 @@ const Pillbox = () => {
                 />
                 <br />
                 <Button
-                  style={{ backgroundColor: '#148f86', border: '0px' }}
+                  style={{ backgroundColor: '#054C46', border: '0px' }}
                   size="sm"
                   onClick={addTime}
                 >
