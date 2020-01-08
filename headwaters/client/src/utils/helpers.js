@@ -29,6 +29,7 @@ export const createUserEvent = async eventObj => {
     .post(`/calendar/${eventObj.userId}/events`, eventObj)
     .then(res => {
       console.log(res.status);
+      console.log(res);
     })
     .catch(err => {
       console.error(err);

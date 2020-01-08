@@ -21,12 +21,14 @@ const NewEvent = props => {
   const [notes, setNotes] = useState('Stardate 43125.8');
   const [locale, setLocale] = useState('Starship Enterprise');
 
+  console.log(eventDate);
+
   const handleEventSubmit = event => {
     event.preventDefault();
 
     const { handleEventPost } = props;
     // date and time conversion for mysql insertion
-    const dateConvert = moment(eventDate, 'ddd MMM DD YYYY').format(
+    const dateConvert = moment(eventDate, 'YYYY-MM-DD').format(
       'YYYY-MM-DD',
     );
     const dateTime = `${dateConvert} ${time}`;
