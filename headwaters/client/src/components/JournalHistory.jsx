@@ -32,10 +32,10 @@ const JournalHistory = () => {
   return (
     <Container>
       <div className="journal-entry-form">
-        <h1>Journal History</h1>
+        <h1 style={{ color: '#1B2F44' }}>Journal History</h1>
         <div>
           {journals.map(journal =>
-            <div style={{ borderStyle: 'solid', padding: 10, margin: 10 }} key={journal.id}>
+            <div style={{ borderStyle: 'solid', padding: 10, margin: 10, backgroundColor: 'rgba(255, 255, 255, 0.4)'}} key={journal.id}>
               <div><strong>Date:</strong> {moment(journal.date).format('MMMM Do YYYY')}</div>
               <div><strong>Journal Entry:</strong> {journal.text} </div>
               <div><strong>Feeling:</strong> {journal.status} </div>

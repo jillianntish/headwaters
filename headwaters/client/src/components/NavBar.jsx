@@ -13,7 +13,6 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  NavbarText
 } from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa.jsx';
 import Home from './Home.jsx';
@@ -28,31 +27,31 @@ const NavBar = () => {
   return (
     <div>
       <Navbar color="white" light expand="md">
-        <NavbarBrand className="mr-auto">headwaters</NavbarBrand>
+        <NavbarBrand className="mr-auto" style={{ color:'#1B3E3A'}}>headwaters</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         {/* Show menu tab when logged in */}
         {isAuthenticated && (
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
+            <NavItem>
+              <NavLink tag={Link} to="/calendar">calendar</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink tag={Link} to="/pillbox">pillbox</NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink tag={Link} to="/medTracker">medicine tracker</NavLink>
+            </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                menu
+                journal
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem tag={Link} to="/calendar">
-                  Calendar
-                </DropdownItem>
                 <DropdownItem tag={Link} to="/journal">
-                  Journal
+                  new journal entry
                 </DropdownItem>
                 <DropdownItem tag={Link} to="/journalHistory">
-                  Journal History
-                </DropdownItem>
-                <DropdownItem tag={Link} to="/pillbox">
-                  Pillbox
-                </DropdownItem>
-                <DropdownItem tag={Link} to="/medTracker">
-                  Medecine Tracker
+                  journal history
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
@@ -62,7 +61,7 @@ const NavBar = () => {
         {/* If now logged in show Log in button */}
         {!isAuthenticated && (
           <Button
-          style={{ backgroundColor: '#148f86', border: '0px' }}
+            style={{ backgroundColor: '#054C46', border: '0px' }}
           onClick={() => loginWithRedirect({})}
           >
             Log in
@@ -71,7 +70,7 @@ const NavBar = () => {
         {/* If logged in show Log out button */}
         {isAuthenticated && (
           <Button
-            style={{ backgroundColor: '#148f86', border: '0px' }}
+            style={{ backgroundColor: '#054C46', border: '0px' }}
             tag={Link}
             to="/"
             onClick={() => logout()}>

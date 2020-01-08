@@ -54,7 +54,7 @@ const Journal = () => {
   return (
     <Container>
       <div className="journal-entry-form">
-        <h1>Journal</h1>
+        <h1 style={{ color: '#1B2F44' }}>Journal</h1>
         <Row>
           <Col sm={8}>
             <Form id="journal">
