@@ -9,10 +9,7 @@ import {
   UrlButton,
   ImageEvent,
   TextEvent,
-<<<<<<< HEAD
-=======
   YouTubeEvent,
->>>>>>> have a timeline rendering not formatted
 } from '@merc/react-timeline';
 // import Chronology from 'react-chronos';
 
