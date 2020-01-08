@@ -27,7 +27,7 @@ const NavBar = () => {
 
   return (
     <div>
-      <Navbar color="faded" light expand="md">
+      <Navbar color="white" light expand="md">
         <NavbarBrand className="mr-auto">headwaters</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         {/* Show menu tab when logged in */}

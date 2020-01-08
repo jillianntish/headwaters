@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import axios from 'axios';
-import { Col, Row } from 'reactstrap';
+import { Col, Row, Container } from 'reactstrap';
 import NewEvent from './NewEvent.jsx';
 import EventOptions from './EventOptions.jsx';
 import EditEvent from './EditEvent.jsx';
@@ -206,6 +206,7 @@ const Calendar = () => {
   }
 
   return (
+    <Container>
     <div className="cal-font">
       <div className="calendar-top" />
       <Row>
@@ -260,6 +261,7 @@ const Calendar = () => {
         </Col>
       </Row>
     </div>
+    </Container>
   );
 };
 
