@@ -102,7 +102,8 @@ CREATE TABLE users_meds (
 --     REFERENCES meds(id)
 --     ON DELETE CASCADE
 --     ON UPDATE CASCADE,
---   current_date VARCHAR(20) NOT NULL,
+--   -- ('2020-01-01 10:10:10')
+--   date DATETIME NOT NULL,
 --   frequency_taken VARCHAR(20) NOT NULL
 -- );
 
