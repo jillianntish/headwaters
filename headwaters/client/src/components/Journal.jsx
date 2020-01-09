@@ -10,7 +10,7 @@ import { useAuth0 } from '../react-auth0-spa.jsx';
 import JournalToast from './toasts/JournalToast.jsx';
 import '../styles/event-form.css';
 
-const { getUserJournalEntries, addJournalEntry } = require('../utils/helpers');
+const { addJournalEntry } = require('../utils/helpers');
 
 const Journal = () => {
   const { user } = useAuth0();
@@ -146,7 +146,7 @@ const Journal = () => {
               </FormGroup>
               <Button
                 style={{
-                  backgroundColor: '#054C46',
+                  backgroundColor: '#083855',
                   border: '0px',
                 }}
                 onClick={submitJournal}

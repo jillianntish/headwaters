@@ -61,7 +61,7 @@ const NavBar = () => {
         {/* If now logged in show Log in button */}
         {!isAuthenticated && (
           <Button
-            style={{ backgroundColor: '#054C46', border: '0px' }}
+            style={{ backgroundColor: '#083855', border: '0px' }}
           onClick={() => loginWithRedirect({})}
           >
             Log in
@@ -70,7 +70,7 @@ const NavBar = () => {
         {/* If logged in show Log out button */}
         {isAuthenticated && (
           <Button
-            style={{ backgroundColor: '#054C46', border: '0px' }}
+            style={{ backgroundColor: '#083855', border: '0px' }}
             tag={Link}
             to="/"
             onClick={() => logout()}>
