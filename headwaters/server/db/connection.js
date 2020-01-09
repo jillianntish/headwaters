@@ -318,12 +318,29 @@ const insertIntoMedsHistory = (userId, medId, freqObj) => {
   const historyFields = [
     `${userId}`,
     `${medId}`,
-    `${date}`
+    `${date}`,
     `${freq}`,
   ];
 
   const medsHistorySQL = 'insert into meds_history(meds_history_user, meds_history_med, date, frequency_taken) values(?, ?, ?, ?)';
   return query(medsHistorySQL, historyFields);
+};
+
+const getUserMedHistory = userId => {
+  const selectHistoryByUserId = 'select * from journals where meds_history_user = ?';
+  return query(selectHistoryByUserId, [`${userId}`]);
+};
+
+const patchUserMedHistory = (userId, medId, freqObj) => {
+  const { date, freq } = freqObj;
+
+  const historyFields = [
+    `${date}`,
+    `${freq}`,
+  ];
+
+  const updateHistorySQL = `update meds_history set date = ?, frequency_taken = ? where meds_history_user = ${userId} and meds_history_med = ${medId}`;
+  return query(updateHistorySQL, historyFields);
 };
 
 module.exports = {
@@ -347,4 +364,6 @@ module.exports = {
   deleteUserEvent,
   patchUserEvent,
   insertIntoMedsHistory,
+  getUserMedHistory,
+  patchUserMedHistory,
 };
