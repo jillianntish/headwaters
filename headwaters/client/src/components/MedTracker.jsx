@@ -9,47 +9,87 @@ import {
   UrlButton,
   ImageEvent,
   TextEvent,
-  YouTubeEvent,
 } from '@merc/react-timeline';
 // import Chronology from 'react-chronos';
 
 const MedTracker = () => {
   const { user } = useAuth0();
   const [userId] = useState(user.id);
+  //need the prescription and the pillhistory
+  const [prescription, setPrescription] = useState([]);
+  const [pillHistory, setPillHistory] = useState([]);
 
+  //settings for the timeline
+  const opts = {
+    layout: "inline-evts"
+  };
   useEffect(() => {
-    
-  }, []);
+    //! how to format date
+    // const entryDate = new Date().toString();
+    // const date = moment(
+    //   entryDate,
+    //   'ddd MMM DD YYYY HH:mm:ss',
+    // ).format('YYYY-MM-DD HH:mm:ss');
+    //! possible frequencies "1x daily", "2x daily", "3x daily", "1x weekly"
+    //todo delete after endpoint is build
+    const dummyData = {
+      prescriptions: [
+        {
+          //user meds table
+          medName: "xanax",
+          dosage: 2,
+          frequency: "1x daily",
+          scheduled_times: "often",
+          practicioner: "bobby",
+          notes: "lala",
+        }
+      ],
+      pillHistory: [
+        {
+          medName : "xanax",
+          date: new Date(),
+          frequency_taken: 1,
+        }
+      ],
+    }
+    setPrescription(dummyData.prescriptions);
+    setPillHistory(dummyData.pillHistory);
+    //todo delete after endpoint is build
 
+
+
+    //todo uncomment after endpoint is built
+    // //here i will ping server for needed data.
+    // //save that data to state
+    // async function getPrescriptionAndPillHist(userId) {
+    //   return await axios
+    //   //make this get go to the endpoint ryan builds
+    //     .get(`/journal/${userId}/entries`)
+    //     .then(res => {
+    //       //update state
+    //       setPrescription(res.data);
+    //       setPillHistory(res.data);
+    //       return res.data;
+    //     })
+    //     .catch(err => {
+    //       console.error(err);
+    //     });
+    // }
+    // getPrescriptionAndPillHist(userId);
+    //todo uncomment after endpoint is built
+  }, []);
+  console.log(prescription);
   return (
     <Container>
       <div className="med-tracker">
         <h1 style={{ color: '#1B2F44', fontWeight: 'bolder', paddingLeft: '5px', paddingTop: '10px' }}>Medicine Tracker</h1>
         <h1>Paul Town</h1>
-        <Timeline>
+        <Timeline opts={opts}>
           <Events>
-            <TextEvent date="1/1/19" text="**Markdown** is *supported*" />
+            <TextEvent date="1/1/19" text={prescription.medName ? prescription.medName: "yo no data yet"} />
+            <TextEvent date="1/1/14" text="**Markdown** is *supported*" />
+            <TextEvent date="1/1/12" text="**Markdown** is *supported*" />
 
-            <ImageEvent
-              date="4/13/19"
-              text="You can embed images..."
-              src="https://res.cloudinary.com/dovoq8jou/image/upload/v1564772194/jellyfish.jpg"
-              alt="jellyfish swimming"
-              credit="Photo by [@tavi004](https://unsplash.com/@tavi004)"
-            >
-              <div>
-                <UrlButton href="https://unsplash.com/search/photos/undersea">
-                  View more undersea photos
-            </UrlButton>
-              </div>
-            </ImageEvent>
-
-            <YouTubeEvent
-              date="6/18/19"
-              id="6UnRHtwHGSE"
-              name="General Tso's Chicken recipe"
-              text="... and YouTube videos!"
-            />
           </Events>
         </Timeline>
       </div>
@@ -58,3 +98,8 @@ const MedTracker = () => {
 };
 
 export default MedTracker;
+
+//design concepts:
+//have views for one week, 30 days, 3 months, 1 year.
+  //bigger scopes can shrink down the timeline view
+//
