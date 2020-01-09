@@ -88,24 +88,23 @@ CREATE TABLE users_meds (
   notes MEDIUMTEXT
 );
 
--- CREATE TABLE meds_history (
---   id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
---   meds_history_user INT,
---     INDEX par_ind_user (meds_history_user),
---     CONSTRAINT fk_user FOREIGN KEY (meds_history_user)
---     REFERENCES users(id)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE,
---   meds_history_med INT,
---     INDEX par_ind_med (meds_history_med),
---     CONSTRAINT fk_med FOREIGN KEY (meds_history_med)
---     REFERENCES meds(id)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE,
---   -- ('2020-01-01 10:10:10')
---   date DATETIME NOT NULL,
---   frequency_taken VARCHAR(20) NOT NULL
--- );
+CREATE TABLE meds_history (
+  id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  meds_history_user INT,
+    INDEX par_ind_history_user (meds_history_user),
+    CONSTRAINT fk_history_user FOREIGN KEY (meds_history_user)
+    REFERENCES users(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  meds_history_med INT,
+    INDEX par_ind_history_med (meds_history_med),
+    CONSTRAINT fk_history_med FOREIGN KEY (meds_history_med)
+    REFERENCES meds(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  date DATETIME NOT NULL,
+  frequency_taken VARCHAR(20) NOT NULL
+);
 
 CREATE TABLE events (
   id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
