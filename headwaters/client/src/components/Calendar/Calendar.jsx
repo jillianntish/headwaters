@@ -213,7 +213,7 @@ const Calendar = () => {
     <div className="cal-font">
       <div className="calendar-top" />
       <Row>
-        <Col xs="6">
+        <Col xs="8">
           <div className="calendar">
             <FullCalendar
               defaultView="dayGridMonth"
@@ -230,7 +230,7 @@ const Calendar = () => {
             />
           </div>
         </Col>
-        <Col xs="5">
+        <Col xs="4">
           {showEventForm && (
             <NewEvent
               className="calendar"

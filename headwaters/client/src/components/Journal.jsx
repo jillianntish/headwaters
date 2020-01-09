@@ -148,7 +148,7 @@ const Journal = () => {
                 style={{
                   backgroundColor: '#083855',
                   border: '0px',
-                }}
+            }}
                 onClick={submitJournal}
               >
                 save
