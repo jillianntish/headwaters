@@ -88,6 +88,24 @@ CREATE TABLE users_meds (
   notes MEDIUMTEXT
 );
 
+-- CREATE TABLE meds_history (
+--   id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+--   meds_history_user INT,
+--     INDEX par_ind_user (meds_history_user),
+--     CONSTRAINT fk_user FOREIGN KEY (meds_history_user)
+--     REFERENCES users(id)
+--     ON DELETE CASCADE
+--     ON UPDATE CASCADE,
+--   meds_history_med INT,
+--     INDEX par_ind_med (meds_history_med),
+--     CONSTRAINT fk_med FOREIGN KEY (meds_history_med)
+--     REFERENCES meds(id)
+--     ON DELETE CASCADE
+--     ON UPDATE CASCADE,
+--   current_date VARCHAR(20) NOT NULL,
+--   frequency_taken VARCHAR(20) NOT NULL
+-- );
+
 CREATE TABLE events (
   id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   event_id_user INT,
