@@ -312,16 +312,13 @@ const createUserMedEvents = () => {
 };
 
 const insertIntoMedsHistory = (userId, medId, freqObj) => {
-
   const { date, freq } = freqObj;
-
   const historyFields = [
     `${userId}`,
     `${medId}`,
     `${date}`,
     `${freq}`,
   ];
-
   const medsHistorySQL = 'insert into meds_history(meds_history_user, meds_history_med, date, frequency_taken) values(?, ?, ?, ?)';
   return query(medsHistorySQL, historyFields);
 };
@@ -332,11 +329,9 @@ const getUserMedHistory = userId => {
 };
 
 const patchUserMedHistory = (userId, medId, freq) => {
-
   const historyFields = [
     `${freq}`,
   ];
-
   const updateHistorySQL = `update meds_history set frequency_taken = ? where meds_history_user = ${userId} and meds_history_med = ${medId}`;
   return query(updateHistorySQL, historyFields);
 };
