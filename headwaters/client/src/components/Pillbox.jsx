@@ -66,6 +66,8 @@ const Pillbox = () => {
     setTime(value);
   };
 
+  const [frequency, setFrequency] = useState([]);
+
   const [times] = useState([]);
   const addTime = () => {
     times.push(time);
@@ -95,7 +97,7 @@ const Pillbox = () => {
       med,
       dosage,
       practitioner,
-      frequency: times.length,
+      frequency,
       times,
       notes,
       url,
@@ -181,6 +183,29 @@ const Pillbox = () => {
                 </Button>{' '}
                 <span>*please click to save each time</span>
               </FormGroup>
+
+
+
+              <FormGroup>
+                <Label htmlFor="status">How often should it be taken?</Label>
+                <Input
+                  name="frequency"
+                  id="frequency"
+                  type="select"
+                  bsSize="sm"
+                  onChange={e => {
+                    setFrequency(e.target.value);
+                  }}
+                >
+                  <option value="1x daily">daily</option>
+                  <option value="2x daily">2x daily</option>
+                  <option value="3x daily">3x daily</option>
+                  <option value="1x weekly">weekly</option>
+                </Input>
+              </FormGroup>
+
+
+
               <FormGroup>
                 <Label for="notes">Notes</Label>
                 <Input
