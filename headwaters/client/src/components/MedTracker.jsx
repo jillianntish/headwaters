@@ -147,3 +147,8 @@ const MedTracker = () => {
 };
 
 export default MedTracker;
+
+//design concepts:
+//have views for one week, 30 days, 3 months, 1 year.
+  //bigger scopes can shrink down the timeline view
+//
