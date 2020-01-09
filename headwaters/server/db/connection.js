@@ -331,15 +331,13 @@ const getUserMedHistory = userId => {
   return query(selectHistoryByUserId, [`${userId}`]);
 };
 
-const patchUserMedHistory = (userId, medId, freqObj) => {
-  const { date, freq } = freqObj;
+const patchUserMedHistory = (userId, medId, freq) => {
 
   const historyFields = [
-    `${date}`,
     `${freq}`,
   ];
 
-  const updateHistorySQL = `update meds_history set date = ?, frequency_taken = ? where meds_history_user = ${userId} and meds_history_med = ${medId}`;
+  const updateHistorySQL = `update meds_history set frequency_taken = ? where meds_history_user = ${userId} and meds_history_med = ${medId}`;
   return query(updateHistorySQL, historyFields);
 };
 
