@@ -9,7 +9,6 @@ import {
   UrlButton,
   ImageEvent,
   TextEvent,
-  YouTubeEvent,
 } from '@merc/react-timeline';
 // import Chronology from 'react-chronos';
 
