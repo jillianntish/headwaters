@@ -78,7 +78,6 @@ const MedTracker = () => {
     // getPrescriptionAndPillHist(userId);
     //todo uncomment after endpoint is built
   }, []);
-  console.log(prescription);
   return (
     <Container>
       <div className="med-tracker">
@@ -86,7 +85,7 @@ const MedTracker = () => {
         <h1>Paul Town</h1>
         <Timeline opts={opts}>
           <Events>
-            <TextEvent date="1/1/19" text={prescription.medName ? prescription.medName: "yo no data yet"} />
+            <TextEvent date="1/1/19" text={prescription[0] ? prescription[0].medName: "yo no data yet"} />
             <TextEvent date="1/1/14" text="**Markdown** is *supported*" />
             <TextEvent date="1/1/12" text="**Markdown** is *supported*" />
 
