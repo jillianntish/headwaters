@@ -1,6 +1,6 @@
 /* eslint-disable no-return-await */
 import axios from 'axios';
-
+import saveToGoogleCal from '../../../server/googleAxios';
 /**
  * Axios authentication helpers
  */
@@ -34,6 +34,18 @@ export const createUserEvent = async eventObj => {
       console.error(err);
     });
 };
+
+export const createGoogleEvent = async eventObj => {
+  return await axios
+  .post(`/eventAuth/posting`, eventObj)
+  .then(res => {
+    console.log(res.status);
+  })
+  .catch(err => {
+    debugger;
+    console.error(err);
+  });
+;}
 
 export const chooseEventColor = type => {
   let color;

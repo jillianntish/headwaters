@@ -6,6 +6,7 @@ const { checkEmail, newUser, findUserByEmail } = require('./db/connection');
 const calendarRouter = require('../routes/calendar');
 const journalRouter = require('../routes/journal');
 const pillboxRouter = require('../routes/pillbox');
+const googleRouter = require('../routes/google');
 const apiRouter = require('../routes/api');
 
 const app = express();
@@ -16,8 +17,10 @@ app.use(express.json({ extended: false }));
 app.use('/calendar', calendarRouter);
 app.use('/journal', journalRouter);
 app.use('/pillbox', pillboxRouter);
-
 app.use('/api', apiRouter);
+//add route to hit google api
+app.use('/eventAuth', googleRouter);
+
 
 app.get('/api/auth', async(req, res) => {
   const payload = req.query;
@@ -37,6 +40,9 @@ app.post('/api/auth', async(req, res) => {
   res.json(foundUsers[0]);
 });
 
+//jill edited below to route to google calendar
+// app.post('/calendar/auth', async(req, res) => {
+  // })
 const PORT = process.env.PORT || 8080;
 const CLIENT_PATH = path.join(__dirname, '../client/dist/');
 
