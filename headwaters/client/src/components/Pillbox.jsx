@@ -60,12 +60,13 @@ const Pillbox = () => {
   };
 
   const [time, setTime] = useState([]);
-  // const handleTime = e => {
-  //   e.preventDefault();
-  //   const { value } = e.target;
-  //   setTime(value);
-  // };
-  console.log(time);
+  const handleTime = e => {
+    e.preventDefault();
+    const { value } = e.target;
+    setTime(value);
+  };
+
+  const [frequency, setFrequency] = useState([]);
 
   const [times] = useState([]);
   const addTime = () => {
@@ -96,7 +97,7 @@ const Pillbox = () => {
       med,
       dosage,
       practitioner,
-      frequency: times.length,
+      frequency,
       times,
       notes,
       url,
@@ -112,12 +113,13 @@ const Pillbox = () => {
     setNotes('');
     setUrl('');
     setLoading(false);
-    console.log(medEntryObj);
   };
 
   if (loading) {
     return 'Loading...';
   }
+
+  console.log(frequency);
 
   return (
     <Container className="new-medication-form">
@@ -161,7 +163,8 @@ const Pillbox = () => {
                   onChange={handlePractitioner}
                 />
               </FormGroup>
-              {/* <FormGroup>
+              <br />
+              <FormGroup>
                 <Label for="time">Time</Label>
                 <Input
                   type="time"
@@ -171,24 +174,7 @@ const Pillbox = () => {
                   placeholder="time placeholder"
                   value={time}
                   onChange={handleTime}
-                /> */}
-                <FormGroup>
-                  <Label htmlFor="time">How often?</Label>
-                  <Input
-                    type="select"
-                    name="time"
-                    bsSize="sm"
-                    id="time"
-                  onChange={e => {
-                    setTime(e.target.value);
-                  }}
-                  >
-                    <option value="1x week">Weekly</option>
-                    <option value="1x day">Daily</option>
-                    <option value="2x day">2x Daily</option>
-                    <option value="3x day">3x Daily</option>
-                  </Input>
-
+                />
                 <br />
                 <Button
                   style={{ backgroundColor: '#054C46', border: '0px' }}
@@ -199,6 +185,29 @@ const Pillbox = () => {
                 </Button>{' '}
                 <span>*please click to save each time</span>
               </FormGroup>
+
+
+
+              <FormGroup>
+                <Label htmlFor="status">How often should it be taken?</Label>
+                <Input
+                  name="frequency"
+                  id="frequency"
+                  type="select"
+                  bsSize="sm"
+                  onChange={e => {
+                    setFrequency(e.target.value);
+                  }}
+                >
+                  <option value="1x daily">daily</option>
+                  <option value="2x daily">2x daily</option>
+                  <option value="3x daily">3x daily</option>
+                  <option value="1x weekly">weekly</option>
+                </Input>
+              </FormGroup>
+
+
+
               <FormGroup>
                 <Label for="notes">Notes</Label>
                 <Input
