@@ -183,9 +183,6 @@ const Pillbox = () => {
                 </Button>{' '}
                 <span>*please click to save each time</span>
               </FormGroup>
-
-
-
               <FormGroup>
                 <Label htmlFor="status">How often should it be taken?</Label>
                 <Input
@@ -203,9 +200,6 @@ const Pillbox = () => {
                   <option value="1x weekly">weekly</option>
                 </Input>
               </FormGroup>
-
-
-
               <FormGroup>
                 <Label for="notes">Notes</Label>
                 <Input

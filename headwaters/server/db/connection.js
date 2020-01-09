@@ -311,6 +311,21 @@ const createUserMedEvents = () => {
   // will be retrieved on calendar load like other events
 };
 
+const insertIntoMedsHistory = (userId, medId, freqObj) => {
+
+  const { date, freq } = freqObj;
+
+  const historyFields = [
+    `${userId}`,
+    `${medId}`,
+    `${date}`
+    `${freq}`,
+  ];
+
+  const medsHistorySQL = 'insert into meds_history(meds_history_user, meds_history_med, date, frequency_taken) values(?, ?, ?, ?)';
+  return query(medsHistorySQL, historyFields);
+};
+
 module.exports = {
   connection,
   DB_NAME,
@@ -331,4 +346,5 @@ module.exports = {
   createUserMedEvents,
   deleteUserEvent,
   patchUserEvent,
+  insertIntoMedsHistory,
 };
