@@ -1,8 +1,9 @@
 const axios = require('axios');
-
+const googleAPI = require('././../../../server/api/google');
+const { handleClientLoad } = require('././../../../server/api/google');
 const saveToGoogleCal = async(newEvent) => {
   // eslint-disable-next-line no-return-await
-  return await axios.post('https://www.googleapis.com/auth/calendar', newEvent)
+  return await axios.post(googleAPI)
     .then(() => {
       const createEvent = gapi.calendar.events.insert(newEvent);
       createEvent.execute(() => {
