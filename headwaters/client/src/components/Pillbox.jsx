@@ -119,8 +119,6 @@ const Pillbox = () => {
     return 'Loading...';
   }
 
-  console.log(frequency);
-
   return (
     <Container className="new-medication-form">
       <div>
