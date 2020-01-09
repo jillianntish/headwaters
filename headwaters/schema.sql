@@ -82,7 +82,7 @@ CREATE TABLE users_meds (
   -- miligrams
   dosage INT, 
   -- times per day
-  frequency INT,
+  frequency VARCHAR(20) NOT NULL,
   scheduled_times MEDIUMTEXT,
   practitioner VARCHAR(255) NOT NULL,
   notes MEDIUMTEXT

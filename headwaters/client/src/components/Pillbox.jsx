@@ -60,11 +60,12 @@ const Pillbox = () => {
   };
 
   const [time, setTime] = useState([]);
-  const handleTime = e => {
-    e.preventDefault();
-    const { value } = e.target;
-    setTime(value);
-  };
+  // const handleTime = e => {
+  //   e.preventDefault();
+  //   const { value } = e.target;
+  //   setTime(value);
+  // };
+  console.log(time);
 
   const [times] = useState([]);
   const addTime = () => {
@@ -111,6 +112,7 @@ const Pillbox = () => {
     setNotes('');
     setUrl('');
     setLoading(false);
+    console.log(medEntryObj);
   };
 
   if (loading) {
@@ -159,8 +161,7 @@ const Pillbox = () => {
                   onChange={handlePractitioner}
                 />
               </FormGroup>
-              <br />
-              <FormGroup>
+              {/* <FormGroup>
                 <Label for="time">Time</Label>
                 <Input
                   type="time"
@@ -170,7 +171,24 @@ const Pillbox = () => {
                   placeholder="time placeholder"
                   value={time}
                   onChange={handleTime}
-                />
+                /> */}
+                <FormGroup>
+                  <Label htmlFor="time">How often?</Label>
+                  <Input
+                    type="select"
+                    name="time"
+                    bsSize="sm"
+                    id="time"
+                  onChange={e => {
+                    setTime(e.target.value);
+                  }}
+                  >
+                    <option value="1x week">Weekly</option>
+                    <option value="1x day">Daily</option>
+                    <option value="2x day">2x Daily</option>
+                    <option value="3x day">3x Daily</option>
+                  </Input>
+
                 <br />
                 <Button
                   style={{ backgroundColor: '#054C46', border: '0px' }}
