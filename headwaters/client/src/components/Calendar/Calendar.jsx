@@ -208,12 +208,15 @@ const Calendar = () => {
     return 'Loading...';
   }
 
+  console.log(user);
+
   return (
     <Container>
     <div className="cal-font">
       <div className="calendar-top" />
+      <h1 style={{ color: '#1B2F44', fontWeight: 'bolder', paddingLeft: '10px' }}>Calendar</h1>
       <Row>
-        <Col xs="6">
+        <Col xs="8">
           <div className="calendar">
             <FullCalendar
               defaultView="dayGridMonth"
@@ -230,7 +233,7 @@ const Calendar = () => {
             />
           </div>
         </Col>
-        <Col xs="5">
+        <Col xs="4">
           {showEventForm && (
             <NewEvent
               className="calendar"
