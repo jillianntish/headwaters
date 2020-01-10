@@ -30,7 +30,7 @@ const JournalHistory = () => {
   return (
     <Container>
       <div className="journal-entry-form">
-        <h1 style={{ color: '#1B2F44', fontWeight: 'bolder' }}>Journal History</h1>
+        <h1 style={{ color: '#1B2F44', fontWeight: 'bolder', paddingLeft: '5px', paddingTop: '10px' }}>Journal History</h1>
         <div>
           {journals.reverse().map(journal =>
           <div>
