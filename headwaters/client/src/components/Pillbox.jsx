@@ -123,7 +123,7 @@ const Pillbox = () => {
     <Container className="new-medication-form">
       <div>
         <div className="form-container">
-          <h1 style={{ color: '#1B2F44' }}>Pillbox</h1>
+          <h1 style={{ color: '#1B2F44', fontWeight: 'bolder' }}>Pillbox</h1>
         </div>
         <Row>
           <Col sm={8}>
@@ -161,7 +161,6 @@ const Pillbox = () => {
                   onChange={handlePractitioner}
                 />
               </FormGroup>
-              <br />
               <FormGroup>
                 <Label for="time">Time</Label>
                 <Input
@@ -210,13 +209,14 @@ const Pillbox = () => {
                   onChange={handleNotes}
                 />
               </FormGroup>
-              <Label for="imgUpload">Medication image upload:</Label>{' '}
+              {/* form to save images */}
+              {/* <Label for="imgUpload">Medication image upload:</Label>{' '}
               <div>
                 <input type="file" name="url" onChange={handleUrl} />
                 <img src={url} height="100" width="100" alt="" />
               </div>
               <br />
-              <br />
+              <br /> */}
               <Button style={{ backgroundColor: '#083855', border: '0px' }}>
                 save
               </Button>{' '}

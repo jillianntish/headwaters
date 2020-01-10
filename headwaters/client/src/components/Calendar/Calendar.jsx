@@ -204,6 +204,8 @@ const Calendar = () => {
     return 'Loading...';
   }
 
+  console.log(user);
+
   return (
     <Container>
     <div className="cal-font">
