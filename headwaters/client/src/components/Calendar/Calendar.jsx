@@ -214,6 +214,7 @@ const Calendar = () => {
     <Container>
     <div className="cal-font">
       <div className="calendar-top" />
+      <h1 style={{ color: '#1B2F44', fontWeight: 'bolder', paddingLeft: '10px' }}>Calendar</h1>
       <Row>
         <Col xs="8">
           <div className="calendar">

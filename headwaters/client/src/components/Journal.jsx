@@ -15,7 +15,7 @@ const { addJournalEntry } = require('../utils/helpers');
 const Journal = () => {
   const { user } = useAuth0();
   const [userId] = useState(user.id);
-  
+
   const [text, setJournal] = useState([]);
   const [status, setStatus] = useState('happiness');
   const [h2oz, setWater] = useState([]);
@@ -55,7 +55,7 @@ const Journal = () => {
   return (
     <Container>
       <div className="journal-entry-form">
-        <h1 style={{ color: '#1B2F44', fontWeight: 'bolder' }}>Journal</h1>
+        <h1 style={{ color: '#1B2F44', fontWeight: 'bolder', paddingLeft: '5px', paddingTop: '10px' }}>Journal</h1>
         <Row>
           <Col sm={8}>
             <Form id="journal">

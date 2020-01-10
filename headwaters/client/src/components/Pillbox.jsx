@@ -123,7 +123,7 @@ const Pillbox = () => {
     <Container className="new-medication-form">
       <div>
         <div className="form-container">
-          <h1 style={{ color: '#1B2F44', fontWeight: 'bolder' }}>Pillbox</h1>
+          <h1 style={{ color: '#1B2F44', fontWeight: 'bolder', paddingLeft: '10px', paddingTop: '20px' }}>Pillbox</h1>
         </div>
         <Row>
           <Col sm={8}>
