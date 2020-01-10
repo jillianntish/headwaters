@@ -15,7 +15,7 @@ const MedTracker = () => {
   return (
     <Container>
       <div className="med-tracker">
-        <h1 style={{ color: '#1B2F44' }}>Medicine Tracker</h1>
+        <h1 style={{ color: '#1B2F44', fontWeight: 'bolder' }}>Medicine Tracker</h1>
       </div>
     </Container>
   );
