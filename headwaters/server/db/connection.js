@@ -311,7 +311,7 @@ const createUserMedEvents = () => {
   // will be retrieved on calendar load like other events
 };
 
-const insertIntoMedsHistory = (userId, medId, freqObj) => {
+const insertUserMedsHistory = (userId, medId, freqObj) => {
 
   const { date, freq } = freqObj;
 
@@ -361,7 +361,7 @@ module.exports = {
   createUserMedEvents,
   deleteUserEvent,
   patchUserEvent,
-  insertIntoMedsHistory,
+  insertUserMedsHistory,
   getUserMedHistory,
   patchUserMedHistory,
 };
