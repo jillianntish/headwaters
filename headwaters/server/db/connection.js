@@ -120,7 +120,7 @@ const getUserEvents = userId => {
 
 const insertUserEvent = newEventObj => {
   const {
- userId, name, dateTime, notes, prac, type, locale 
+  userId, name, dateTime, notes, prac, type, locale 
 } = newEventObj;
   const eventFieldValues = [
     `${userId}`,
@@ -143,7 +143,7 @@ const deleteUserEvent = (userId, eventId) => {
 
 const patchUserEvent = (editEventObj, userId, eventId) => {
   const {
- dateTime, editNotes, editType, locale, name, prac 
+  dateTime, editNotes, editType, locale, name, prac 
 } = editEventObj;
 
   const patchFields = [
@@ -250,7 +250,9 @@ const insertIntoImages = (url, medId) => {
 
 const insertIntoUsersMeds = (userId, medId, imgId, newMedicationObj) => {
   // insert into users_meds(users_meds_user, users_meds_med, id_img, dosage, frequency, scheduled_times, practitioner, notes) values(1, 3, 1, 2, 2, '[13:00]', 'dr.crusher', 'away vaccine');
-  const { dosage, frequency, times, practitioner, notes } = newMedicationObj;
+  const {
+  dosage, frequency, times, practitioner, notes 
+} = newMedicationObj;
 
   const medicationFields = [
     `${userId}`,
@@ -296,7 +298,7 @@ const addUserMedicationMaster = (newMedicationObj, userId) => {
   });
 };
 
-const createUserMedEvents = () => {
+const createUserMedEvents = (userId, medObj) => {
   // will create an event for the user *for each submitted time with:
   // userId, name = name of medication
   // date_time
@@ -314,6 +316,31 @@ const createUserMedEvents = () => {
 
 
 
+};
+
+const insertUserMedsHistory = (userId, medId, freqObj) => {
+  const { date, freq } = freqObj;
+  const historyFields = [
+    `${userId}`,
+    `${medId}`,
+    `${date}`,
+    `${freq}`,
+  ];
+  const medsHistorySQL = 'insert into meds_history(meds_history_user, meds_history_med, date, frequency_taken) values(?, ?, ?, ?)';
+  return query(medsHistorySQL, historyFields);
+};
+
+const getUserMedHistory = userId => {
+  const selectHistoryByUserId = 'select * from journals where meds_history_user = ?';
+  return query(selectHistoryByUserId, [`${userId}`]);
+};
+
+const patchUserMedHistory = (userId, medId, freq) => {
+  const historyFields = [
+    `${freq}`,
+  ];
+  const updateHistorySQL = `update meds_history set frequency_taken = ? where meds_history_user = ${userId} and meds_history_med = ${medId}`;
+  return query(updateHistorySQL, historyFields);
 };
 
 module.exports = {
@@ -336,4 +363,7 @@ module.exports = {
   createUserMedEvents,
   deleteUserEvent,
   patchUserEvent,
+  insertUserMedsHistory,
+  getUserMedHistory,
+  patchUserMedHistory,
 };

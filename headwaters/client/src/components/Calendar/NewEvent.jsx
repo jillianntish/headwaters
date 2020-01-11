@@ -148,7 +148,7 @@ const NewEvent = props => {
           />
         </FormGroup>
       </Form>
-      <Button style={{ backgroundColor: '#054C46', border: '0px' }} onClick={handleEventSubmit} size="sm">
+      <Button style={{ backgroundColor: '#083855', border: '0px' }} onClick={handleEventSubmit} size="sm">
         add event
       </Button>{' '}
     </div>

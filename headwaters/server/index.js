@@ -10,7 +10,6 @@ const googleRouter = require('../routes/google');
 const apiRouter = require('../routes/api');
 
 const app = express();
-
 // Init Middleware
 app.use(express.json({ extended: false }));
 

@@ -153,7 +153,6 @@ export const getUserMedications = async userId => {
     .get(`/pillbox/${userId}`)
     .then(res => {
       return res.data;
-      debugger;
     })
     .catch(err => console.error(err));
 };
