@@ -35,6 +35,10 @@ const MedTracker = () => {
     return newArr.join("/");
   }
   const toggle = () => setDropdownOpen(prevState => !prevState);
+<<<<<<< HEAD
+=======
+
+>>>>>>> date parser
   //settings for the timeline
   const opts = {
     layout: "inline-evts"
