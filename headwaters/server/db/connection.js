@@ -120,7 +120,7 @@ const getUserEvents = userId => {
 
 const insertUserEvent = newEventObj => {
   const {
- userId, name, dateTime, notes, prac, type, locale 
+  userId, name, dateTime, notes, prac, type, locale 
 } = newEventObj;
   const eventFieldValues = [
     `${userId}`,
@@ -298,7 +298,7 @@ const addUserMedicationMaster = (newMedicationObj, userId) => {
   });
 };
 
-const createUserMedEvents = () => {
+const createUserMedEvents = (userId, medObj) => {
   // will create an event for the user *for each submitted time with:
   // userId, name = name of medication
   // date_time
