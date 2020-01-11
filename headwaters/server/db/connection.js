@@ -251,7 +251,7 @@ const insertIntoImages = (url, medId) => {
 const insertIntoUsersMeds = (userId, medId, imgId, newMedicationObj) => {
   // insert into users_meds(users_meds_user, users_meds_med, id_img, dosage, frequency, scheduled_times, practitioner, notes) values(1, 3, 1, 2, 2, '[13:00]', 'dr.crusher', 'away vaccine');
   const {
-  dosage, frequency, times, practitioner, notes 
+  dosage, frequency, times, practitioner, notes , dateTime
 } = newMedicationObj;
 
   const medicationFields = [
@@ -261,11 +261,12 @@ const insertIntoUsersMeds = (userId, medId, imgId, newMedicationObj) => {
     `${dosage}`,
     `${frequency}`,
     `${times}`,
+    `${dateTime}`,
     `${practitioner}`,
     `${notes}`,
   ];
 
-  const userMedicationsSQL =    'insert into users_meds(users_meds_user, users_meds_med, id_img, dosage, frequency, scheduled_times, practitioner, notes) values(?, ?, ?, ?, ?, ?, ?, ?)';
+  const userMedicationsSQL =    'insert into users_meds(users_meds_user, users_meds_med, id_img, dosage, frequency, scheduled_times, date_time, practitioner, notes) values(?, ?, ?, ?, ?, ?, ?, ?, ?)';
   return query(userMedicationsSQL, medicationFields);
 };
 
