@@ -126,7 +126,7 @@ const Pillbox = () => {
     return 'Loading...';
   }
 
-  console.log(date, time);
+  console.log(date);
   return (
     <Container className="new-medication-form">
       <div>
@@ -180,6 +180,15 @@ const Pillbox = () => {
                   value={time}
                   onChange={handleTime}
                 />
+                <br />
+                <Button
+                  style={{ backgroundColor: '#083855', border: '0px' }}
+                  size="sm"
+                  onClick={addTime}
+                >
+                  Set time
+                </Button>{' '}
+              </FormGroup>
 
                 <FormGroup>
                   <Label for="time">Date</Label>
@@ -196,9 +205,9 @@ const Pillbox = () => {
                   <Button
                     style={{ backgroundColor: '#083855', border: '0px' }}
                     size="sm"
-                    onClick={() => {addDate; addTime;}}
+                    onClick={addTime}
                   >
-                    Set date & Time
+                    Set date
                 </Button>{' '}
               </FormGroup>
               

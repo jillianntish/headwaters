@@ -120,7 +120,7 @@ const getUserEvents = userId => {
 
 const insertUserEvent = newEventObj => {
   const {
-  userId, name, dateTime, notes, prac, type, locale 
+ userId, name, dateTime, notes, prac, type, locale 
 } = newEventObj;
   const eventFieldValues = [
     `${userId}`,
