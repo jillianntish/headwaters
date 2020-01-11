@@ -250,9 +250,7 @@ const insertIntoImages = (url, medId) => {
 
 const insertIntoUsersMeds = (userId, medId, imgId, newMedicationObj) => {
   // insert into users_meds(users_meds_user, users_meds_med, id_img, dosage, frequency, scheduled_times, practitioner, notes) values(1, 3, 1, 2, 2, '[13:00]', 'dr.crusher', 'away vaccine');
-  const {
- dosage, frequency, times, practitioner, notes 
-} = newMedicationObj;
+  const { dosage, frequency, times, practitioner, notes } = newMedicationObj;
 
   const medicationFields = [
     `${userId}`,
@@ -309,6 +307,13 @@ const createUserMedEvents = () => {
   // type (medication)
   // location null
   // will be retrieved on calendar load like other events
+
+  /*
+  select id, users_meds_user, users_meds_med, dosage, frequency, schedule_times, notes from users_meds
+  */
+
+
+
 };
 
 module.exports = {

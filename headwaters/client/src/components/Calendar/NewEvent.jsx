@@ -8,6 +8,13 @@ import '../../styles/event-form.css';
 const NewEvent = props => {
   const { user } = useAuth0();
 
+  // axios.post('/eventAuth/posting', user)
+  // .then(() => {
+  //   console.log('the client sent the user info to server')
+  // })
+  // .catch(err => console.log('the client cant send that info to the server', err))
+
+
   let { date } = props;
   date = date.toString().slice(0, 15);
   const dateFormat = moment(date, 'ddd MMM DD YYYY').format('MM/DD/YY');

@@ -1,12 +1,12 @@
 const express = require('express');
-const { getUserEvents, insertUserEvent, deleteUserEvent, patchUserEvent } = require('../server/db/connection');
+const { getUserEvents, insertUserEvent, getUserMedications, deleteUserEvent, patchUserEvent } = require('../server/db/connection');
 const calendarRouter = express.Router();
 
 //calendar/userid/events
 calendarRouter.get('/:userId/events', (req, res) => {
   const { userId } = req.params;
-
   getUserEvents(userId)
+  //getUserMedications(userId)
     .then(userRows => {
       res.send(userRows);
     })

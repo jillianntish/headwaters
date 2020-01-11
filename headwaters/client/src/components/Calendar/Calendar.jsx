@@ -29,8 +29,24 @@ import '../../styles/calendar.css';
 
 const Calendar = () => {
   const { user } = useAuth0();
+  //send the user.id, .email, email_verified(bool), sub, given_name, family__name to
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+
+//   const googleCalendarAuth = function(){
+//     axios({
+//       method: 'post',
+//       url: '/posting',
+//       data: {
+//         id: `${user.id}`,
+//       firstName: `${user.given_name}`,
+//       lastName: `${user.family_name}`,
+//       email: `${user.email}`,
+//       email_verified: `${user.email_verified}`,
+//       sub: `${user.sub}`
+//     }
+//   });
+// }
 
   useEffect(() => {
     async function fetchUserEvents() {
@@ -158,15 +174,12 @@ const Calendar = () => {
 
   const handleEventPost = newEventObj => {
     createUserEvent(newEventObj)
-    //
       .then(() => {
         // let user know via post toast component
         setShowEventForm(false);
         setPostToastObj(newEventObj);
         setPostToast(true);
       })
-      .then(() => createGoogleEvent(newEventObj))
-      .then(() => console.log('handled that event post and added it to the google calendar'))
       .catch(err => {
         console.error(err);
         // let user know via sad post toast component
