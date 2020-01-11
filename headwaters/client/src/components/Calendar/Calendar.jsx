@@ -21,6 +21,7 @@ import {
   createUserEvent,
   deleteUserEvent,
   handleIncomingData,
+  handleIncomingMeds,
   patchUserEvent,
 } from '../../utils/helpers';
 
@@ -29,11 +30,13 @@ import '../../styles/calendar.css';
 const Calendar = () => {
   const { user } = useAuth0();
   const [events, setEvents] = useState([]);
+  const [meds, setMeds] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchUserEvents() {
       await axios.get(`/calendar/${user.id}/events`).then(res => {
+        //console.log(res);
         async function formatEvents() {
           const response = await handleIncomingData(res.data);
           return response;
@@ -45,6 +48,18 @@ const Calendar = () => {
       });
     }
 
+    async function fetchMedEvents() {
+      await axios.get(`/pillbox/${user.id}`)
+        .then(res => {
+          setMeds(res.data);
+          return res.data;
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    };
+
+    fetchMedEvents();
     fetchUserEvents();
     // eslint-disable-next-line
   }, []);
@@ -205,7 +220,7 @@ const Calendar = () => {
     return 'Loading...';
   }
 
-  console.log(user);
+  console.log(meds);
 
   return (
     <Container>
@@ -228,6 +243,9 @@ const Calendar = () => {
               dateClick={handleDateClick}
               eventClick={eventClick}
             />
+            <div>{meds.map(med => 
+              <div style={{ fontSize: '150%', color: '#1B2F44'}}><b>{med.name}:</b>  {med.frequency}</div>
+              )}</div>
           </div>
         </Col>
         <Col xs="4">
