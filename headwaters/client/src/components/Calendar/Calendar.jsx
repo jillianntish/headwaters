@@ -22,7 +22,6 @@ import {
   deleteUserEvent,
   handleIncomingData,
   patchUserEvent,
-  createGoogleEvent
 } from '../../utils/helpers';
 
 import '../../styles/calendar.css';
@@ -165,8 +164,6 @@ const Calendar = () => {
         setPostToastObj(newEventObj);
         setPostToast(true);
       })
-      .then(() => createGoogleEvent(newEventObj))
-      .then(() => console.log('handled that event post and added it to the google calendar'))
       .catch(err => {
         console.error(err);
         // let user know via sad post toast component
