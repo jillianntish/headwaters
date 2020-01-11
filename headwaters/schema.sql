@@ -83,7 +83,7 @@ CREATE TABLE users_meds (
   dosage INT, 
   -- times per day
   frequency VARCHAR(20) NOT NULL,
-  scheduled_times MEDIUMTEXT,
+  date_time VARCHAR(255) NOT NULL,
   practitioner VARCHAR(255) NOT NULL,
   notes MEDIUMTEXT
 );
@@ -102,7 +102,6 @@ CREATE TABLE meds_history (
     REFERENCES meds(id)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  date_time VARCHAR(255) NOT NULL,
   frequency_taken VARCHAR(20) NOT NULL
 );
 
