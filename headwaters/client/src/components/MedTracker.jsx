@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 import { useAuth0 } from '../react-auth0-spa.jsx';
-import { Container } from 'reactstrap';
+import { Container, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import '../styles/event-form.css';
 import {
   Timeline,
@@ -18,6 +19,22 @@ const MedTracker = () => {
   //need the prescription and the pillhistory
   const [prescription, setPrescription] = useState([]);
   const [pillHistory, setPillHistory] = useState([]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dateFormatter = function (oldDate) {
+    const arrayToReposition = oldDate.split(" ")[0]
+    .replace(/-/g, "/")
+    .split("/");
+    const newArr = [arrayToReposition[1], arrayToReposition[2], arrayToReposition[0]]
+    if(newArr[0][0] === "0"){
+      newArr[0]= newArr[0][1];
+    }
+    if (newArr[1][0] === "0") {
+      newArr[1] = newArr[1][1];
+    }
+    newArr[2] = newArr[2][2] + newArr[2][3];
+    return newArr.join("/");
+  }
+  const toggle = () => setDropdownOpen(prevState => !prevState);
 
   //settings for the timeline
   const opts = {
@@ -25,6 +42,7 @@ const MedTracker = () => {
   };
   useEffect(() => {
     //! how to format date
+    // lets get to work guys!
     // const entryDate = new Date().toString();
     // const date = moment(
     //   entryDate,
@@ -32,6 +50,12 @@ const MedTracker = () => {
     // ).format('YYYY-MM-DD HH:mm:ss');
     //! possible frequencies "1x daily", "2x daily", "3x daily", "1x weekly"
     //todo delete after endpoint is build
+    const dummyDate =  new Date().toString();
+    const date = moment(
+      dummyDate,
+      'ddd MMM DD YYYY HH:mm:ss',
+    ).format('YYYY-MM-DD HH:mm:ss');
+    console.log(date)
     const dummyData = {
       prescriptions: [
         {
@@ -47,7 +71,17 @@ const MedTracker = () => {
       pillHistory: [
         {
           medName : "xanax",
-          date: new Date(),
+          date: date,
+          frequency_taken: 1,
+        },
+        {
+          medName: "xanax",
+          date: date,
+          frequency_taken: 1,
+        },
+        {
+          medName: "xanax",
+          date: date,
           frequency_taken: 1,
         }
       ],
@@ -83,8 +117,25 @@ const MedTracker = () => {
       <div className="med-tracker">
         <h1 style={{ color: '#1B2F44', fontWeight: 'bolder', paddingLeft: '5px', paddingTop: '10px' }}>Medicine Tracker</h1>
         <h1>Paul Town</h1>
+        <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+          <DropdownToggle caret>
+            Dropdown
+        </DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem header>Header</DropdownItem>
+            <DropdownItem>Some Action</DropdownItem>
+            <DropdownItem disabled>Action (disabled)</DropdownItem>
+            <DropdownItem divider />
+            <DropdownItem>Foo Action</DropdownItem>
+            <DropdownItem>Bar Action</DropdownItem>
+            <DropdownItem>Quo Action</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
         <Timeline opts={opts}>
           <Events>
+            {pillHistory.map((pillEvent)=>{
+              return (<TextEvent date={dateFormatter(pillEvent.date)} text={prescription[0] ? prescription[0].medName : "yo no data yet"} />);
+            })}
             <TextEvent date="1/1/19" text={prescription[0] ? prescription[0].medName: "yo no data yet"} />
             <TextEvent date="1/1/14" text="**Markdown** is *supported*" />
             <TextEvent date="1/1/12" text="**Markdown** is *supported*" />
