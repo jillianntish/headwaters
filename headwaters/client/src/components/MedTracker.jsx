@@ -35,7 +35,6 @@ const MedTracker = () => {
     return newArr.join("/");
   }
   const toggle = () => setDropdownOpen(prevState => !prevState);
-
   //settings for the timeline
   const opts = {
     layout: "inline-evts"
