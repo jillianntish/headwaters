@@ -102,7 +102,7 @@ CREATE TABLE meds_history (
     REFERENCES meds(id)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  date DATETIME NOT NULL,
+  date_time VARCHAR(255) NOT NULL,
   frequency_taken VARCHAR(20) NOT NULL
 );
 
