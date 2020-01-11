@@ -54,7 +54,6 @@ const MedTracker = () => {
       dummyDate,
       'ddd MMM DD YYYY HH:mm:ss',
     ).format('YYYY-MM-DD HH:mm:ss');
-    console.log(date)
     const dummyData = {
       prescriptions: [
         {

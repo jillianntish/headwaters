@@ -58,8 +58,6 @@ const NavBar = () => {
           </Nav>
         </Collapse>
         )}
-  Console.log("rift mode enabled!!!!")
-          console.log("fuck you ryan!!!!!!!!!")
         {/* If now logged in show Log in button */}
         {!isAuthenticated && (
           <Button
