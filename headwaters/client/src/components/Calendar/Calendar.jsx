@@ -22,7 +22,6 @@ import {
   deleteUserEvent,
   handleIncomingData,
   patchUserEvent,
-  createGoogleEvent
 } from '../../utils/helpers';
 
 import '../../styles/calendar.css';
@@ -173,6 +172,7 @@ const Calendar = () => {
   };
 
   const handleEventPost = newEventObj => {
+    //const { user } = useAuth0();
     createUserEvent(newEventObj)
       .then(() => {
         // let user know via post toast component
@@ -180,6 +180,7 @@ const Calendar = () => {
         setPostToastObj(newEventObj);
         setPostToast(true);
       })
+      .then(() => console.log('handled that client\'s event post and added it to the calendar'))
       .catch(err => {
         console.error(err);
         // let user know via sad post toast component
@@ -221,15 +222,12 @@ const Calendar = () => {
     return 'Loading...';
   }
 
-  console.log(user);
-
   return (
     <Container>
     <div className="cal-font">
       <div className="calendar-top" />
-      <h1 style={{ color: '#1B2F44', fontWeight: 'bolder', paddingLeft: '10px' }}>Calendar</h1>
       <Row>
-        <Col xs="8">
+        <Col xs="6">
           <div className="calendar">
             <FullCalendar
               defaultView="dayGridMonth"
@@ -246,7 +244,7 @@ const Calendar = () => {
             />
           </div>
         </Col>
-        <Col xs="4">
+        <Col xs="5">
           {showEventForm && (
             <NewEvent
               className="calendar"

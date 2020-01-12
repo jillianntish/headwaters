@@ -1,12 +1,11 @@
 const express = require('express');
-const { getUserEvents, insertUserEvent, getUserMedications, deleteUserEvent, patchUserEvent } = require('../server/db/connection');
+const { getUserEvents, insertUserEvent, deleteUserEvent, patchUserEvent } = require('../server/db/connection');
 const calendarRouter = express.Router();
 
 //calendar/userid/events
 calendarRouter.get('/:userId/events', (req, res) => {
   const { userId } = req.params;
   getUserEvents(userId)
-  //getUserMedications(userId)
     .then(userRows => {
       res.send(userRows);
     })
@@ -35,7 +34,6 @@ calendarRouter.post('/:userId/events', (req, res) => {
 //calender/userId/events/eventId
 calendarRouter.delete('/:userId/events/:eventId', (req, res) => {
   const { userId, eventId } = req.params;
-
   deleteUserEvent(userId, eventId)
     .then(() => {
       res.sendStatus(200);
@@ -48,7 +46,6 @@ calendarRouter.delete('/:userId/events/:eventId', (req, res) => {
 calendarRouter.patch('/:userId/events/:eventId', (req, res) => {
   const { userId, eventId } = req.params;
   const editEventObj = req.body[0];
-
   patchUserEvent(editEventObj, userId, eventId)
     .then(() => {
       res.sendStatus(200);

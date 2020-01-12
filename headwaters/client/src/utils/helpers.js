@@ -1,9 +1,6 @@
 /* eslint-disable no-return-await */
 import axios from 'axios';
-// import saveToGoogleCal from '../../../server/googleAxios';
-/**
- * Axios authentication helpers
- */
+
 
 export const validateEmail = async email => {
   return await axios
@@ -23,7 +20,6 @@ export const createUser = async ({ nickname, email}) => {
 };
 
 // axios calendar helpers
-
 export const createUserEvent = async eventObj => {
   return await axios
     .post(`/calendar/${eventObj.userId}/events`, eventObj)
@@ -50,7 +46,6 @@ export const createUserEvent = async eventObj => {
 
 export const chooseEventColor = type => {
   let color;
-
   switch (type) {
     case 'physical well-being':
       color = '#86adc2';
@@ -60,7 +55,7 @@ export const chooseEventColor = type => {
       break;
     case 'other':
       color = '#596cb0';
-      break; 
+      break;
     case 'personal':
       color = '#59b4a6';
       break;
@@ -70,15 +65,14 @@ export const chooseEventColor = type => {
     default:
       color = '#3024b0';
   }
-
   return color;
 };
 
 export const handleIncomingData = incomingEvents => {
   return incomingEvents.reduce((newEventObj, incomingEvent) => {
     const start = incomingEvent.date_time;
+    console.log('incoming', incomingEvent)
     start.replace(' ', 'T');
-
     newEventObj.push({
       user: incomingEvent.event_id_user,
       id: incomingEvent.id,
@@ -92,7 +86,7 @@ export const handleIncomingData = incomingEvents => {
         type: incomingEvent.type,
       },
     });
-
+    console.log(newEventObj)
     return newEventObj;
   }, []);
 };
@@ -162,6 +156,7 @@ export const addUserMedication = async newMedObj => {
   newMedArr.push(newMedObj);
   return await axios
     .post(`/pillbox/${newMedObj.userId}`, newMedArr)
+    .post(`calendar/${newMedObj.userId}/events`, newMedArr)
     .then(response => {
       return response;
     })
