@@ -1,6 +1,8 @@
 /* eslint-disable no-return-await */
 import axios from 'axios';
-
+/**
+ * Axios authentication helpers
+ */
 
 export const validateEmail = async email => {
   return await axios
@@ -87,6 +89,26 @@ export const handleIncomingData = incomingEvents => {
       },
     });
     console.log(newEventObj)
+    return newEventObj;
+  }, []);
+};
+
+
+export const handleIncomingMeds = incomingEvents => {
+  return incomingEvents.reduce((newEventObj, incomingEvent) => {
+    const start = incomingEvent.date_time;
+    start.replace(' ', 'T');
+
+    newEventObj.push({
+      user: incomingEvent.users_meds_user,
+      id: incomingEvent.users_meds_med,
+      start,
+      color: chooseEventColor(incomingEvent.type),
+      extendedProps: {
+        dosage: incomingEvent.dosage,
+      },
+    });
+
     return newEventObj;
   }, []);
 };

@@ -21,6 +21,7 @@ import {
   createUserEvent,
   deleteUserEvent,
   handleIncomingData,
+  handleIncomingMeds,
   patchUserEvent,
 } from '../../utils/helpers';
 
@@ -30,6 +31,7 @@ const Calendar = () => {
   const { user } = useAuth0();
   //send the user.id, .email, email_verified(bool), sub, given_name, family__name to
   const [events, setEvents] = useState([]);
+  const [meds, setMeds] = useState([]);
   const [loading, setLoading] = useState(true);
 
 //   const googleCalendarAuth = function(){
@@ -50,6 +52,7 @@ const Calendar = () => {
   useEffect(() => {
     async function fetchUserEvents() {
       await axios.get(`/calendar/${user.id}/events`).then(res => {
+        //console.log(res);
         async function formatEvents() {
           const response = await handleIncomingData(res.data);
           return response;
@@ -61,6 +64,18 @@ const Calendar = () => {
       });
     }
 
+    async function fetchMedEvents() {
+      await axios.get(`/pillbox/${user.id}`)
+        .then(res => {
+          setMeds(res.data);
+          return res.data;
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    };
+
+    fetchMedEvents();
     fetchUserEvents();
     // eslint-disable-next-line
   }, []);
@@ -180,7 +195,6 @@ const Calendar = () => {
         setPostToastObj(newEventObj);
         setPostToast(true);
       })
-      .then(() => console.log('handled that client\'s event post and added it to the calendar'))
       .catch(err => {
         console.error(err);
         // let user know via sad post toast component
@@ -222,6 +236,8 @@ const Calendar = () => {
     return 'Loading...';
   }
 
+  console.log(meds);
+
   return (
     <Container>
     <div className="cal-font">
@@ -242,6 +258,9 @@ const Calendar = () => {
               dateClick={handleDateClick}
               eventClick={eventClick}
             />
+            <div>{meds.map(med =>
+              <div style={{ fontSize: '150%', color: '#1B2F44'}}><b>{med.name}:</b>  {med.frequency}</div>
+              )}</div>
           </div>
         </Col>
         <Col xs="5">
