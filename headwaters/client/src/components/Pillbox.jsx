@@ -106,6 +106,7 @@ const Pillbox = () => {
       practitioner,
       frequency,
       times,
+      dateTime: `${date} ${time}`,
       notes,
       url,
       userId,
@@ -126,6 +127,7 @@ const Pillbox = () => {
     return 'Loading...';
   }
 
+  console.log(date + ' ' + time);
   return (
     <Container className="new-medication-form">
       <div>
