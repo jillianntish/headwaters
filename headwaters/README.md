@@ -1,7 +1,13 @@
-#headwaters
-##How to run this app
+# headwaters
 
-Run
+## v. 2.0
+
+Version 2.0 of _headwaters_ includes a timeline feature for additional habit tracking, visual journal entries, and user created medicine events that appear regularly on the users calendar.
+
+
+## How to run this app
+
+Install initial dependencies by using the CLI to run:
 
 `npm install`
 
@@ -20,3 +26,16 @@ To start the server run the following commands in sequence:
 `npm rebuild node-sass`
 
 `npm start`
+
+Resources
+[React](https://facebook.github.io/react)
+[MaterialUI](https://materializecss.com/getting-started.html)
+[mySQL](https://dev.mysql.com/doc/)
+[Auth0](https://auth0.com/docs/)
+[Bootstrap Toasts](https://getbootstrap.com/docs/4.2/components/toasts/)
+[Full Calendar API](https://fullcalendar.io/docs)
+[Google APIS](https://developers.google.com/apis-explorer)
+[Google Calendar API](https://developers.google.com/calendar/quickstart/nodejs)
+[NodeJS Docs](https://nodejs.org/)
+[FeathersJS Docs](https://docs.feathersjs.com/guides/)
+)
