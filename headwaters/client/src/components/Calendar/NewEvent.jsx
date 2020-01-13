@@ -49,7 +49,6 @@ const NewEvent = props => {
         locale,
       },
     ];
-
     handleEventPost(newEvent);
   };
 
@@ -120,6 +119,7 @@ const NewEvent = props => {
             <option>mental well-being</option>
             <option>physical well-being</option>
             <option>personal</option>
+            <option>medicine</option>
             <option>other</option>
           </Input>
         </FormGroup>

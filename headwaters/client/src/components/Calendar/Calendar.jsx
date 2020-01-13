@@ -50,6 +50,8 @@ const Calendar = () => {
 // }
 
   useEffect(() => {
+    //when calendar component loads, fetch the users events from the database and pass them
+    //to the Calendar View
     async function fetchUserEvents() {
       await axios.get(`/calendar/${user.id}/events`).then(res => {
         //console.log(res);
@@ -63,7 +65,7 @@ const Calendar = () => {
         });
       });
     }
-
+    //send a request to get the user's medical events from the database
     async function fetchMedEvents() {
       await axios.get(`/pillbox/${user.id}`)
         .then(res => {
@@ -236,7 +238,7 @@ const Calendar = () => {
     return 'Loading...';
   }
 
-  console.log(meds);
+  console.log(user, meds);
 
   return (
     <Container>

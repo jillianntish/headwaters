@@ -1,9 +1,7 @@
 /* eslint-disable no-return-await */
 import axios from 'axios';
-/**
- * Axios authentication helpers
- */
 
+//authentication helpers
 export const validateEmail = async email => {
   return await axios
     .get('/api/auth', {
@@ -21,6 +19,51 @@ export const createUser = async ({ nickname, email}) => {
   })
 };
 
+
+//this function is originally named handle incoming data but what it really does is structure
+// the user created events that are added to the calendar.
+export const handleIncomingData = incomingEvents => {
+  return incomingEvents.reduce((newEventObj, incomingEvent) => {
+    const start = incomingEvent.date_time;
+    console.log('incoming', incomingEvent)
+    start.replace(' ', 'T');
+    newEventObj.push({
+      user: incomingEvent.event_id_user,
+      id: incomingEvent.id,
+      title: incomingEvent.name,
+      start,
+      color: chooseEventColor(incomingEvent.type),
+      extendedProps: {
+        practitioner: incomingEvent.practitioner,
+        location: incomingEvent.location,
+        notes: incomingEvent.notes,
+        type: incomingEvent.type,
+      },
+    });
+    console.log(newEventObj)
+    return newEventObj;
+  }, []);
+};
+
+//this function structures medicine events based on user input from the pillbox compononent
+export const handleIncomingMeds = incomingEvents => {
+  return incomingEvents.reduce((newEventObj, incomingEvent) => {
+    const start = incomingEvent.date_time;
+    start.replace(' ', 'T');
+    newEventObj.push({
+      user: incomingEvent.users_meds_user,
+      id: incomingEvent.users_meds_med,
+      start,
+      color: chooseEventColor(incomingEvent.type),
+      extendedProps: {
+        dosage: incomingEvent.dosage,
+      },
+    });
+    return newEventObj;
+  }, []);
+};
+
+
 // axios calendar helpers
 export const createUserEvent = async eventObj => {
   return await axios
@@ -32,19 +75,6 @@ export const createUserEvent = async eventObj => {
       console.error(err);
     });
 };
-
-// export const createMedicalEvent = async (eventObj)  => {
-
-//   return await axios
-//   .post(`/eventAuth/posting`, eventObj)
-//   .then(res => {
-//     console.log(res.status);
-//   })
-//   .catch(err => {
-//     debugger;
-//     console.error(err);
-//   });
-// ;}
 
 export const chooseEventColor = type => {
   let color;
@@ -70,52 +100,6 @@ export const chooseEventColor = type => {
   return color;
 };
 
-export const handleIncomingData = incomingEvents => {
-  return incomingEvents.reduce((newEventObj, incomingEvent) => {
-    const start = incomingEvent.date_time;
-    console.log('incoming', incomingEvent)
-    start.replace(' ', 'T');
-    newEventObj.push({
-      user: incomingEvent.event_id_user,
-      id: incomingEvent.id,
-      title: incomingEvent.name,
-      start,
-      color: chooseEventColor(incomingEvent.type),
-      extendedProps: {
-        practitioner: incomingEvent.practitioner,
-        location: incomingEvent.location,
-        notes: incomingEvent.notes,
-        type: incomingEvent.type,
-      },
-    });
-    console.log(newEventObj)
-    return newEventObj;
-  }, []);
-};
-
-
-export const handleIncomingMeds = incomingEvents => {
-  return incomingEvents.reduce((newEventObj, incomingEvent) => {
-    const start = incomingEvent.date_time;
-    start.replace(' ', 'T');
-
-    newEventObj.push({
-      user: incomingEvent.users_meds_user,
-      id: incomingEvent.users_meds_med,
-      start,
-      color: chooseEventColor(incomingEvent.type),
-      extendedProps: {
-        dosage: incomingEvent.dosage,
-      },
-    });
-
-    return newEventObj;
-  }, []);
-};
-
-// export const editUserEvent = async({}) => {
-//  await.axios.patch(endpoint, {})
-// };
 
 export const deleteUserEvent = async (eventId, userId) => {
   return await axios
